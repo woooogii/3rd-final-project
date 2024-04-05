@@ -1,0 +1,9 @@
+package com.project.back.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.project.back.entity.UserEntity;
+
+public interface UserRepository extends JpaRepository<UserEntity,String>{
+    
+}
