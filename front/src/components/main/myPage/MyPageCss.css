@@ -1,0 +1,12 @@
+/* styles.css */
+.sidebar {
+  position: sticky;
+  top: 20px; /* 상단에서 얼마나 떨어진 곳에 고정될지 설정 */
+  height: 100vh; /* 전체 높이 */
+  overflow-y: auto; /* 필요 시 스크롤바 표시 */
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}

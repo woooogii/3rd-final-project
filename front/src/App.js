@@ -1,10 +1,11 @@
-import RemoveAfterTest1 from "./components/RemoveAfterTest1";
+import './App.css'
+import Main from "./components/main/Main";
 
 
 function App() {
   return (
     <div>
-      <RemoveAfterTest1/>
+        <Main/>
     </div>
   );
 }

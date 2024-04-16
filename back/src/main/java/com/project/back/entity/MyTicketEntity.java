@@ -1,15 +1,11 @@
 package com.project.back.entity;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,13 +19,15 @@ public class MyTicketEntity {
     @Column(name="mt_id")
     private Long mtId; //구매번호
     
-    @ManyToOne
-    @JoinColumn(name = "t_id", nullable = false)
-    private TicketEntity ticket; 
+  
+    @Column(name = "t_id", nullable = false)
+    private Long ticket; 
+    //Ticket 참조, 사용자가 구매한 티켓 id
     
-    @ManyToOne
-    @JoinColumn(name = "u_id", nullable = false)
-    private UserEntity user;
+  
+    @Column(name = "u_id", nullable = false)
+    private String user;
+    //User 참조, 사용자 id
 
     @Column(name="mt_endtime", nullable = false)
     private LocalDateTime mtEndtime; //구매시점 + a , 이용종료시간

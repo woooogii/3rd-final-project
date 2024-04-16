@@ -1,16 +1,11 @@
 package com.project.back.entity;
 
 import java.time.LocalDateTime;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,13 +28,13 @@ public class ReviewEntity {
     @Column(name = "r_star")
     private Long rStar; // 별점 수
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "p_id")
-    private ProductEntity product;
-    // 댓글 달린 product_id
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "u_id")
-    private UserEntity user;
-    // 댓글 쓴 user_id
+    @Column(name = "p_id")
+    private Long product;
+    //Product 참조, 댓글 달린 product_id
+    
+    
+    @Column(name = "u_id")
+    private String user;
+    // User 참조, 댓글 쓴 user_id
 }

@@ -1,15 +1,10 @@
 package com.project.back.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,13 +18,14 @@ public class MyPickEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mpId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "u_id")
-    private UserEntity user;
-
-    @OneToOne
-    @JoinColumn(name="p_id")
-    private ProductEntity product;
+   
+    @Column(name = "u_id")
+    private String user;
+    //찜한 사람 아이디, User참조
+  
+    @Column(name="p_id")
+    private Long product;
+    //찜 당한 물품, Product 참조
 
 }
 

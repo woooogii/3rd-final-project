@@ -2,6 +2,7 @@ package com.project.back.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.project.back.entity.Test;
@@ -15,7 +16,7 @@ public class Tests {
     public void svaeTestEntity(Test te){
         tester.save(te);
     }
-
+    
     public List<Test> getAllTest() {
         return tester.findAll();
     }
