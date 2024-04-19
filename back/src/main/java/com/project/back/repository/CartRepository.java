@@ -15,4 +15,6 @@ public interface CartRepository extends JpaRepository<CartEntity,Long>{
     //장바구니 페이지 보여주기 위한 리스트 중에서 상품번호로 프로덕트 엔티티 부르기
     List<ProductEntity> findByProductId(Long productId);
 
+    //장바구니 삭제 로그인한 유저 ID와 삭제하려는 PRODUCT ID 두가지를 받아서 그 줄 삭제 
+    void deleteByUserAndProductId(String user, Long productId);
 }

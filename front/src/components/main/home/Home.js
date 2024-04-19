@@ -5,7 +5,7 @@ const Home = () => {
 
     return (
         <div>
-
+            홈홈홈 메인
         </div>
     );
 };

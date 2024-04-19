@@ -1,9 +1,14 @@
 import React from 'react';
+import './cart.css'
 
-const CartPay = () => {
+const CartPay = ({totalPrice}) => {
+
+    
+
     return (
-        <div>
-            페이
+        <div className='pay-card'>
+            <div>결제 금액: {totalPrice}</div>
+            <button>구매</button>
         </div>
     );
 };

@@ -1,0 +1,86 @@
+.join-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* height를 조금 낮춤 */
+}
+
+.join-box {
+    width: 450px; /* width를 넓힘 */
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.942);
+}
+
+.join-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e96fc;
+}
+
+.join-form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.email-form{
+    position: relative;
+}
+
+.join-email-button{
+    position: absolute;
+    width: 50px;
+    height: 30px;
+    top: 0;
+    bottom: 0;
+    right: 28px;
+    margin: auto 0;
+    border-radius: 3px;
+    background-color: #1675F2;
+    background-color: #1675F2;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+}
+
+
+
+.join-input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.join-input:focus {
+    border-color: #1675F2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 150, 252, 0.5);
+}
+
+.join-duplicate-button {
+    width: 100px; /* 중복확인 버튼 넓힘 */
+    padding: 8px;
+    margin: 10px 0; /* 이메일 인풋과 높이 맞춤 */
+    background-color: #1675F2;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}   
+
+.join-button {
+    width: calc(50% - 20px);
+    padding: 8px;
+    margin: 10px 5px;
+    background-color: #1675F2;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}
