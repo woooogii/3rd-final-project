@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { loginToken } from './store';
 import { useDispatch } from 'react-redux';
+import { BsCart3 } from "react-icons/bs";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -72,6 +73,8 @@ const Navibar = () => {
     };
 
 
+
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary" id="custom-bg-body">
             <Container>
@@ -90,6 +93,7 @@ const Navibar = () => {
                             <li>
                                 <button className="menu-button" onClick={()=>{handleLogout()}}>로그아웃</button>
                                 <button className="menu-button" onClick={()=>{navigate('/pedal/myPage')}}>마이페이지</button>
+                                <BsCart3 onClick={()=>{navigate('/pedal/cart')}}/>
                             </li>
                         </div>
 

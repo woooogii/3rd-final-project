@@ -1,13 +1,15 @@
 package com.project.back.controller;
 
-import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
+import javax.transaction.Transactional;
 
 import com.project.back.entity.CartEntity;
 import com.project.back.entity.ProductEntity;
@@ -41,6 +43,8 @@ public class CartController {
         cartService.addOneCart(cartEntity);
     }
 
+
+    //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
 
     //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
     @GetMapping("/pedal/mycart")
@@ -78,13 +82,18 @@ public class CartController {
        
     }
     
-    
 
-    /*
-    @GetMapping("/pedal/mycart")
-    public List<ProductEntity> getMyCartList (@RequestParam String user) {
-        return cartService.getCartItems(user);
+    @Transactional
+    @PostMapping("/pedal/cartRemove")
+    public void removeCartOneItem(@RequestBody Map<String, String> requestData) {
+        String uId = requestData.get("uid");
+        String pIdString = requestData.get("pid");
+        Long pId = Long.parseLong(pIdString);
+        System.out.println(uId + "유저의 , 아이템 " + pId + " 이거 삭제할건데 잘 되나요?");
+        cartService.removeCartItem(uId, pId);
+        System.out.println("삭제 잘 됐음 ");
+
     }
-     */
+
 
 }

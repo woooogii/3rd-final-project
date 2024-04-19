@@ -27,6 +27,7 @@ const Main = () => {
             <Router>
                     <Navibar/>
                     <Routes>
+                       <Route path="/" Component={Home}/>
                         <Route path="/pedal/home" Component={Home}/>
                         <Route path="/pedal/login" Component={Login}/>
                         <Route path="/pedal/join" Component={Join}/>

@@ -1,8 +1,10 @@
 package com.project.back.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.project.back.config.oauth.OauthService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class SecurityConfig{
     
+    @Autowired
+    private final OauthService oauthService;
 
     // 비밀번호 암호화
     @Bean
@@ -40,6 +45,12 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        
+        http
+        .oauth2Login((oauth2) -> oauth2
+                .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
+                        .userService(oauthService)));
+
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 안함
                 .and()
@@ -47,6 +58,9 @@ public class SecurityConfig{
                 .antMatchers("/admin/**").hasRole("ADMIN") // admin으로 들어올 경우 admin롤만 가능
                 .antMatchers("/pedal/post/**").authenticated() //post 작성시 인증된 사용자만 가능
                 .anyRequest().permitAll(); //그외 나머지 요청은 누구나 접근 가능
+
+        
+
         return http.build();
     }
 
