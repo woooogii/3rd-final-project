@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FiCheckCircle } from 'react-icons/fi';
 import styled from 'styled-components';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const StyledContent = styled.div`
     display: flex;
@@ -12,7 +13,7 @@ const StyledContent = styled.div`
 
     .check-icon {
         margin-top: 130px;
-        color: #65A675;
+        color: #1675F2;
         width: 100px;
         height: 100px;
     }
@@ -37,12 +38,6 @@ const StyledContent = styled.div`
         font-weight: bold;
     }
 
-    /* .infoLine {
-        margin-top: 30px;
-        font-size: 18px;
-        font-weight: bold;
-    } */
-
     .info_name {
         margin-top: 65px;
         background-color: #f8f9fa;
@@ -51,7 +46,6 @@ const StyledContent = styled.div`
         width: 600px;
         padding: 10px;
     }
-
  
     .info ul {
         list-style-type: none;
@@ -61,7 +55,7 @@ const StyledContent = styled.div`
 
     .info ul li {
         font-size: 16px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         text-align: left; 
     }
 
@@ -109,7 +103,6 @@ const PayResult = () => {
     
     const navigate = useNavigate();
 
-
     const onMyPage = () => {
         navigate('/pedal/myPage');
     }
@@ -118,8 +111,6 @@ const PayResult = () => {
         navigate('/pedal/home');
     }
 
-      //(new Date())현재시간을 읽어올거임
-      const [date,setDate] = useState(new Date())
 
     // location 객체를 가져옴
     const location = useLocation();
@@ -127,13 +118,15 @@ const PayResult = () => {
     // location.state로부터 buyerInfo를 가져옴
     const { buyerInfo } = location.state || {};
 
+    const payTime = moment(buyerInfo.pay_time).format('YYYY.MM.DD HH:mm:ss');
+
     return (
         <StyledContent>
             <FiCheckCircle className="check-icon" />
             {/* <p className='infoLine'>결제정보</p> */}
 
-            <h2>윤수인<span className="small">&nbsp;님 구매가 완료되었습니다!</span></h2><br/>
-            <p style={{color:'#A4A4A4', fontFamily:'새굴림'}}><b>[주문번호: {buyerInfo?.merchant_uid}]</b></p>
+            <h2>{buyerInfo.uname}<span className="small">&nbsp;님 구매가 <span style={{color:'#DD5746'}}>완료</span>되었습니다 !</span></h2><br/>
+            <p style={{color:'#A4A4A4', fontFamily:'새굴림'}}><b>[주문번호: {buyerInfo.merchant_uid}]</b></p>
 
             {buyerInfo ? (
                 <div className='info_name'>
@@ -147,11 +140,9 @@ const PayResult = () => {
                         <div className="vertical-line"></div>
                         <ul className='info2'>
                             <li>{buyerInfo.name}</li>
-                            <li style={{fontSize:'17px'}}>
-                            {date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\s/g, '')}{date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
-</li>
+                            <li>{payTime}</li>
                             <li>카드({buyerInfo.pay_method})</li>
-                            <li style={{color:'red'}}><b>{buyerInfo.amount}</b>원</li>
+                            <li style={{color:'#DD5746'}}>{buyerInfo.amount}원</li>
                         </ul>
                     </div>
                 </div>
@@ -161,10 +152,10 @@ const PayResult = () => {
 
             <br/> <br/>
             <hr style={{width:'700px'}}/>
-            <br/> 
+            <br />
             <div className='btn'>
-                <button type="button" className="btn btn-outline-success" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
-                <button type="button" className="btn btn-success" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
+                <button type="button" class="btn btn-outline-primary" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
+                <button class="btn btn-primary" type="button" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
             </div>
         </StyledContent>
     );

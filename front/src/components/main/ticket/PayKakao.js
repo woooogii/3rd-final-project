@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
+    let loginUser = useSelector((state)=>{ return state.loginUser })
+
+    const payTime = moment().format('YYYY-MM-DD HH:mm:ss');
     const navigate = useNavigate();
 
     //주문번호 증가
@@ -16,13 +21,16 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
     }
 
     const [buyerInfo, setBuyerInfo] = useState({
-        pg : 'kakaopay.TC0ONETIME',
+        pg : 'html5_inicis',
         pay_method : 'card',
         merchant_uid: makeMerchantUid(), 
         name : tName,
         amount : tPrice,
-        //buyer_email : uEmail,
+        uid : loginUser.uid,
+        uname: loginUser.uname,
+        pay_time : payTime,
     });
+
 
     useEffect(() => {
         // 외부 스크립트 로드를 위한 스크립트 태그 생성
@@ -55,27 +63,27 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
         var IMP = window.IMP;
         if (IMP) {
+
             IMP.request_pay(
                 {
-                    pg : 'kakaopay.TC0ONETIME',
-                    pay_method : 'card',
-                    merchant_uid: makeMerchantUid(), 
-                    name : tName,
-                    amount : tPrice,
-                    //buyer_email: buyerInfo.email,
-                    // buyer_name: buyerInfo.name,
-                    // buyer_tel: buyerInfo.tel,
-                    // buyer_addr: buyerInfo.address,
+                    pg: 'kakaopay.TC0ONETIME',
+                    pay_method: 'card',
+                    merchant_uid: buyerInfo.merchant_uid,
+                    name: tName,
+                    amount: tPrice,
+                    buyer_email: loginUser.uid,
+                    buyer_name: loginUser.uname,
                     //m_redirect_url : 'http://localhost:3000/pedal/payment'
                 },
                 function callback(response) {
                     const { success, error_msg } = response;
+                    
                     if (success) {
                         // 결제 성공 시
                         alert('결제 성공!');
-                        
+
                         // 결제 정보를 서버에 전송
-                        fetch('http://localhost:4000/api/savePaymentInfo', {
+                        fetch('http://localhost:4000/pedal/savePaymentInfo', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -95,7 +103,44 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     p_merchant_uid: data.p_merchant_uid,
                                     p_name: data.p_name,
                                     p_amount: data.p_amount,
+                                    p_payTime: data.p_payTime,
+                                    uid: loginUser.uid,
+                                    uname: loginUser.uname,
                                 }));
+
+                                //MyTicket(나의티켓구매내역)으로 보냄
+                                fetch('http://localhost:4000/pedal/saveMyTicketList', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        mtMerchantUid:buyerInfo.merchant_uid,
+                                        mtName: tName,
+                                        mtAmount: tPrice,
+                                        mtPayTime: payTime,
+                                        uid: loginUser.uid,
+                                        uname: loginUser.uname,
+                                    }),
+                                })
+                                    .then((response) => response.json()) // JSON 형식으로 파싱
+                                    .then((data) => {
+                                        console.log('결제 정보 저장됨:', data);
+
+                                        //DB 필드명과 동일해야함
+                                        setBuyerInfo((prevState) => ({
+                                            ...prevState,
+                                            mt_merchant_uid: data.mt_merchant_uid,
+                                            mt_name: data.mt_name,
+                                            mt_amount: data.mt_amount,
+                                            mt_pay_time: data.mt_pay_time,
+                                            uid: loginUser.uid,
+                                            uname: loginUser.uname,
+                                        }));
+                                    })
+                                    .catch((error) => {
+                                        console.error('결제 정보 저장 중 오류 발생:', error);
+                                    });
                             })
                             .catch((error) => {
                                 console.error('결제 정보 저장 중 오류 발생:', error);

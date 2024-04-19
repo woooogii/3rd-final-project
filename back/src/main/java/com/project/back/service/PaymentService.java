@@ -15,6 +15,7 @@ public class PaymentService {
     //DB에 저장
     public void savePaymentEntity(PaymentEntity paymentEntity){
         paymentRepository.save(paymentEntity);
+        System.out.println("결제내역 DB :"+paymentEntity);
     }
 
     //전체 리스트 출력

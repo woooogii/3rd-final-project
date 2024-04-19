@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import MainButton from '../myPage/MainButton';
 
 
 const Home = () => {
 
     return (
         <div>
-            홈홈홈 메인
+            <MainButton/>
         </div>
     );
 };

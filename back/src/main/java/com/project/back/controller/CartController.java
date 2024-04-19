@@ -45,6 +45,8 @@ public class CartController {
 
 
     //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
+
+    //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
     @GetMapping("/pedal/mycart")
     public List<ProductEntity> showMyCart(@RequestParam String uid) {
         
