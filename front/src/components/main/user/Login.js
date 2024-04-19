@@ -31,7 +31,7 @@ const Login = () => {
                 throw new Error('아이디,비밀번호 오류')
             }
             alert('로그인완료')
-            navigate('pedal/home')
+            navigate('/pedal/home')
         } catch (error) {
             console.log(error)
         }
@@ -42,7 +42,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
             아이디:  <input type='text' id='uid' onChange={handleChange}/> <br/>
             비밀번호:  <input type='text' id='upwd' onChange={handleChange}/> <br/>
-            <button type='submit'>로그인</button>
+            <button type='submit' >로그인</button>
             </form>
             <Link to="/pedal/join">회원가입</Link>
         </div>

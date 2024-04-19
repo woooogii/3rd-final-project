@@ -13,10 +13,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import '../../styles/nav/nav.css'
 
 
-
 const Navibar = () => {
-
-  
 
     const dispatch = useDispatch();
     const [cookies] = useCookies();
@@ -26,7 +23,6 @@ const Navibar = () => {
     const [uid, setUid] = useState('');
     const [uname, setUname] = useState('');
 
-    
 
     useEffect(() => {
         if (cookies.jwtToken) {
@@ -79,29 +75,31 @@ const Navibar = () => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary" id="custom-bg-body">
             <Container>
-                <Navbar.Brand href="/pedal/home" className='menu-button'>PEDAL</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Brand href="/pedal/home" className='menu-button' style={{color:'#1675F2',fontWeight:'bold',fontSize:'35px', paddingLeft:'85px'}}>PEDAL</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
                 <Navbar.Collapse id="basic-navbar-nav">
+
                 <Nav className="me-auto">
-                    
-                    <Nav.Link className='menu-button' id='custom-button' onClick={()=>{navigate('/pedal/station')}}>대여소🚴</Nav.Link>
-                    <Nav.Link className='menu-button' id='custom-button' onClick={()=>{navigate('/pedal/ticket')}}>이용권🎫</Nav.Link>
-                    <Nav.Link className='menu-button' id='custom-button' onClick={()=>{navigate('/pedal/shop')}}>쇼핑몰🛍️</Nav.Link>
+                    <Nav.Link className='menu-button' id='custom-button' onClick={()=>{navigate('/pedal/station')}}>대여소</Nav.Link>
+                    <Nav.Link className='menu-button' id='custom-button' onClick={()=>{navigate('/pedal/ticket')}}>이용권</Nav.Link>
+                    <Nav.Link className='menu-button' id='custom-button' onClick={()=>{navigate('/pedal/shop')}}>쇼핑몰</Nav.Link>
 
                     {token!==null ? (
-                        <>
+                        <div>
                             <li>{uname}님 안녕하세요</li>
                             <li>
                                 <button className="menu-button" onClick={()=>{handleLogout()}}>로그아웃</button>
                                 <button className="menu-button" onClick={()=>{navigate('/pedal/myPage')}}>마이페이지</button>
                             </li>
-                            
-                        </>
+                        </div>
+
                     ) : (
-                        <>
+
+                        <div>
                             <Nav.Link href="/pedal/login" className='menu-button'>로그인</Nav.Link>
                             <Nav.Link href="/pedal/join" className='menu-button'>회원가입</Nav.Link>
-                        </>
+                        </div>
+                        
                     )}
                 
                 </Nav>

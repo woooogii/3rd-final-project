@@ -1,5 +1,6 @@
 package com.project.back.controller;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,8 @@ public class CartController {
         cartService.addOneCart(cartEntity);
     }
 
+
+    //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
     @GetMapping("/pedal/mycart")
     public List<ProductEntity> showMyCart(@RequestParam String uid) {
         
@@ -62,14 +65,17 @@ public class CartController {
     }
     
 
-    //List<ProductEntity> productInfo = cartService.getMyCartItem(pIds.getid);
+    List<ProductEntity> productInfo = new ArrayList<>();
+    for (Long productId : pIds) {
+        ProductEntity product = productService.findBypId(productId);
+        productInfo.add(product);
+    }
 
+    System.out.println("-----보내는 장바구니 목록 아이템 수: "+ productInfo.size());
 
-    // 아직은 빈 리스트를 반환하도록 설정
-    return Collections.emptyList();
-        
-        
-        //return null;
+    
+    return productInfo;
+       
     }
     
     

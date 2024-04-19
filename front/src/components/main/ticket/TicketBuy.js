@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PayCredit from './PayCredit';
 import PayKakao from './PayKakao';
+import { useParams } from 'react-router-dom';
 
 const TicketBuy = () => {
+    const { ticketType } = useParams();
     const [tName, setTname] = useState('');
-    const [tCategory, setTCategory] = useState('일일권');
+    const [tCategory, setTCategory] = useState(ticketType === 'dailyTicket' ? '일일권' : '정기권');
     const [tPrice, setTprice] = useState('');
     const [ticketData, setTicketData] = useState([]);
     const [payment, setPayment] = useState('');
