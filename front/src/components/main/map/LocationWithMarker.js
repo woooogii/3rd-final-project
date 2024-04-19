@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
-
+import './style/bicycleInfo.css';
 
 const LocationWithMarker = ({ entities, locNow,getLocation }) => {
     const [overlays, setOverlays] = useState([]);
@@ -74,7 +73,6 @@ const LocationWithMarker = ({ entities, locNow,getLocation }) => {
                 overlay.setMap(null);
                 setSelectedMarker(null);
             });
-
         });
 
         // 오버레이들을 상태로 저장
@@ -89,7 +87,7 @@ const LocationWithMarker = ({ entities, locNow,getLocation }) => {
     return (
     <div>
         <button onClick={getLocation}>내위치찾기</button>
-        <div id="map" style={{ width: '500px', height: '500px' }}></div>
+        <div id="map" style={{ width: '800px', height: '400px' }}></div>
     </div>
     );
 };

@@ -12,12 +12,10 @@ const AddProduct = ({ addProduct }) => {
     const [image, setImage] = useState(null); 
     const nameRef = useRef();
 
-    const proInfoInput = (evt) => {//상품 정보 form에 넣기
+    const proInfoInput = (evt) => {
         const { value, name } = evt.target;
         setForm({ ...form, [name]: value });
     };
-
-
     const insertProduct = async (evt) => {
         evt.preventDefault();
         try {
@@ -28,10 +26,10 @@ const AddProduct = ({ addProduct }) => {
             data.append("pdescription", pDescription);
 
             for (let i = 0; i < image.length; i++) {
-                data.append("files", image[i]);
+                data.append("file", image[i]);
             }
         
-            const response = await axios.post('http://localhost:4000/pedal/product/created', data, {
+            const response = await axios.post('http://localhost:4000/product/created', data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -39,6 +37,7 @@ const AddProduct = ({ addProduct }) => {
             console.log('전송데이터: ', form);
             console.log('전송파일: ', image);
             console.log('전송 성공:', response.data);
+
         } catch (error) {
             console.error('전송 에러:', error);
         }
@@ -52,13 +51,14 @@ const AddProduct = ({ addProduct }) => {
         nameRef.current.focus();
     };
 
+
     return (
         <div>
             <form onSubmit={insertProduct}>
                 <p>이름: <input value={pName || ''} name='pName' onChange={proInfoInput} ref={nameRef} /></p>
                 <p>카테고리: <input value={pCategory || ''} name='pCategory' onChange={proInfoInput} /></p>
                 <p>가격: <input value={pPrice || ''} name='pPrice' onChange={proInfoInput} /></p>
-                <p>이미지명:
+                <p>상세 이미지:
                 <input type='file' multiple onChange={(evt)=>{setImage(evt.target.files)}}/>
                 </p>
                 <p>상세설명: <input value={pDescription || ''} name='pDescription' onChange={proInfoInput} /></p>
