@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 const ImageItem = styled.article`
 width:430px; margin-bottom:60px;
 border:1px solid #999;
 padding:20px 15px 35px;
 img{
+    width:100px;height:100px; margin-bottom:15px;
     width:100px;height:100px; margin-bottom:15px;
 }
 h3{
@@ -41,9 +43,21 @@ const ProductItem = ({item}) => {
             console.error('error_fetch_image', error);
         }
     }
+
+    const navigate = useNavigate('');
+
+    const handleClick = () => {
+        const uri = `/pedal/productDetail/${item.pid}`;
+        navigate(uri);
+    }
     return (
-        <ImageItem>
+        <ImageItem onClick={handleClick}>
             <div>
+                {imageURLs&&imageURLs.map((img,index)=>
+                <p key={index}>
+                <img src={img} alt={`Product Image ${index}`}/>
+                </p>
+                )}
                 {imageURLs&&imageURLs.map((img,index)=>
                 <p key={index}>
                 <img src={img} alt={`Product Image ${index}`}/>

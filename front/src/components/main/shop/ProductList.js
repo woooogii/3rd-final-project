@@ -3,6 +3,7 @@ import ProductItem from './ProductItem';
 import axios from 'axios';
 import styled from 'styled-components';
 import Masonry from 'react-masonry-css';
+import Masonry from 'react-masonry-css';
 
 const ImageContainer = styled.div`
 .my-masonry-grid {
@@ -18,6 +19,7 @@ const ImageContainer = styled.div`
   }
   
   /* Style your items */
+  .my-masonry-grid_column > div {
   .my-masonry-grid_column > div {
     background: grey;
     margin-bottom: 30px;
@@ -42,11 +44,14 @@ const ProductList = () => {
         <ImageContainer>
             <Masonry 
             breakpointCols={4} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+            <Masonry 
+            breakpointCols={4} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
             {
                   entities.map(item=>(
                         <ProductItem key={item.pid} item={item}/>
                 ))
             }
+            </Masonry>
             </Masonry>
         </ImageContainer>
     );

@@ -94,4 +94,8 @@ public class ProductService {
         return imageUrls;
     }
 
+    public ProductEntity getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("아이디를 찾지 못했음: " + id));
+    }
 }

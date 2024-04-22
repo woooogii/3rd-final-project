@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Switch } from 'antd';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const MainButton = () => {
 
@@ -35,9 +36,11 @@ const MainButton = () => {
     // 티켓 이용 여부 변경 함수
     const toggleTicketStatus = async (mtMerchantUid) => {
         try {
+            const switchTime = moment().format('YYYY.MM.DD HH:mm:ss');
             await axios.post('http://localhost:4000/pedal/ticketStatus', {
                 mtMerchantUid,
-                newStatus: !ticketStatus.find(ticket => ticket.mtMerchantUid === mtMerchantUid).myStatus
+                newStatus: !ticketStatus.find(ticket => ticket.mtMerchantUid === mtMerchantUid).myStatus,
+                switchTime: switchTime
             });
 
             const response = await axios.get('http://localhost:4000/pedal/myTicketList');

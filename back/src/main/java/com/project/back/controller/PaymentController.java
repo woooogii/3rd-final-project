@@ -12,8 +12,6 @@ import com.project.back.config.MyConfig;
 import com.project.back.entity.PaymentEntity;
 import com.project.back.service.PaymentService;
 
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -30,16 +28,10 @@ public class PaymentController {
     @Autowired
     private MyConfig myConfig;
 
-      // 현재 시간을 저장하는 변수
-      private final LocalDateTime currentDateTime = LocalDateTime.now();
 
     // 결제 정보를 저장
     @PostMapping("/savePaymentInfo")
     public ResponseEntity<?> savePaymentEntity(@RequestBody Map<String, Object> paymentInfo) {
-
-        // 현재 시간을 가져오고 DATETIME 형식으로 변환
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
 
         // PaymentEntity 객체 생성 및 값 설정
         PaymentEntity paymentEntity = new PaymentEntity();
@@ -47,8 +39,8 @@ public class PaymentController {
         paymentEntity.setPayMethod((String) paymentInfo.get("pay_method"));
         paymentEntity.setMerchantUid((String) paymentInfo.get("merchant_uid"));
         paymentEntity.setName((String) paymentInfo.get("name"));
-        paymentEntity.setAmount((int) paymentInfo.get("amount"));
-        paymentEntity.setPayTime(formattedDateTime);
+        paymentEntity.setAmount((String) paymentInfo.get("amount"));
+        paymentEntity.setPayTime((String) paymentInfo.get("pay_time"));
         paymentEntity.setUid((String) paymentInfo.get("uid"));
         paymentEntity.setUname((String) paymentInfo.get("uname"));
         // PaymentEntity 저장

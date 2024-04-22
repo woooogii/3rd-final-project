@@ -27,7 +27,7 @@ public class PaymentEntity {
     private String name;
 
     @Column(name = "p_amount")
-    private int amount;
+    private String amount;
 
     @Column(name="p_pay_time")
     private String payTime; 

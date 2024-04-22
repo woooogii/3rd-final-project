@@ -9,12 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity(name = "product")
-@Getter
 @Setter
+@Getter
 public class ProductEntity {
     
     @Id
@@ -53,6 +54,10 @@ public class ProductEntity {
     @ElementCollection
     @Column(name = "p_image_urls")
     private List<String> pImageUrls; //이미지파일 경로
+
+    @Column(name = "u_id")
+    private String uId;
+    // User 참조, 댓글 쓴 user_id
 
 }
 

@@ -34,12 +34,19 @@ public class MyTicketService {
 
     //하나의 트랜잭션에서 일어나야 함,다른 곳에서 작업이 이루어지면 안됨
     @Transactional
-    public void ticketStatus(String mtMerchantUid, boolean newStatus){
+    public void ticketStatus(String mtMerchantUid, boolean newStatus, String startTime){
 
         MyTicketEntity ticket = myTicketRepository.findByMtMerchantUid(mtMerchantUid);
-        // 티켓 상태 변경하고 저장
+       
         if (ticket != null) {
+
+            //티켓상태 변경
             ticket.setMyStatus(newStatus);
+
+            //이용시작시간(스위치누른시간)
+            ticket.setMtStartTime(startTime);
+
+            //티켓상태 저장
             myTicketRepository.save(ticket);
         } else {
             throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");

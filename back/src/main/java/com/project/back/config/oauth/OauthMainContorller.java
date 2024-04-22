@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class OauthMainContorller {
 
-        @GetMapping("/")
+        @GetMapping("/google")
         public String authMainPage(@RequestParam String param) {
           
             return "main";

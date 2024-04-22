@@ -88,4 +88,10 @@ public class ProductController {
     }
 
 
+    //수인 리뷰를 위한 pid찾기 
+    @GetMapping("/products/{id}")
+    public ProductEntity getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
 }
