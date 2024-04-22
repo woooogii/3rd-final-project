@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.back.entity.MyTicketEntity;
 import com.project.back.service.MyTicketService;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.List;
 
@@ -23,29 +21,25 @@ public class MyTicketController {
    @Autowired
     private MyTicketService myTicketService;
 
-    // 현재 시간을 저장하는 변수
-    private final LocalDateTime currentDateTime = LocalDateTime.now();
 
     // 결제 정보를 저장
     @PostMapping("/saveMyTicketList")
     public ResponseEntity<?> saveMyTicketEntity(@RequestBody Map<String, Object> myTicketInfo) {
 
-        // 현재 시간을 가져오고 문자열로 변환
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
-
+       
         // MyTicketEntity 객체 생성 및 값 설정
         MyTicketEntity myTicketEntity = new MyTicketEntity();
 
         myTicketEntity.setMtName((String) myTicketInfo.get("mtName"));
         myTicketEntity.setMtAmount((int) myTicketInfo.get("mtAmount"));
         myTicketEntity.setMtMerchantUid((String) myTicketInfo.get("mtMerchantUid"));
-        myTicketEntity.setMtPayTime(formattedDateTime);
+        myTicketEntity.setMtPayTime((String) myTicketInfo.get("mtPayTime"));
         // myTicketEntity.setMtStartTime((LocalDateTime)myTicketInfo.get("mtStartTime"));
         // myTicketEntity.setMtEndTime((LocalDateTime)myTicketInfo.get("mtEndTime"));
 
         myTicketEntity.setUid((String) myTicketInfo.get("uid"));
         myTicketEntity.setUname((String) myTicketInfo.get("uname"));
+        
         // PaymentEntity 저장
         myTicketService.saveMyTicketEntity(myTicketEntity);
 
@@ -85,11 +79,14 @@ public class MyTicketController {
             
           String mtMerchantUid = (String) requestBody.get("mtMerchantUid");
           boolean newStatus = (boolean) requestBody.get("newStatus");
+          String startTime = (String) requestBody.get("startTime");
 
           System.out.println("티켓이용여부------:"+ mtMerchantUid );
           System.out.println("상태업데이트------:"+ newStatus );
+          System.out.println("스위치 누른 시간------:"+ startTime );
+
           //특정 상품번호에 대한 티켓 사용여부 업데이트
-          myTicketService.ticketStatus(mtMerchantUid,newStatus);
+          myTicketService.ticketStatus(mtMerchantUid,newStatus,startTime);
 
           return ResponseEntity.ok("티켓 상태가 성공적으로 변경되었습니다!");
 

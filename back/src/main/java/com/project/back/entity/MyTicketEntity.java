@@ -27,8 +27,8 @@ public class MyTicketEntity {
     @Column(name = "mt_amount")
     private int mtAmount; //상품수량
 
-    @Column(name = "mt_pay_time ")
-    private String mtPayTime ; //구매시간
+    @Column(name = "mt_pay_time")
+    private String mtPayTime; // 구매시간
 
     @Column(name="mt_start_time")
     private String mtStartTime ; //사용시작시간 

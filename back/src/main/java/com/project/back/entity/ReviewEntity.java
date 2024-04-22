@@ -1,6 +1,5 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,18 +22,15 @@ public class ReviewEntity {
     private String rContent; // 댓글 내용
 
     @Column(name = "r_date")
-    private LocalDateTime rDate; // 댓글 날짜
+    private String rDate; // 댓글 날짜
 
     @Column(name = "r_star")
     private Long rStar; // 별점 수
 
-
     @Column(name = "p_id")
-    private Long product;
-    //Product 참조, 댓글 달린 product_id
-    
-    
+    private Long pId;
+  
     @Column(name = "u_id")
-    private String user;
+    private String uId;
     // User 참조, 댓글 쓴 user_id
 }

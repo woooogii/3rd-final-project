@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 const ImageItem = styled.article`
 width:430px; margin-bottom:60px;
 border:1px solid #999;
@@ -29,18 +30,30 @@ const ProductItem = ({item}) => {
     useEffect(()=>{
         getProductImage(item.pid);
     },[]);
-
-    const getProductImage=async(pid)=>{
-        try {
-            const response = await axios.get(`http://localhost:4000/pedal/product/image/${pid}`);
-            console.log('responseData',response.data);
-            setImageURLs(response.data);
-        } catch (error) {
-            console.error('error_fetch_image', error);
+        const getProductImage=async(pid)=>{
+            try {
+                const response = await axios.get(`http://localhost:4000/pedal/product/image/${pid}`, {
+                    responseType: 'arraybuffer',
+                });
+                console.log('responseData',response.data);
+                const url = URL.createObjectURL(new Blob([response.data], { type: 'image/png' }));
+                
+                setImageURL(url);
+            } catch (error) {
+                console.error('error_fetch_image', error);
+            }
         }
+    console.log('image',imageURL);
+
+    const navigate = useNavigate('');
+
+    const handleClick = () => {
+        const uri = `/pedal/productDetail/${item.pid}`;
+        navigate(uri);
     }
+
     return (
-        <ImageItem>
+        <ImageItem onClick={handleClick}>
             <div>
                 {imageURLs&&imageURLs.map((img,index)=>
                 <p key={index}>

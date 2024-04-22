@@ -6,12 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity(name = "product")
-@Getter
 @Setter
+@Getter
 public class ProductEntity {
     
     @Id
@@ -49,6 +50,10 @@ public class ProductEntity {
 
     @Column(name = "p_image_url")
     private String pImageUrl; // 이미지 파일 경로 리스트
+
+    @Column(name = "u_id")
+    private String uId;
+    // User 참조, 댓글 쓴 user_id
 
 }
 
