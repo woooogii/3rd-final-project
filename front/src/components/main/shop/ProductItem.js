@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 const ImageItem = styled.article`
 width:430px; margin-bottom:60px;
 border:1px solid #999;
@@ -43,8 +44,16 @@ const ProductItem = ({item}) => {
             }
         }
     console.log('image',imageURL);
+
+    const navigate = useNavigate('');
+
+    const handleClick = () => {
+        const uri = `/pedal/productDetail/${item.pid}`;
+        navigate(uri);
+    }
+
     return (
-        <ImageItem>
+        <ImageItem onClick={handleClick}>
             <div>
                 <img src={imageURL} alt={item.pname}/>
             </div>

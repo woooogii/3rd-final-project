@@ -7,17 +7,24 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
     let loginUser = useSelector((state)=>{ return state.loginUser })
 
-    const payTime = moment().format('YYYY-MM-DD HH:mm:ss');
-
     const navigate = useNavigate();
     
-    //주문번호 증가
+    
+    let lastTimestamp = 0;
     let orderNum = 0;
-
+    
     function makeMerchantUid() {
-
-        orderNum++;
-        const merchantUid = new Date().getTime() + '_' + orderNum;
+        const currentTimestamp = new Date().getTime();
+    
+        // 현재 시간이 이전 시간과 동일한 경우 orderNum을 증가시키고, 아니면 orderNum을 초기화합니다.
+        if (currentTimestamp === lastTimestamp) {
+            orderNum++;
+        } else {
+            orderNum = 0;
+            lastTimestamp = currentTimestamp;
+        }
+    
+        const merchantUid = currentTimestamp + '_' + orderNum;
         return merchantUid;
     }
 
@@ -26,10 +33,10 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
         pay_method : 'card',
         merchant_uid: makeMerchantUid(), 
         name : tName,
-        amount : tPrice,
+        amount : String(tPrice),
         uid : loginUser.uid,
         uname: loginUser.uname,
-        pay_time : payTime,
+        pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
     });
 
     useEffect(() => {
@@ -75,14 +82,13 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                     //m_redirect_url : 'http://localhost:3000/pedal/payment'
                 },
                 function callback(response) {
-                    
                     const { success, error_msg } = response;
                     
-
                     if (success) {
+                        // 결제 성공 시
                         alert('결제 성공!');
 
-                        // 결제 정보를 payment(결제내역)에 전송
+                        // 결제 정보를 서버에 전송
                         fetch('http://localhost:4000/pedal/savePaymentInfo', {
                             method: 'POST',
                             headers: {
@@ -90,26 +96,18 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                             },
                             body: JSON.stringify({
                                 ...buyerInfo,
+                                pay_time: moment().format('YYYY-MM-DD HH:mm:ss') // 현재 시간으로 설정
                             }),
                         })
                             .then((response) => response.json()) // JSON 형식으로 파싱
                             .then((data) => {
-
-                                console.log('결제 정보 저장됨:', data);   
-
-                                // 실제 데이터로 업데이트해야지 클라이언트가 결제하고 난뒤에도 서버랑 일관성있게 데이터가 동일함 
-                                setBuyerInfo((prevState) => ({
-                                    ...prevState,
-                                    p_pg: data.p_pg,
-                                    p_pay_method: data.p_pay_method,
-                                    p_merchant_uid: data.p_merchant_uid,
-                                    p_name: data.p_name,
-                                    p_amount: data.p_amount,
-                                    p_payTime: data.p_payTime,
-                                    uid : loginUser.uid,
-                                    uname: loginUser.uname,
-                                }));
-
+                                console.log('결제 정보 저장됨:', data); // 실제 데이터 출력
+                                // 서버에서 받은 데이터로 상태 업데이트
+                                setBuyerInfo({
+                                    ...data,
+                                    pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
+                                });
+        
 
                                 //MyTicket(나의티켓구매내역)으로 보냄
                                 fetch('http://localhost:4000/pedal/saveMyTicketList', {
@@ -118,10 +116,10 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
-                                        mtMerchantUid: buyerInfo.merchant_uid,
+                                        mtMerchantUid:buyerInfo.merchant_uid,
                                         mtName: tName,
                                         mtAmount: tPrice,
-                                        mtPayTime: payTime,
+                                        mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
                                         uid: loginUser.uid,
                                         uname: loginUser.uname,
                                     }),
@@ -130,15 +128,13 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     .then((data) => {
                                         console.log('결제 정보 저장됨:', data);
 
-                                        // 실제 데이터로 업데이트해야지 클라이언트가 결제하고 난뒤에도 서버랑 일관성있게 데이터가 동일함
-
                                         //DB 필드명과 동일해야함
                                         setBuyerInfo((prevState) => ({
                                             ...prevState,
                                             mt_merchant_uid: data.mt_merchant_uid,
                                             mt_name: data.mt_name,
                                             mt_amount: data.mt_amount,
-                                            mt_pay_time: data.mt_pay_time,
+                                            mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
                                             uid: loginUser.uid,
                                             uname: loginUser.uname,
                                         }));
@@ -163,7 +159,6 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
             console.error('IMP 객체를 찾을 수 없습니다.');
         }
     }
-    
 
     return (
         <div>

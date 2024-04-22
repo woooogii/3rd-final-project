@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import ShopHeader from './ShopHeader';
 
 import '../../../styles/nav/nav.css'
-import Product from './Product';
 import ProductList from './ProductList';
 import AddProduct from './AddProduct';
 
@@ -45,8 +44,6 @@ const Shop = () => {
             <button onClick={() => { 
                 (loginUser && loginUser.uid && loginUser.uname) ? buyItem() : loginFirst();
             }}>구매</button>
-
-            <Product/>
 
             <br/><br/><br/><br/><br/><br/>
             <AddProduct/>
