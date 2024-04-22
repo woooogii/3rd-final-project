@@ -27,11 +27,13 @@ const Login = () => {
                 },
             });
 
-            if (response.status !== 200) {
+  
+            if (response.status === 200) {
+                alert('로그인 완료');
+                navigate('/pedal/home');
+            } else {
                 throw new Error('아이디 또는 비밀번호가 올바르지 않습니다.');
             }
-            alert('로그인 완료');
-            navigate('/pedal/home');
         } catch (error) {
             setErrorMessage('아이디 또는 비밀번호가 올바르지 않습니다.');
             console.log(error);

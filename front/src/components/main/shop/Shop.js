@@ -37,7 +37,11 @@ const Shop = () => {
             </div>
                
               {(loginUser && loginUser.uid && loginUser.uname) ? (
-                    <div>{loginUser.uname}님 안녕하세요</div>
+                    <div>
+                        <p>{loginUser.uname}님 안녕하세요</p>
+                        <p>접속 아이디: {loginUser.uid}</p>
+                    </div>
+                    
                 ) : (
                     <div>로그인 안돼있음</div>
               )}

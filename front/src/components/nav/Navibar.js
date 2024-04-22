@@ -27,9 +27,16 @@ const Navibar = () => {
 
     useEffect(() => {
         if (cookies.jwtToken) {
+            console.log("걍 토큰 있네")
             setUser();
+        } else if (cookies.googleJwtToken) {
+            console.log("구글 토큰 있네")
+            setGoogleUser();
         }
-    }, [cookies.jwtToken]);
+    }, [cookies.jwtToken,cookies.googleJwtToken]);
+
+
+
 
       const setUser= () => {
 
@@ -52,25 +59,61 @@ const Navibar = () => {
             dispatch(loginToken({ uid: uid, uname: uname })); //store.js로 uid,uname보내주기
       }
 
+      const setGoogleUser= () => {
+    let decodedToken;
+    try {
+        const token = cookies.googleJwtToken; // 쿠키에서 토큰 빼오기
+        decodedToken = jwtDecode(token); // 가져온 토큰 디코딩
+        const uid = decodedToken.email; // 디코딩된 토큰 속 uid
+        const uname = decodedToken.sub; // 디코딩된 토큰 속 uname
+
+        setToken(token);
+        setUid(uid);
+        setUname(uname);
+
+        dispatch(loginToken({ uid: uid, uname: uname })); // store.js로 uid, uname 보내주기
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
-      const handleLogout = async () => {
-        try {
-            const response = await axios.delete('http://localhost:4000/pedal/logout', { withCredentials: true });
-            if (response.status === 200) {
-                //서버에서 쿠키삭제하고나면 토큰,uid,uname 다 비움 
-                setToken(null);
-                setUid('');
-                setUname('');
-                // 로그아웃 성공시 그자리에서 새로고침만 
-                navigate(0);
-            } else {
-                console.error('로그아웃 요청이 실패했습니다.');
+        const handleLogout = async () => {
+            try {
+                const response = await axios.delete('http://localhost:4000/pedal/logout', { withCredentials: true });
+                if (response.status === 200) {
+                    //서버에서 쿠키삭제하고나면 토큰,uid,uname 다 비움 
+                    setToken(null);
+                    setUid('');
+                    setUname('');
+                    // 로그아웃 성공시 그자리에서 새로고침만 
+                    navigate(0);
+                } else {
+                    console.error('로그아웃 요청이 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
             }
-        } catch (error) {
-            console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
-        }
-    };
+        };
+
+        const handleGoogleLogout = async () => {
+            try {
+                const response = await axios.delete('http://localhost:4000/pedal/googleLogout', { withCredentials: true });
+                if (response.status === 200) {
+                    //서버에서 쿠키삭제하고나면 토큰,uid,uname 다 비움 
+                    setToken(null);
+                    setUid('');
+                    setUname('');
+                    // 로그아웃 성공시 그자리에서 새로고침만 
+                    navigate(0);
+                } else {
+                    console.error('로그아웃 요청이 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
+            }
+        };
+
 
 
 
@@ -91,7 +134,14 @@ const Navibar = () => {
                         <div>
                             <li>{uname}님 안녕하세요</li>
                             <li>
-                                <button className="menu-button" onClick={()=>{handleLogout()}}>로그아웃</button>
+                            {
+                                cookies.jwtToken ? (
+                                    <button className="menu-button" onClick={()=>{handleLogout()}}>로그아웃</button>
+                                ) : (
+                                    <button className="menu-button" onClick={()=>{handleGoogleLogout()}}>로그아웃</button>
+                                )
+                            }
+                                                        
                                 <button className="menu-button" onClick={()=>{navigate('/pedal/myPage')}}>마이페이지</button>
                                 <BsCart3 onClick={()=>{navigate('/pedal/cart')}}/>
                             </li>

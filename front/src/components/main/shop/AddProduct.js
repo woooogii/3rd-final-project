@@ -9,7 +9,7 @@ const AddProduct = ({ addProduct }) => {
         pDescription: ''
     });
     const { pName, pCategory, pPrice, pDescription } = form;
-    const [image, setImage] = useState(null); 
+    const [images, setImages] = useState(null); 
     const nameRef = useRef();
 
     const proInfoInput = (evt) => {
@@ -25,17 +25,17 @@ const AddProduct = ({ addProduct }) => {
             data.append("pprice", pPrice);
             data.append("pdescription", pDescription);
 
-            for (let i = 0; i < image.length; i++) {
-                data.append("file", image[i]);
+            for (let i = 0; i < images.length; i++) {
+                data.append("files", images[i]);
             }
         
-            const response = await axios.post('http://localhost:4000/product/created', data, {
+            const response = await axios.post('http://localhost:4000/pedal/product/created', data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
             console.log('전송데이터: ', form);
-            console.log('전송파일: ', image);
+            console.log('전송파일: ', images);
             console.log('전송 성공:', response.data);
 
         } catch (error) {
@@ -59,7 +59,7 @@ const AddProduct = ({ addProduct }) => {
                 <p>카테고리: <input value={pCategory || ''} name='pCategory' onChange={proInfoInput} /></p>
                 <p>가격: <input value={pPrice || ''} name='pPrice' onChange={proInfoInput} /></p>
                 <p>상세 이미지:
-                <input type='file' multiple onChange={(evt)=>{setImage(evt.target.files)}}/>
+                <input type='file' multiple onChange={(evt)=>{setImages(evt.target.files)}}/>
                 </p>
                 <p>상세설명: <input value={pDescription || ''} name='pDescription' onChange={proInfoInput} /></p>
                 <button type='submit'>insert</button>
