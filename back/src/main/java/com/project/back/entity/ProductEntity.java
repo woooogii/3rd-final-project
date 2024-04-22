@@ -1,7 +1,10 @@
 package com.project.back.entity;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,8 +50,9 @@ public class ProductEntity {
    @Column(name = "p_image4")
     private String pImage4;
 
-    @Column(name = "p_image_url")
-    private String pImageUrl; // 이미지 파일 경로 리스트
+    @ElementCollection
+    @Column(name = "p_image_urls")
+    private List<String> pImageUrls; //이미지파일 경로
 
 }
 

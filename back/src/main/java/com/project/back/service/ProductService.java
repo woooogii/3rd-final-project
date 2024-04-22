@@ -1,14 +1,13 @@
 package com.project.back.service;
 
-//수동 import
-import java.io.IOException;
-import java.nio.file.*; 
-import org.apache.commons.lang3.StringUtils;//그래들도 추가해야함
+import java.io.File;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.project.back.entity.ProductEntity;
 import com.project.back.repository.ProductRepository;
 
@@ -34,53 +33,65 @@ public class ProductService {
         return op.get();
     }
 
-    public byte[] getProductImg(Long pId) throws IOException{
-        Optional<ProductEntity> prOptional = productRepository.findBypId(pId);
-        if(prOptional.isPresent()){
-            ProductEntity productEntity = prOptional.get();
-            String productImg = productEntity.getPImageUrl();
-            if(!StringUtils.isEmpty(productImg)){
-                Path imgPath = Paths.get(productImg);
-                if(Files.exists(imgPath)){
-                    return Files.readAllBytes(imgPath);
-                }else{
-                    System.out.println("error_Files");
-                }
-            }else{
-                System.out.println("error_isEmpty");
-            }
-        }else{
-            System.out.println("error_isPresent");
+    //이미지 여러개 출력
+    public List<String> findPImageUrlsBypId(Long pId){
+        ProductEntity productEntity = productRepository.findBypId(pId).orElse(null);
+        if (productEntity != null) {
+            return productEntity.getPImageUrls();
         }
-        return new byte[0];
+        return null;
     }
 
-    /*
-    //지은 여러개 이미지 출력(수정중)
-    public List<byte[]> getProductSubImg(Long pId) throws IOException{
-        List<byte[]> subImages = new ArrayList<>();
-        Optional<ProductEntity> prOptional = productRepository.findBypId(pId);
-        if(prOptional.isPresent()){
-            ProductEntity productEntity = prOptional.get();
-            List<String> productSubImgs = productEntity.getSubImgUrls();
-            for(String subImg : productSubImgs){
-                if(!StringUtils.isEmpty(subImg)){
-                    Path imgPath = Paths.get(subImg);
-                    //System.out.println(subImagesubImg);//찍힘
-                    if(Files.exists(imgPath)){
-                        byte[] imageData = Files.readAllBytes(imgPath);
-                        subImages.add(imageData);
-                    }else{
-                        System.out.println("error_Files");
+    public List<String> saveProductsWithImages(ProductEntity productEntity, List<MultipartFile> files) {
+        List<String> imageUrls = new ArrayList<>();
+        String url = "http://localhost:4000";
+        try {
+            String absolutePath = new File("").getAbsolutePath() + File.separator;
+            // 실제 파일 저장 위치
+            String PATH = "back" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
+                    + File.separator + "images" + File.separator + "productImg"; // 절대 경로 사용
+
+            File productImg = new File(absolutePath + PATH);
+            if (!productImg.exists()) {
+                productImg.mkdirs(); // 폴더가 없을 경우 폴더 만들기
+            }
+    
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    String contentType = file.getContentType();
+                    String originalFileExtension;
+                    if (contentType == null) {
+                        return null;
+                    } else {//확장자
+                        if (contentType.contains("image/jpeg")) {
+                            originalFileExtension = ".jpg";
+                        } else if (contentType.contains("image/png")) {
+                            originalFileExtension = ".png";
+                        } else {
+                            return null;
+                        }
                     }
-                }else{
-                    System.out.println("error_isEmpty");
+                    String originalFileName = file.getOriginalFilename();
+                    int lastIndex = originalFileName.lastIndexOf('.');
+                    String fileName = originalFileName.substring(0, lastIndex);
+    
+                    String userImgName = fileName + new Date().getTime() + originalFileExtension;
+    
+                    productImg = new File(absolutePath + PATH + File.separator + userImgName);
+                    System.out.println("파일 저장 경로: " + absolutePath + PATH + File.separator + userImgName);
+                    file.transferTo(productImg);
+    
+                    String imageUrl = url + "/images/productImg/" + userImgName;
+                    imageUrls.add(imageUrl);
                 }
             }
-        }else{
-            System.out.println("error_isPresent");
+        } catch (Exception e) {
+            System.out.print(e.toString());
+            return null;
         }
-        //System.out.println("subImages"+subImages);//찍힘
-        return subImages;
-    } */
+        productEntity.setPImageUrls(imageUrls);
+        productRepository.save(productEntity);
+        return imageUrls;
+    }
+
 }

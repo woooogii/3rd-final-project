@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import axios from 'axios';
 import styled from 'styled-components';
-import masonry from 'react-masonry-css'
+import Masonry from 'react-masonry-css';
 
 const ImageContainer = styled.div`
 .my-masonry-grid {
@@ -18,12 +18,11 @@ const ImageContainer = styled.div`
   }
   
   /* Style your items */
-  .my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  .my-masonry-grid_column > div {
     background: grey;
     margin-bottom: 30px;
   }
 `
-
 
 const ProductList = () => {
     const [entities,setEntities] = useState(null);
@@ -31,8 +30,7 @@ const ProductList = () => {
     useEffect(()=>{
         const fetchData = async()=>{
             try {
-                const response = await axios.get('http://localhost:4000/product/list');
-                console.log('꺼내온 데이터',response.data);
+                const response = await axios.get('http://localhost:4000/pedal/product/list');
                 setEntities(response.data);
             } catch (error) {
                 console.error('error_fetch',error);   
@@ -42,13 +40,14 @@ const ProductList = () => {
     },[]);
     return (
         <ImageContainer>
-            <masonry breakpointCols={4} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+            <Masonry 
+            breakpointCols={4} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
             {
-                entities && entities.map(item=>(
+                  entities.map(item=>(
                         <ProductItem key={item.pid} item={item}/>
                 ))
             }
-            </masonry>
+            </Masonry>
         </ImageContainer>
     );
 };
