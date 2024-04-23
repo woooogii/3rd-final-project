@@ -1,12 +1,66 @@
 /* styles.css */
 .sidebar {
+
+  width: 250px;
+  max-width: 100%;
+
+  margin-top: 150px; 
+  margin-left: 70px;
+  top: 20vh; 
   position: sticky;
-  top: 20px; /* 상단에서 얼마나 떨어진 곳에 고정될지 설정 */
-  height: 100vh; /* 전체 높이 */
-  overflow-y: auto; /* 필요 시 스크롤바 표시 */
+  height: 40vh;
+  overflow-y: auto;
+  border: 1px solid transparent; 
+  background-color: #1675F2;
+}
+
+.sidebar > ul > li {
+  cursor: pointer;
 }
 
 ul {
   padding: 0;
   list-style: none;
+}
+
+.card.text-end {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 10px;
+  }
+
+.card-title {
+  text-align: left;
+  padding-left: 20px;
+}
+
+
+b {
+  margin-right: 10px;
+}
+
+.btn {
+margin-bottom: 10px;
+margin-right: 10px;
+border: none;
+border-radius: 10px;
+width: 200px;
+height: 40px;
+background-color: #eee;
+outline: none;
+box-shadow: 1px 8px 0 #fff;
+transition: box-shadow 0.3s;
+color: #eee;
+}
+
+.btn:hover, .btn:focus {
+box-shadow: 1px 1px 0 #1675F2;
+position: relative;
+top: 2px;
+}
+
+.defualtContainer {
+  width: 60%;
+  margin-top: 15vh;
+  margin-left: 15vh;
 }

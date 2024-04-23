@@ -2,6 +2,7 @@ package com.project.back.service;
 
 
 
+import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,22 @@ public class UserService {
         userRepository.save(userEntity);
     }
     
+    public UserEntity callUserInfo(String uId){
+        return userRepository.findByuId(uId).orElse(null);
+    }
+
+    public UserEntity updateUserInfo(String uId, UserDTO userDTO) {
+        // 데이터베이스에서 사용자를 찾습니다.
+        UserEntity user = userRepository.findByuId(uId).orElse(null);
+
+        user.setUId(userDTO.getUId());
+        user.setUName(userDTO.getUName());
+        user.setUPhone(userDTO.getUPhone());
+        user.setUAddress(userDTO.getUAddress());
+        user.setUAddrDetail(userDTO.getUAddrDetail());
+
+        // 변경된 사용자 정보를 데이터베이스에 저장합니다.
+        return userRepository.save(user);
+    }
 
 }

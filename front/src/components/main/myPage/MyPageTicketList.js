@@ -11,11 +11,11 @@ function MyPageTicketList() {
 
   return (
     <div>
-      <h1>구매한 티켓 목록</h1>
+      <h1>구매한 티켓 목록04.21</h1>
       <ul>
         {tickets.map(ticket => (
           <li key={ticket.mtId}>
-            {/* 각 티켓의 정보를 표시합니다. */}
+          
             <div>티켓 번호: {ticket.mtId}</div>
             <div>이용 종료 시간: {ticket.mtEndtime}</div>
             <div>이용 여부: {ticket.myStatus ? '이용 중' : '이용 완료'}</div>
