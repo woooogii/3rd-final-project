@@ -2,7 +2,10 @@ package com.project.back.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.project.back.config.MyConfig;
@@ -25,6 +28,7 @@ public class PaymentController {
     @Autowired
     private MyConfig myConfig;
 
+
     // 결제 정보를 저장
     @PostMapping("/savePaymentInfo")
     public ResponseEntity<?> savePaymentEntity(@RequestBody Map<String, Object> paymentInfo) {
@@ -35,8 +39,10 @@ public class PaymentController {
         paymentEntity.setPayMethod((String) paymentInfo.get("pay_method"));
         paymentEntity.setMerchantUid((String) paymentInfo.get("merchant_uid"));
         paymentEntity.setName((String) paymentInfo.get("name"));
-        paymentEntity.setAmount((int) paymentInfo.get("amount"));
-
+        paymentEntity.setAmount((String) paymentInfo.get("amount"));
+        paymentEntity.setPayTime((String) paymentInfo.get("pay_time"));
+        paymentEntity.setUid((String) paymentInfo.get("uid"));
+        paymentEntity.setUname((String) paymentInfo.get("uname"));
         // PaymentEntity 저장
         paymentService.savePaymentEntity(paymentEntity);
 

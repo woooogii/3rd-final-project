@@ -11,9 +11,6 @@ public interface UserRepository extends JpaRepository<UserEntity,String>{
     
     //회원가입할 아이디 이미 존재하는 아이디인지 확인
     Boolean existsByuId(String uId);
-    
-    Optional<UserEntity> findByuId(String uId);
 
-
-    
+    UserEntity findByuId(String uId);
 }

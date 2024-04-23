@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.lang.String;
 
+//엔드포인트, api키 등을 관리
 @Configuration
 @Getter
 @Setter
@@ -18,5 +19,9 @@ public class MyConfig {
 
     @Value("${api.secret}")
     private String apiSecret;
+
+    //결제컨트롤러 주소 
+    @Value("${payment.controller.url}")
+    private String paymentControllerUrl;
 
 }

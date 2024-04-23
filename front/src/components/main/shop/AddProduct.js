@@ -9,15 +9,13 @@ const AddProduct = ({ addProduct }) => {
         pDescription: ''
     });
     const { pName, pCategory, pPrice, pDescription } = form;
-    const [image, setImage] = useState(null); 
+    const [images, setImages] = useState(null); 
     const nameRef = useRef();
 
-    const proInfoInput = (evt) => {//상품 정보 form에 넣기
+    const proInfoInput = (evt) => {
         const { value, name } = evt.target;
         setForm({ ...form, [name]: value });
     };
-
-
     const insertProduct = async (evt) => {
         evt.preventDefault();
         try {
@@ -27,8 +25,8 @@ const AddProduct = ({ addProduct }) => {
             data.append("pprice", pPrice);
             data.append("pdescription", pDescription);
 
-            for (let i = 0; i < image.length; i++) {
-                data.append("files", image[i]);
+            for (let i = 0; i < images.length; i++) {
+                data.append("files", images[i]);
             }
         
             const response = await axios.post('http://localhost:4000/pedal/product/created', data, {
@@ -37,8 +35,9 @@ const AddProduct = ({ addProduct }) => {
                 },
             });
             console.log('전송데이터: ', form);
-            console.log('전송파일: ', image);
+            console.log('전송파일: ', images);
             console.log('전송 성공:', response.data);
+
         } catch (error) {
             console.error('전송 에러:', error);
         }
@@ -52,14 +51,15 @@ const AddProduct = ({ addProduct }) => {
         nameRef.current.focus();
     };
 
+
     return (
         <div>
             <form onSubmit={insertProduct}>
                 <p>이름: <input value={pName || ''} name='pName' onChange={proInfoInput} ref={nameRef} /></p>
                 <p>카테고리: <input value={pCategory || ''} name='pCategory' onChange={proInfoInput} /></p>
                 <p>가격: <input value={pPrice || ''} name='pPrice' onChange={proInfoInput} /></p>
-                <p>이미지명:
-                <input type='file' multiple onChange={(evt)=>{setImage(evt.target.files)}}/>
+                <p>상세 이미지:
+                <input type='file' multiple onChange={(evt)=>{setImages(evt.target.files)}}/>
                 </p>
                 <p>상세설명: <input value={pDescription || ''} name='pDescription' onChange={proInfoInput} /></p>
                 <button type='submit'>insert</button>

@@ -1,0 +1,96 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    width: 400px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.942);
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e96fc;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.login-input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-input:focus {
+    border-color: #1675F2; /* 포커스 시 보더 색상 변경 */
+    outline: none; /* 기본 포커스 효과 제거 */
+    box-shadow: 0 0 5px rgba(30, 150, 252, 0.5); /* 포커스 시 그림자 효과 추가 */
+}
+
+.login-button {
+    width: calc(100% - 20px); /* 변경 */
+    padding: 15px;
+    background-color: #1675F2;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto; /* 변경 */
+}
+
+.login-button:hover {
+    background-color: #1c5bb3;
+}
+
+.additional-options {
+    display: flex;
+    flex-direction: column; /* 변경 */
+    align-items: center; /* 변경 */
+    margin-top: 20px; /* 변경 */
+    font-size: 0.9em;
+}
+
+.additional-options span {
+    color: #777;
+}
+
+.google-login {
+    font-size: 0;
+}
+
+.google-login svg {
+    width: 24px;
+    height: 24px;
+    fill: #1675F2;
+}
+
+.join-link {
+    text-align: center;
+}
+
+.join-link p {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.join-link a {
+    color: #1675F2;
+    text-decoration: none;
+}
+
+.join-link a:hover {
+    text-decoration: underline;
+}
+
+.msg-box{
+    margin-top: 10px;
+}

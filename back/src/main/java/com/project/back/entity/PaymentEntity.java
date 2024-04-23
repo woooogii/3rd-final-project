@@ -2,8 +2,6 @@ package com.project.back.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
@@ -29,6 +27,17 @@ public class PaymentEntity {
     private String name;
 
     @Column(name = "p_amount")
-    private int amount;
+    private String amount;
+
+    @Column(name="p_pay_time")
+    private String payTime; 
+
+    @Column(name = "u_id", nullable = false)
+    private String uid;
+    //User 참조, 사용자 id
+
+    @Column(name = "u_name", nullable = false)
+    private String uname;
+    //User 참조, 사용자 이름
 
 }

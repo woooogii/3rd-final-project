@@ -38,5 +38,8 @@ public class CartService {
     }
 
 
+    public void removeCartItem(String uId, Long pId){
+        cartRepository.deleteByUserAndProductId(uId, pId);
+    }
 
 }

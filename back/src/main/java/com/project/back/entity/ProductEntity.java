@@ -1,20 +1,21 @@
 package com.project.back.entity;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
 
 @Entity(name = "product")
-@Getter
 @Setter
+@Getter
 public class ProductEntity {
     
     @Id
@@ -50,9 +51,13 @@ public class ProductEntity {
    @Column(name = "p_image4")
     private String pImage4;
 
-    @ElementCollection(fetch = FetchType.EAGER)//항상 함께 업로드
+    @ElementCollection
     @Column(name = "p_image_urls")
-    private List<String> pImageUrls; // 이미지 파일 경로 리스트
+    private List<String> pImageUrls; //이미지파일 경로
+
+    @Column(name = "u_id")
+    private String uId;
+    // User 참조, 댓글 쓴 user_id
 
 }
 

@@ -34,6 +34,12 @@ public class AuthController {
         System.out.println("로그아웃요청받음");
         return authService.logout(response);
     }
+
+    @DeleteMapping("pedal/googleLogout")
+    public ResponseEntity<String> googleLogout(HttpServletResponse response) {
+        System.out.println("로그아웃요청받음");
+        return authService.googleLogout(response);
+    }
 }
     
 

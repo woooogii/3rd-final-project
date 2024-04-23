@@ -16,7 +16,9 @@ import ProductDetail from './shop/ProductDetail';
 import Map from './map/Map';
 import { Provider } from 'react-redux';
 import store from '../nav/store.js';
+import MyPageTicketList from './myPage/MyPageTicketList.js';
 // import InsertData from './InsertComponent/InsertData.js';
+
 
 
 const Main = () => {
@@ -24,23 +26,25 @@ const Main = () => {
         <div>
         <Provider store={ store }>
             <Router>
-                <Navibar/>
-                <Routes>
-                    <Route path="/pedal/home" Component={Home}/>
-                    <Route path="/pedal/login" Component={Login}/>
-                    <Route path="/pedal/join" Component={Join}/>
-                    <Route path="/pedal/cart" Component={Cart}/>
-                    <Route path="/pedal/oneitem" Component={ProductTest}/>
-                    <Route path="/pedal/shop" Component={Shop}/>
-                    <Route path="/pedal/myPage" Component={MyPageMain}/>
-                    <Route path="/pedal/ticket" Component={Ticket}/>
-                    <Route path="/pedal/ticketBuy" Component={TicketBuy}/>
-                    <Route path="/pedal/payment" Component={PayResult}/>
-                    <Route path="/pedal/station" Component={Map}/>
-                    {/* <Route path="/insertData" Component={InsertData}/> */}
-                    <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
-                </Routes>
-                <Footer/>
+                    <Navibar/>
+                    <Routes>
+                       <Route path="/" Component={Home}/>
+                        <Route path="/pedal/home" Component={Home}/>
+                        <Route path="/pedal/login" Component={Login}/>
+                        <Route path="/pedal/join" Component={Join}/>
+                        <Route path="/pedal/cart" Component={Cart}/>
+                        <Route path="/pedal/oneitem" Component={ProductTest}/>
+                        <Route path="/pedal/shop" Component={Shop}/>
+                        <Route path="/pedal/myPage" Component={MyPageMain}/>
+                        <Route path="/pedal/ticket" element={<Ticket/>}/>
+                        <Route path="/pedal/:ticketType" element={<TicketBuy/>}/>
+                        <Route path="/pedal/ticketBuy" Component={TicketBuy}/>
+                        <Route path="/pedal/payment" Component={PayResult}/>
+                        <Route path="/pedal/station" Component={Map}/>
+                        <Route path="/pedal/myTicketList" Component={MyPageTicketList}/>
+                        {/* <Route path="/insertData" Component={InsertData}/> */}
+                        <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
+                    </Routes>
             </Router>
         </Provider>
         </div>
