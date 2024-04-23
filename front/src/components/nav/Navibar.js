@@ -128,7 +128,7 @@ return (
                     ) : (
                         
                         <div class='header_right2'>
-                            <PiUserCircle style={{fontSize:'30px', marginLeft:'40px', marginBottom:'5px'}} />
+                            <PiUserCircle style={{fontSize:'30px', marginLeft:'40px', marginBottom:'5px'}} onClick={()=>navigate('/pedal/login')}/>
                             <Nav.Link href="/pedal/login" class='menu-button'>&nbsp;로그인</Nav.Link>
                             <Nav.Link href="/pedal/join" class='menu-button'>회원가입</Nav.Link>
                         </div>
