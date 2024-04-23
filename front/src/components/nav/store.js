@@ -17,6 +17,21 @@ let loginUser = createSlice({
 })
 
 
+//장바구니로 넘어갈 아이템
+export let cartItemStore = createSlice({
+  name:'cart',
+  initialState:{
+    items: [],
+  },
+  reducers: {
+    addToCart : (state, action) => {
+      state.items.push(action.payload);
+    },
+  },
+});
+
+
+
 //장바구니 총액 담을 state, 금액만 필요로 하는 컴포넌트에서 바로 받을거
 const totalPrice = createSlice({
   name: 'totalPrice',
@@ -43,12 +58,16 @@ const totalPrice = createSlice({
 
 //loginUser state 초기화하는 함수(loginToken) export
 export let { loginToken } = loginUser.actions
+export let {addToCart} = cartItemStore.actions;
 export const { addToTotal, subtractFromTotal, setTotal } = totalPrice.actions;
+
+export let selectCartItems = (state) => state.cart.items;
 
 //만든 리덕스 state 등록해서 export. Main.js의 provider로 받을거고 Main 속 라우터들은 바로 값 받아 쓸 수 있음.
 export default configureStore({
   reducer: {
       loginUser: loginUser.reducer,
-      totalPrice: totalPrice.reducer
+      totalPrice: totalPrice.reducer,
+      cart : cartItemStore.reducer
    }
 }) 

@@ -190,6 +190,7 @@ const ProductDetail = () => {
 
     const navigate = useNavigate();
     const { pId } = useParams();
+    const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({
         pId: '',
         pCategory: '',
@@ -222,13 +223,31 @@ const ProductDetail = () => {
     //로그인 여부에 따른 장바구니
     const loginUser = useSelector((state) => state.loginUser);
 
-    const onCart = () => {
-        if (loginUser && loginUser.uid != null) {
-            alert("장바구니에 담겼습니다.");
-            navigate('/pedal/cart');
-        } else {
-            alert("로그인 하세요");
+    const onCart = async () => {
+        if (loginUser.uid === null) {
+            alert("로그인 후에 이용 가능합니다.");
             navigate('/pedal/login');
+        } else {
+            try {
+                console.log("넘기는 uid:" + loginUser.uid);
+                console.log("넘기는 pId:" + pId);
+                console.log("넘기는 quantity:" + quantity);
+                const response = await axios.post('http://localhost:4000/pedal/addToCart', {
+                    uid: loginUser.uid,
+                    pid: pId,
+                    quantity: quantity 
+                });
+                console.log('장바구니 추가 응답:', response);
+                if (response.status === 200) {
+                    alert("장바구니에 담겼습니다.");
+                    navigate('/pedal/cart');
+                } else {
+                    alert("장바구니에 제품을 추가하는 데 문제가 발생했습니다.");
+                }
+            } catch (error) {
+                console.error('장바구니 추가 오류:', error);
+                alert("장바구니에 제품을 추가하는 데 문제가 발생했습니다.");
+            }
         }
     };
 
@@ -237,7 +256,6 @@ const ProductDetail = () => {
         navigate('/pedal/myBuy');
     };
     */
-   const [quantity, setQuantity] = useState(1);
 
     const increment = (e) => {
         e.preventDefault();

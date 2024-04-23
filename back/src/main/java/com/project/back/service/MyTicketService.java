@@ -28,9 +28,9 @@ public class MyTicketService {
         return myTicketRepository.findAll();
     }
 
-    public MyTicketEntity getMyTicketByUidAndMtName(String uid, String mtName) {
-        return myTicketRepository.findByUidAndMtName(uid, mtName);
-    }
+    // public MyTicketEntity getMyTicketByUidAndMtName(String uid, String mtName) {
+    //     return myTicketRepository.findByUidAndMtName(uid, mtName);
+    // }
 
     //하나의 트랜잭션에서 일어나야 함,다른 곳에서 작업이 이루어지면 안됨
     @Transactional
@@ -52,4 +52,11 @@ public class MyTicketService {
             throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
         }
     }
+
+    // 업데이트된 티켓 데이터만 가져오기
+    public List<MyTicketEntity> getUpdatedTicketEntities() {
+        // 업데이트된 상태의 티켓만 조회합니다.
+        return myTicketRepository.findByMyStatus(true);
+    }
+
 }

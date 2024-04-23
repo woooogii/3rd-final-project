@@ -42,4 +42,24 @@ public class CartService {
         cartRepository.deleteByUserAndProductId(uId, pId);
     }
 
+      // 데이터베이스에 장바구니에 제품 추가
+    public void addToCart(String user, Long product, Long quantity) {
+        // 장바구니 엔티티 생성
+        CartEntity cartItem = cartRepository.findByUserAndProductId(user, product);
+
+        if (cartItem != null) {
+            // 이미 있는 경우 수량을 업데이트
+            cartItem.setCAmount(cartItem.getCAmount() + quantity);
+        } else {
+            // 없는 경우 새로 추가
+            cartItem = new CartEntity();
+            cartItem.setUser(user);
+            cartItem.setProductId(product);
+            cartItem.setCAmount(quantity);
+        }
+
+        // 데이터베이스에 저장
+        cartRepository.save(cartItem);
+    }
+
 }
