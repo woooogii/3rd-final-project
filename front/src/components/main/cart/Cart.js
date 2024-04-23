@@ -12,6 +12,7 @@ import '../../../styles/cart.css'
 
 
 const Cart = () => {
+
   let loginUser = useSelector((state)=>{ return state.loginUser });
   const [itemQuantities, setItemQuantities] = useState({}); // 각 아이템 수 (이거로 price*수 해서 가격 받을거)
   const [totalPrice, setTotalPrice] = useState(0); // 총 가격 담을거
