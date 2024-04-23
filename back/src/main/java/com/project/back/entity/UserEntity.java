@@ -47,4 +47,9 @@ public class UserEntity {
     @Column(name = "u_regdate")
     private LocalDate uRegDate = LocalDate.now(); // 시스템 날짜 디폴트
 
+    public String getPassword() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    }
+
 }

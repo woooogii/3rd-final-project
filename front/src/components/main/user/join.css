@@ -84,3 +84,7 @@
     color: #fff;
     cursor: pointer;
 }
+
+.join-error-message{
+    color: red;
+}

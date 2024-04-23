@@ -3,36 +3,72 @@ import CartPay from "./CartPay";
 import axios from 'axios';
 import { useSelector } from "react-redux";
 import { IoTrashBinOutline } from "react-icons/io5";
-import { CiSquarePlus,CiSquareMinus } from "react-icons/ci";
-import {Card, Image, ItemBox, QuantityButton, QuantityBox, CartContainer,
-  CartBox, CartPayContainer} from './CartStyle';
-  import { FaRegCircleXmark } from "react-icons/fa6";
-import '../../../styles/cart.css'
+import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
+import { Card, Image, ItemBox, QuantityButton, QuantityBox, CartContainer, CartBox, CartPayContainer } from './CartStyle';
+import { FaRegCircleXmark } from "react-icons/fa6";
+import { Tabs, Switch } from 'antd';
+import styled from 'styled-components';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
+const MyTicketList = styled.div`
+  margin: 50px;
+  font-family: 'noto-sans';
+  width: 75%;
+  margin: auto;
+  
+  .myTicket_title{
+    margin-top: 60px;
+    padding-bottom: 40px;
+    color: #585858;
+    font-weight: bold;
+  }
 
+  .myTicket_head{
+    width: 75%;
+    display: flex;
+    list-style-type: none;
+    padding-bottom: 20px;
+    font-size: 14px;
+    color: #9E9FA5;
+    text-align: center;
+  }
+
+  .myTicket_list{
+    display: flex;
+    list-style-type: none;
+    font-size: 15px;
+    color: #333;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    height: 150px;
+  }
+`;
 
 const Cart = () => {
+  let loginUser = useSelector((state) => { return state.loginUser });
+  const [itemQuantities, setItemQuantities] = useState({});
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [user, setUser] = useState('');
+  const [cartItems, setCart] = useState([]);
+  const [cartEmpty, setCartEmpty] = useState(false);
 
-  let loginUser = useSelector((state)=>{ return state.loginUser });
-  const [itemQuantities, setItemQuantities] = useState({}); // 각 아이템 수 (이거로 price*수 해서 가격 받을거)
-  const [totalPrice, setTotalPrice] = useState(0); // 총 가격 담을거
-  const [user, setUser] = useState(''); //현재 로그인한 유저
-  const [cartItems, setCart] = useState([]); // 그 유저의 카트속 템들 가져온거 
-  const [cartEmpty, setCartEmpty] = useState(false); // 장바구니가 비어있는지 여부
+  const navigate = useNavigate();
 
-  useEffect(() => { //랜더링될때 로그인한 유저 카트
+  useEffect(() => {
+    setUser(loginUser.uid);
+  }, [loginUser.uid]);
+
+  useEffect(() => {
     if (user !== '') {
       showCart();
     }
-
-    return () => {
-      setUser(loginUser.uid);
-    };
   }, [user]);
 
   const showCart = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/pedal/mycart?uid=${user}`)
+      const response = await axios.get(`http://localhost:4000/pedal/mycart?uid=${user}`);
       setCart(response.data);
       setCartEmpty(response.data.length === 0);
     } catch (error) {
@@ -46,12 +82,9 @@ const Cart = () => {
         uid: user,
         pid: pid
       });
-      console.log("삭제: " + user + " / " + pid);
-      // 총액에서 삭제된 상품의 가격을 제거하기
       setTotalPrice(prevPrice => prevPrice - (itemQuantities[pid] || 0) * price);
-      // 삭제 요청이 성공했을 때 장바구니에서 해당 아이템을 제거하기
       setCart(prevCart => prevCart.filter(item => item.pid !== pid));
-      setCartEmpty(prevCart => prevCart.length === 1); // 카트 아이템이 하나밖에 없으면 장바구니가 비어있음
+      setCartEmpty(prevCart => prevCart.length === 1);
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +95,7 @@ const Cart = () => {
       ...prevState,
       [pid]: (prevState[pid] || 0) + 1
     }));
-    setTotalPrice(prevPrice => prevPrice + price); // 가격 추가
+    setTotalPrice(prevPrice => prevPrice + price);
   };
 
   const handleDecrement = (pid, price) => {
@@ -71,41 +104,66 @@ const Cart = () => {
         ...prevState,
         [pid]: Math.max((prevState[pid] || 0) - 1, 0)
       }));
-      setTotalPrice(prevPrice => prevPrice - price); // 가격 감소
+      setTotalPrice(prevPrice => prevPrice - price);
     }
   };
- 
 
   return (
-    <CartContainer>
-      <div>{loginUser.uname}님 구매를 서두르세요!</div>
-      <CartBox>
-        <div className="cart-box">
-          {cartEmpty ? (
-            <div>장바구니가 비어있습니다.</div>
-          ) : (
-            cartItems.map((item) => (
-              <Card key={item.pid}>
-                <Image src="/image/03.jpg"/>
-                <ItemBox>
-                  <div>품명: {item.pname}</div>
-                  <div>가격: {(item.pprice) * (itemQuantities[item.pid] || 0)}</div>
-                </ItemBox>
-                <QuantityBox>
-                      <CiSquareMinus size={30} onClick={() => handleDecrement(item.pid, item.pprice)}/> 
-                            <div>{itemQuantities[item.pid] || 0}</div>
-                      <CiSquarePlus size={30} onClick={() => handleIncrement(item.pid, item.pprice)}/> 
-               </QuantityBox>
-                    <FaRegCircleXmark onClick={() => removeItem(item.pid, item.pprice)}/>
-                </Card>
+    <>
+      <div style={{ display: 'flex' }}>
+        <MyTicketList>
+          <h4 className="myTicket_title"> - 장바구니</h4>
+          <br />
+          <b>
+            <ul className="myTicket_head">
+              <li style={{ width: '15%', marginLeft: '20px' }}>상품</li>
+              <li style={{ width: '25%', marginLeft: '80px' }}>상품명</li>
+              <li style={{ width: '25%', marginLeft: '50px' }}>상품 가격</li>
+              <li style={{ width: '15%', marginLeft: '40px' }}>수량</li>
+              <li style={{ width: '15%', marginLeft: '60px' }}>총 가격</li>
+              <li style={{ width: '5%', marginLeft: '30px' }}>수정</li>
+            </ul>
+          </b>
+          <hr />
+          <div>
+            {cartEmpty ? (
+              <div>
+                <br />
+                <p style={{ textAlign: 'center', marginTop: '10px' }}>장바구니가 비었습니다.</p>
+                <br />
+                <hr />
+              </div>
+            ) : (
+              cartItems.map((item) => (
+                <div key={item.pid}>
+                  <div className="myTicket_list" style={{ width: '1000px' }}>
+                    <div style={{ width: '15%', paddingLeft: '10px' }}><Image src="/image/03.jpg" /></div>
+                    <div style={{ width: '25%' }}>{item.pname}</div>
+                    <div style={{ width: '25%' }}>{item.pprice}</div>
+                    <div style={{ width: '15%' }}>
+                      <QuantityBox>
+                        <CiSquareMinus size={30} onClick={() => handleDecrement(item.pid, item.pprice)} />
+                        <div>{itemQuantities[item.pid] || 0}</div>
+                        <CiSquarePlus size={30} onClick={() => handleIncrement(item.pid, item.pprice)} />
+                      </QuantityBox>
+                    </div>
+                    <div style={{ width: '15%' }}> {(item.pprice) * (itemQuantities[item.pid] || 0)}</div>
+                    <div style={{ width: '5%' }}> <FaRegCircleXmark onClick={() => removeItem(item.pid, item.pprice)} /></div>
+                  </div>
+                  <hr />{' '}
+                </div>
               ))
             )}
           </div>
-        </CartBox>
+          <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
+            &nbsp;메인으로&nbsp;
+          </button>
+        </MyTicketList>
         <CartPayContainer>
-          <CartPay totalPrice={totalPrice}/>  
+          <CartPay totalPrice={totalPrice} cartItems={cartItems} />
         </CartPayContainer>
-      </CartContainer>
+      </div>
+    </>
   );
 };
 

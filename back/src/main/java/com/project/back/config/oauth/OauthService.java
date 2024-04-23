@@ -25,11 +25,7 @@ public class OauthService extends DefaultOAuth2UserService {
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         Oauth2Response oAuth2Response = null;
-        if (registrationId.equals("naver")) {
-
-            oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
-        }
-        else if (registrationId.equals("google")) {
+        if (registrationId.equals("google")) {
 
             oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
         }

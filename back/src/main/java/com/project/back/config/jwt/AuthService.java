@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.project.back.entity.UserEntity;
 import com.project.back.repository.UserRepository;
@@ -26,7 +27,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final SecurityUserDetailService userDetailService;
     private final PasswordEncoder passwordEncoder;
-
+    
 
     public ResponseEntity<String> login(Map<String, String> user, HttpServletResponse response) {
         System.out.println("로그인 요청 온 아이디: "+ user.get("uid"));
@@ -42,10 +43,10 @@ public class AuthService {
         UserEntity userEntity = userRepository.findByuId(user.get("uid"));
         
         // 사용자가 존재하지 않는 경우
-        if (userEntity == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("가입되지 않은 아이디입니다.");
-        }
-        
+            if (userEntity == null || userEntity.equals(null)) {
+                System.out.println("아디없어");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
         // 비밀번호 일치 여부 확인
         if (!passwordEncoder.matches(user.get("upwd"), userEntity.getUPwd())) {
             throw new IllegalArgumentException("이메일 또는 비밀번호가 맞지 않습니다.");
@@ -71,7 +72,6 @@ public class AuthService {
                 // 쿠키 삭제
                 Cookie cookie = new Cookie("jwtToken", null);
                 cookie.setMaxAge(0);
-                cookie.setHttpOnly(true);
                 cookie.setSecure(true);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -87,7 +87,6 @@ public class AuthService {
             // 쿠키 삭제
             Cookie cookie = new Cookie("googleJwtToken", null);
             cookie.setMaxAge(0);
-            cookie.setHttpOnly(true);
             cookie.setSecure(true);
             cookie.setPath("/");
             response.addCookie(cookie);

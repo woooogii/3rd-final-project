@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("pedal/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> user, HttpServletResponse response) {
- 
+        System.out.println(user);
 
         return authService.login(user,response);
     }
