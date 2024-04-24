@@ -7,7 +7,7 @@ import MyPageCheckPW from './MyPageCheckPW';
 import MyPageTicketList from './MyPageTicketList';
 import MainPageDefault from './MainPageDefault';
 import MyPageUpdatePW from './MyPageUpdatePW';
-import MyPageRoad from './MyPageRoad';
+import MpSnsInfo from './MpSnsInfo';
 
 const MyPage = () => {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -44,8 +44,10 @@ const MyPage = () => {
         return <MyPageTicketList />;
       case 'updatePassword':
         return <MyPageUpdatePW setActiveComponent={setActiveComponent} />;
+      case 'googleInfo':
+        return <MpSnsInfo setActiveComponent={setActiveComponent} />;
       default:
-        return <MainPageDefault setActiveComponent={setActiveComponent} />;
+        return <MainPageDefault setActiveComponent={setActiveComponent} tokenType={tokenType}/>;
     }
   };
 
@@ -59,7 +61,7 @@ const MyPage = () => {
         <h1 style={{ textAlign: 'left', cursor: 'pointer', backgroundColor: '#1675F2', width: 'fit-content' }} onClick={() => setActiveComponent(null)}>마이페이지</h1>
         <hr />
         {renderComponent(activeComponent)}
-        <MyPageRoad/>
+        
       </div>
     </div>
   );
