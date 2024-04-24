@@ -6,9 +6,26 @@ const MainPageDefault = ({ setActiveComponent, tokenType }) => {
     return (
         <div style={{backgroundColor: '#ffffff'}} className='defaultContainer'>
             {tokenType === 'googleJwtToken' ? (
-                <div>
+                <div className="card text-end">
                    
                     <p>이거시 구글 로그인의 디폴트 페이지.</p>
+                    <div className="card-body">
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    </div>
+                  
                 </div>
             ) : (
                 <>
@@ -31,8 +48,13 @@ const MainPageDefault = ({ setActiveComponent, tokenType }) => {
                             <button onClick={() => setActiveComponent('checkpwd')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>상점 이용 내역</button>
                         </div>
                     </div>
+                    
+                  
                 </>
             )}
+              
+                    
+                    
         </div>
     );
 };

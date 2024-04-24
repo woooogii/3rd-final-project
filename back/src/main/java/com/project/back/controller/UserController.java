@@ -66,8 +66,8 @@ public class UserController {
 
     @PostMapping("/pedal/check-password")
     public ResponseEntity<Boolean> checkPassword(@RequestBody UserPasswordDTO userPasswordDTO) {
-    UserEntity user = userService.callUserInfo(userPasswordDTO.getUId());
-    if (user != null && userService.getPasswordEncoder().matches(userPasswordDTO.getUPwd(), user.getUPwd())) {
+    UserEntity user = userService.callUserInfo(userPasswordDTO.getUid());
+    if (user != null && userService.getPasswordEncoder().matches(userPasswordDTO.getUpwd(), user.getUPwd())) {
         return ResponseEntity.ok(true);
     }
     return ResponseEntity.ok(false);

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector } from "react-redux";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
-import { Card, Image, ItemBox, QuantityButton, QuantityBox, CartContainer, CartBox, CartPayContainer } from './CartStyle';
+import { Image, QuantityBox, CartPayContainer } from './CartStyle';
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Tabs, Switch } from 'antd';
 import styled from 'styled-components';
@@ -60,7 +60,7 @@ const Cart = () => {
   useEffect(() => {
     setUser(loginUser.uid);
   }, [loginUser.uid]);
-
+ 
   useEffect(() => {
     if (user !== '') {
       showCart();

@@ -58,7 +58,7 @@ const MyPage = () => {
         tokenType={tokenType}
       />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: 70, marginLeft: 50, marginRight: 70 }}>
-        <h1 style={{ textAlign: 'left', cursor: 'pointer', backgroundColor: '#1675F2', width: 'fit-content' }} onClick={() => setActiveComponent(null)}>마이페이지</h1>
+        <h1 style={{ textAlign: 'left', cursor: 'pointer', width: 'fit-content' }} onClick={() => setActiveComponent(null)}>마이페이지</h1>
         <hr />
         {renderComponent(activeComponent)}
         

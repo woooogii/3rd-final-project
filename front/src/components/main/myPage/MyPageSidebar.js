@@ -8,7 +8,11 @@ function MyPageSidebar({ setActiveComponent, tokenType }) {
         return (
           <ul>
             <h4><b>계정 관리</b></h4>
+            <hr/>
             <li onClick={() => setActiveComponent('googleInfo')}>사용자 정보수정</li>
+            <br/>
+            <h4><b>구매 관리</b></h4>
+            <hr/>
             <li onClick={() => setActiveComponent('tickets')}>티켓 구매내역</li>
             <li onClick={() => setActiveComponent('store')}>상점 구매내역</li>
           </ul>

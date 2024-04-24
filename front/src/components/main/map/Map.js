@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Position from './Position';
+import InsertData from '../InsertComponent/InsertData';
 
 const Map = () => {//db에서 데이터 꺼내는 component
     const [entities,setEntites] = useState(null);
@@ -19,6 +20,7 @@ const Map = () => {//db에서 데이터 꺼내는 component
     }
     return (
         <div>
+            {/* <InsertData/> */}
             {entities && <Position entities={entities}/>}
         </div>
     );
