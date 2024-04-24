@@ -32,4 +32,19 @@ public class StationService {
             throw new RuntimeException("데이터 불러오기 오류: " + e.getMessage());
         }
     }
+
+    public List<StationEntity> searchData(String keyword){
+        try {
+            System.out.println("service"+keyword);
+            List<StationEntity> result = stationRepository.findStationByRentNmContaining(keyword);
+            System.out.println("service"+result);
+            if (result.isEmpty()) {
+                return Collections.emptyList(); // 빈 리스트 반환
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("데이터 불러오기 오류: " + e.getMessage());
+        }
+    }
 }

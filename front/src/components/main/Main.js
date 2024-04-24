@@ -17,6 +17,7 @@ import Map from './map/Map';
 import { Provider } from 'react-redux';
 import store from '../nav/store.js';
 import MyPageTicketList from './myPage/MyPageTicketList.js';
+import Home1 from './home/Home1.js';
 // import InsertData from './InsertComponent/InsertData.js';
 
 
@@ -28,7 +29,8 @@ const Main = () => {
             <Router>
                     <Navibar/>
                     <Routes>
-                       <Route path="/" Component={Home}/>
+                        {/* 이건 테스트하고 지워 */}<Route path="pedal/homeTest" Component={Home1}/>
+                        <Route path="/" Component={Home}/>
                         <Route path="/pedal/home" Component={Home}/>
                         <Route path="/pedal/login" Component={Login}/>
                         <Route path="/pedal/join" Component={Join}/>

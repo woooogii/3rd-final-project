@@ -3,6 +3,8 @@ package com.project.back.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import com.project.back.entity.CartEntity;
+import com.project.back.entity.PaymentEntity;
 import com.project.back.entity.ProductEntity;
 import com.project.back.service.CartService;
 import com.project.back.service.ProductService;
@@ -34,17 +37,42 @@ public class CartController {
     @Autowired 
     private ProductService productService;
 
+    // 결제 정보를 저장
+    @PostMapping("/pedal/addToCart")
+    public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> cartInfo) {
+        try {
+            
+            System.out.println("유저~~~:" + cartInfo.get("uid"));
+            System.out.println("상품명~~~:" + cartInfo.get("pid"));
+            System.out.println("수량~~~:" + cartInfo.get("quantity"));
 
- 
-    //장바구니 담는다 
-    @PostMapping("/pedal/cart")
-    public void addCart(@RequestBody CartEntity cartEntity) {
+            String user = (String) cartInfo.get("uid");
+            Long productId = Long.parseLong(cartInfo.get("pid").toString());
+            Long quantity = Long.parseLong(cartInfo.get("quantity").toString());
 
-        cartService.addOneCart(cartEntity);
+            cartService.addToCart(user, productId, quantity);
+
+            return ResponseEntity.ok("성공적!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product to cart.");
+        }
     }
+    // //장바구니 담는다 
+    // @PostMapping("/pedal/addToCart")
+    // public ResponseEntity<String> addToCart(@RequestBody Map<String, Object> cartItem) {
+    //     try {
+    //         String uid = (String) cartItem.get("uid");
+    //         Long pid = (Long) cartItem.get("pid");
+    //         Long quantity = (Long) cartItem.get("quantity");
+    
+    //         cartService.addToCart(uid, pid, quantity);
+    
+    //         return ResponseEntity.ok("장바구니에 제품이 추가되었습니다.");
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("장바구니 추가 중 오류가 발생했습니다.");
+    //     }
+    // }
 
-
-    //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
 
     //유저가 장바구니화면 들어오면 유저의 장바구니 목록 보내주기    
     @GetMapping("/pedal/mycart")

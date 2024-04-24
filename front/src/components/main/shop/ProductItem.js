@@ -58,6 +58,7 @@ const ProductItem = ({item}) => {
                 <img src={img} alt={`Product Image ${index}`}/>
                 </p>
                 )}
+
             </div>
             <div>
                 <h3>상품명: {item.pname}</h3>

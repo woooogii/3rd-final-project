@@ -55,6 +55,7 @@ public class MyTicketController {
 
 
     //내 모든 티켓 조회
+    //클라이언트가 티켓 목록을 요청할 때
     @GetMapping("/myTicketList")
     public List<MyTicketEntity> getAllMyTicketEntities() {
         List<MyTicketEntity> tickets = myTicketService.getAllMyTicketEntities();
@@ -88,13 +89,21 @@ public class MyTicketController {
           //특정 상품번호에 대한 티켓 사용여부 업데이트
           myTicketService.ticketStatus(mtMerchantUid,newStatus,startTime);
 
-          return ResponseEntity.ok("티켓 상태가 성공적으로 변경되었습니다!");
+        // 업데이트된 데이터를 다시 전송
+        List<MyTicketEntity> updatedTickets = myTicketService.getAllMyTicketEntities();
 
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("티켓 상태 변경 중 오류가 발생했습니다.");            
-        }
+        return ResponseEntity.ok(updatedTickets);
+
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("티켓 상태 변경 중 오류가 발생했습니다.");          
+    }  
     }
-
-
-
+  // 업데이트된 티켓 데이터를 가져오는 엔드포인트 추가
+  //클라이언트가 티켓 상태를 변경할 때 사용
+  @GetMapping("/updatedTicketData")
+  public ResponseEntity<List<MyTicketEntity>> getUpdatedTicketData() {
+      // 업데이트된 티켓 데이터만 가져오기 위해 새로운 메서드를 호출합니다.
+      List<MyTicketEntity> updatedTickets = myTicketService.getUpdatedTicketEntities();
+      return ResponseEntity.ok(updatedTickets);
+  }
 }

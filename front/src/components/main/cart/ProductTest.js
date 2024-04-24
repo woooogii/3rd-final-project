@@ -25,7 +25,7 @@ const ProductTest = () => {
     const fetchData = async () => {
       
         try {
-            const id = 100; //리스트에서 클릭한 상품id라 치고 
+            const id = 1; //리스트에서 클릭한 상품id라 치고 
             const response = await axios.get(`http://localhost:4000/pedal/oneitem?pid=${id}`)
             setData(response.data)
         } catch (error) {
@@ -37,8 +37,8 @@ const ProductTest = () => {
     const cart = async () => {
 
 
-            const id = 100; //리스트에서 클릭한 id라 치고
-            const user = "rud101"; //현재 접속중인 유저라 치고
+            const id = 1; //리스트에서 클릭한 id라 치고
+            const user = "kyou916@gmail.com"; //현재 접속중인 유저라 치고
             const amount = 1;
            
             const addCartData = {

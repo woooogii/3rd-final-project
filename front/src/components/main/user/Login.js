@@ -29,6 +29,8 @@ const Login = () => {
 
   
             if (response.status === 200) {
+                console.log(response.data);
+                alert(response.data)
                 alert('로그인 완료');
                 navigate('/pedal/home');
             } else {
