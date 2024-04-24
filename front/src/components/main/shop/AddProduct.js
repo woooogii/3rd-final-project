@@ -29,7 +29,7 @@ const AddProduct = ({ addProduct }) => {
                 data.append("files", images[i]);
             }
         
-            const response = await axios.post('http://localhost:4000/pedal/product/created', data, {
+            const response = await axios.post('http://localhost:4000/pedal/shop/created', data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

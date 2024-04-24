@@ -32,7 +32,6 @@ public class ProductEntity {
     @Column(name = "p_price")
     private Long pPrice;
 
-
     @Column(name = "p_description")
     private String pDescription;
 

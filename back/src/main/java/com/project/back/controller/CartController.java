@@ -14,7 +14,6 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import com.project.back.entity.CartEntity;
-import com.project.back.entity.PaymentEntity;
 import com.project.back.entity.ProductEntity;
 import com.project.back.service.CartService;
 import com.project.back.service.ProductService;

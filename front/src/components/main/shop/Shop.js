@@ -1,15 +1,19 @@
-import React, { useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import ShopHeader from './ShopHeader';
 
 import '../../../styles/nav/nav.css'
-import ProductList from './ProductList';
+import './style/mainList.css';
 import AddProduct from './AddProduct';
+import ProductItem from './ProductItem';
+import Search from './Search';
 
 
 const Shop = () => {
+    const [entities, setEntities] = useState(null);
     const navigate = useNavigate()
     const startHereRef = useRef(null);
     let loginUser = useSelector((state)=>{ return state.loginUser })
@@ -28,6 +32,18 @@ const Shop = () => {
     const loginFirst = () => {
         navigate('/pedal/login')
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pedal/shop');
+                setEntities(response.data);
+            } catch (error) {
+                console.error('error_fetch', error);   
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -50,11 +66,26 @@ const Shop = () => {
             }}>구매</button>
 
             <br/><br/><br/><br/><br/><br/>
-            <AddProduct/>
-            <ProductList/>
+            {/* <AddProduct/> */}
+
+            <div className='main'>
+                <div className='visual'>
+                    <img src ="/bennerImage/main11.jpg" alt="배너이미지1"/> 
+                </div>
+                <div className='product'>
+                    <h2>상품</h2>
+                    <Search/>
+                    <ul>
+                        {entities && entities.map(item => 
+                            <ProductItem key={item.pid} item={item}/>
+                        )}
+                    </ul>
+                </div>
+            </div>
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        
         </>
     );
 };

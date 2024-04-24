@@ -17,6 +17,8 @@ import { Provider } from 'react-redux';
 import store from '../nav/store.js';
 import MyPageTicketList from './myPage/MyPageTicketList.js';
 import Home1 from './home/Home1.js';
+import ProductList from './shop/ProductList.js';
+import CategoryList from './shop/CategoryList.js';
 // import InsertData from './InsertComponent/InsertData.js';
 
 
@@ -44,6 +46,8 @@ const Main = () => {
                         <Route path="/pedal/station" Component={Map}/>
                         <Route path="/pedal/myTicketList" Component={MyPageTicketList}/>
                         {/* <Route path="/insertData" Component={InsertData}/> */}
+                        <Route path="/pedal/shop/list" Component={ProductList}/>
+                        <Route path="/pedal/shop/list/:category" element={<CategoryList />}/>
                         <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
                     </Routes>
             </Router>
