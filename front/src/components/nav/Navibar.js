@@ -97,40 +97,40 @@ const Navibar = () => {
 
 
 return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/pedal/home">PEDAL</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <div className="container-fluid">
+      <a className="navbar-brand" href="/pedal/home">PEDAL</a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/pedal/station">대여소</a>
+      <div className="collapse navbar-collapse" id="navbarText">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="/pedal/station">대여소</a>
           </li>
           <span style={{marginTop:'22px', fontSize:'20px'}}>ㅣ</span>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/pedal/ticket">이용권</a>
+          <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="/pedal/ticket">이용권</a>
           </li>
           <span style={{marginTop:'22px', fontSize:'20px'}}>ㅣ</span>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/pedal/shop">쇼핑몰</a>
+          <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="/pedal/shop">쇼핑몰</a>
           </li>
         </ul>
-        <span class="navbar-text">
+        <span className="navbar-text">
         {token !== null ? (
-                        <div class='header_right1'>
+                        <div className='header_right1'>
                             <div>{uname}님&nbsp;<PiUserCircle style={{fontSize:'30px', marginBottom:'5px'}} /></div>
-                                <Nav.Link onClick={() => { handleLogout() }} class='menu-button'>로그아웃</Nav.Link>
-                                <Nav.Link href="/pedal/myPage" class='menu-button'>마이페이지</Nav.Link>
+                                <Nav.Link onClick={() => { handleLogout() }} className='menu-button'>로그아웃</Nav.Link>
+                                <Nav.Link href="/pedal/myPage" className='menu-button'>마이페이지</Nav.Link>
                                 <BsCart3 style={{fontSize:'24'}} onClick={() => { navigate('/pedal/cart') }} />
                         </div>
                     ) : (
                         
-                        <div class='header_right2'>
+                        <div className='header_right2'>
                             <PiUserCircle style={{fontSize:'30px', marginLeft:'40px', marginBottom:'5px'}} />
-                            <Nav.Link href="/pedal/login" class='menu-button'>&nbsp;로그인</Nav.Link>
-                            <Nav.Link href="/pedal/join" class='menu-button'>회원가입</Nav.Link>
+                            <Nav.Link href="/pedal/login" className='menu-button'>&nbsp;로그인</Nav.Link>
+                            <Nav.Link href="/pedal/join" className='menu-button'>회원가입</Nav.Link>
                         </div>
                     )}
                   

@@ -16,7 +16,7 @@ import Map from './map/Map';
 import { Provider } from 'react-redux';
 import store from '../nav/store.js';
 import MyPageTicketList from './myPage/MyPageTicketList.js';
-// import InsertData from './InsertComponent/InsertData.js';
+//import InsertData from './InsertComponent/InsertData.js';
 
 
 
