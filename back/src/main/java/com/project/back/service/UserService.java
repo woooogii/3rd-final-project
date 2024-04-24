@@ -1,8 +1,7 @@
 package com.project.back.service;
 
+import java.util.Optional;
 
-
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,12 +49,12 @@ public class UserService {
     }
     
     public UserEntity callUserInfo(String uId){
-        return userRepository.findByuId(uId).orElse(null);
+        return userRepository.findByuId(uId);
     }
 
     public UserEntity updateUserInfo(String uId, UserDTO userDTO) {
         // 데이터베이스에서 사용자를 찾습니다.
-        UserEntity user = userRepository.findByuId(uId).orElse(null);
+        UserEntity user = userRepository.findByuId(uId);
 
         user.setUId(userDTO.getUId());
         user.setUName(userDTO.getUName());
@@ -67,4 +66,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
 }
+
+

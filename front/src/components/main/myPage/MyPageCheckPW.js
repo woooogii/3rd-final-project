@@ -1,41 +1,40 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-function MyPageCheckPw({ history }) {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const MyPageCheckPW = ({ setActiveComponent }) => {
+  const [upwd, setUpwd] = useState('');
+  const loginUser = useSelector(state => state.loginUser);
+  const uid = loginUser.uid;
+
+
+
+  const handlePasswordChange = (e) => {
+    setUpwd(e.target.value);
+  };
 
   const checkPassword = async () => {
     try {
-      // 비밀번호 확인 API를 호출
-      const response = await axios.post('/api/check-password', { password });
+      const response = await axios.post('http://localhost:4000/pedal/check-password', { uid: uid, upwd: upwd });
 
-      // 서버에서 비밀번호 일치 여부를 검사한 후, 결과를 받음
-      if (response.data.isPasswordCorrect) {
-        // 비밀번호가 맞다면, 비밀번호 변경 페이지로 이동
-        history.push('/mypagemain/update-password');
+      if (response.data) {
+        setActiveComponent('updatePassword'); // 상태를 업데이트하여 비밀번호 수정 컴포넌트로 전환
       } else {
-        // 비밀번호가 틀릴 경우, 에러 메시지 설정
-        setError('비밀번호가 일치하지 않습니다.');
+        alert('비밀번호가 일치하지 않습니다.');
       }
-    } catch (err) {
-      setError('비밀번호 확인 중 오류가 발생했습니다.');
+    } catch (error) {
+      console.error('비밀번호 검증 실패', error);
+      alert('서버 오류입니다.');
     }
   };
 
   return (
-    <div>
-      <h1>비밀번호 확인</h1>
-      <input 
-        type="password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="현재 비밀번호 입력"
-      />
+    <div style={{padding: 20}}>
+      <h2>비밀번호 확인</h2>
+      <input type="password" value={upwd} onChange={handlePasswordChange} placeholder="현재 비밀번호 입력" />
       <button onClick={checkPassword}>확인</button>
-      {error && <p>{error}</p>}
     </div>
   );
-}
+};
 
-export default MyPageCheckPw;
+export default MyPageCheckPW;
