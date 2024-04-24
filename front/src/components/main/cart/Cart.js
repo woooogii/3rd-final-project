@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector } from "react-redux";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
-import { Card, Image, ItemBox, QuantityButton, QuantityBox, CartContainer, CartBox, CartPayContainer } from './CartStyle';
+import { Image, QuantityBox, CartPayContainer } from './CartStyle';
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Tabs, Switch } from 'antd';
 import styled from 'styled-components';
@@ -25,7 +25,7 @@ const MyTicketList = styled.div`
   }
 
   .myTicket_head{
-    width: 75%;
+    width: 85%;
     display: flex;
     list-style-type: none;
     padding-bottom: 20px;
@@ -35,6 +35,7 @@ const MyTicketList = styled.div`
   }
 
   .myTicket_list{
+    width: 85%;
     display: flex;
     list-style-type: none;
     font-size: 15px;
@@ -59,7 +60,7 @@ const Cart = () => {
   useEffect(() => {
     setUser(loginUser.uid);
   }, [loginUser.uid]);
-
+ 
   useEffect(() => {
     if (user !== '') {
       showCart();
@@ -69,6 +70,19 @@ const Cart = () => {
   const showCart = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/pedal/mycart?uid=${user}`);
+      console.log(response.data);
+
+      const initialQuantities = {};
+      let initialTotalPrice = 0; // 초기 총 가격을 저장할 변수
+  
+      response.data.forEach(item => {
+        initialQuantities[item.pid] = item.camount;
+        initialTotalPrice += item.camount * item.pprice; // 각 상품의 수량과 가격을 곱하여 총 가격에 추가
+      });
+      setItemQuantities(initialQuantities);
+      setTotalPrice(initialTotalPrice); // 초기 총 가격 설정
+
+
       setCart(response.data);
       setCartEmpty(response.data.length === 0);
     } catch (error) {
@@ -110,55 +124,55 @@ const Cart = () => {
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
-        <MyTicketList>
-          <h4 className="myTicket_title"> - 장바구니</h4>
-          <br />
-          <b>
-            <ul className="myTicket_head">
-              <li style={{ width: '15%', marginLeft: '20px' }}>상품</li>
-              <li style={{ width: '25%', marginLeft: '80px' }}>상품명</li>
-              <li style={{ width: '25%', marginLeft: '50px' }}>상품 가격</li>
-              <li style={{ width: '15%', marginLeft: '40px' }}>수량</li>
-              <li style={{ width: '15%', marginLeft: '60px' }}>총 가격</li>
-              <li style={{ width: '5%', marginLeft: '30px' }}>수정</li>
-            </ul>
-          </b>
-          <hr />
-          <div>
-            {cartEmpty ? (
-              <div>
-                <br />
-                <p style={{ textAlign: 'center', marginTop: '10px' }}>장바구니가 비었습니다.</p>
-                <br />
+      <div style={{ display: 'flex', marginLeft: '100px'}}>
+      <MyTicketList>
+        <h4 className="myTicket_title">  장바구니</h4>
+        <br />
+        <b>
+          <ul className="myTicket_head">
+            <li style={{ width: '15%' }}>상품</li>
+            <li style={{ width: '25%' }}>상품명</li>
+            <li style={{ width: '20%' }}>상품 가격</li>
+            <li style={{ width: '15%' }}>수량</li>
+            <li style={{ width: '20%' }}>총 가격</li>
+            <li style={{ width: '5%' }}>수정</li>
+          </ul>
+        </b>
+        <hr />
+        <div>
+          {cartEmpty ? (
+            <div>
+              <br />
+              <p style={{ textAlign: 'center', marginTop: '10px' }}>장바구니가 비었습니다.</p>
+              <br />
+              <hr />
+            </div>
+          ) : (
+            cartItems.map((item) => (
+              <div key={item.pid}>
+                <div className="myTicket_list">
+                  <div style={{ width: '15%', paddingLeft: '10px' }}><Image src="/image/03.jpg" /></div>
+                  <div style={{ width: '25%' }}>{item.pname}</div>
+                  <div style={{ width: '20%' }}>{item.pprice}원</div>
+                  <div style={{ width: '15%', paddingLeft: '30px'}}>
+                    <QuantityBox>
+                      <CiSquareMinus size={30} onClick={() => handleDecrement(item.pid, item.pprice)} />
+                      <div>{itemQuantities[item.pid] || 0}</div>
+                      <CiSquarePlus size={30} onClick={() => handleIncrement(item.pid, item.pprice)} />
+                    </QuantityBox>
+                  </div>
+                  <div style={{ width: '20%' }}> {(item.pprice) * (itemQuantities[item.pid] || 0)}원</div>
+                  <div style={{ width: '5%' }}> <FaRegCircleXmark onClick={() => removeItem(item.pid, item.pprice)} /></div>
+                </div>
                 <hr />
               </div>
-            ) : (
-              cartItems.map((item) => (
-                <div key={item.pid}>
-                  <div className="myTicket_list" style={{ width: '1000px' }}>
-                    <div style={{ width: '15%', paddingLeft: '10px' }}><Image src="/image/03.jpg" /></div>
-                    <div style={{ width: '25%' }}>{item.pname}</div>
-                    <div style={{ width: '25%' }}>{item.pprice}</div>
-                    <div style={{ width: '15%' }}>
-                      <QuantityBox>
-                        <CiSquareMinus size={30} onClick={() => handleDecrement(item.pid, item.pprice)} />
-                        <div>{itemQuantities[item.pid] || 0}</div>
-                        <CiSquarePlus size={30} onClick={() => handleIncrement(item.pid, item.pprice)} />
-                      </QuantityBox>
-                    </div>
-                    <div style={{ width: '15%' }}> {(item.pprice) * (itemQuantities[item.pid] || 0)}</div>
-                    <div style={{ width: '5%' }}> <FaRegCircleXmark onClick={() => removeItem(item.pid, item.pprice)} /></div>
-                  </div>
-                  <hr />{' '}
-                </div>
-              ))
-            )}
-          </div>
-          <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
-            &nbsp;메인으로&nbsp;
-          </button>
-        </MyTicketList>
+            ))
+          )}
+        </div>
+        <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
+          &nbsp;메인으로&nbsp;
+        </button>
+      </MyTicketList>
         <CartPayContainer>
           <CartPay totalPrice={totalPrice} cartItems={cartItems} />
         </CartPayContainer>

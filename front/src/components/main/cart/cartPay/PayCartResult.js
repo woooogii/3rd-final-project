@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useLocation } from 'react-router-dom';
 import { FiCheckCircle } from 'react-icons/fi';
 import styled from 'styled-components';
@@ -82,7 +84,11 @@ const StyledContent = styled.div`
 }
 `;
 
-const PayResult = () => {
+
+
+
+
+const PayCartResult = () => {
 
     const navigate = useNavigate();
 
@@ -103,8 +109,9 @@ const PayResult = () => {
 
     const payTime = moment(buyerInfo.pay_time).format('YYYY.MM.DD HH:mm:ss');
 
+
     return (
-        <StyledContent>
+         <StyledContent>
             <FiCheckCircle className="check-icon" />
             {/* <p className='infoLine'>결제정보</p> */}
 
@@ -137,11 +144,11 @@ const PayResult = () => {
             <hr style={{width:'700px'}}/>
             <br />
             <div className='btn'>
-                <button type="button" className="btn btn-outline-primary" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
-                <button className="btn btn-primary" type="button" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
+                <button type="button" class="btn btn-outline-primary" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
+                <button class="btn btn-primary" type="button" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
             </div>
         </StyledContent>
     );
 };
 
-export default PayResult;
+export default PayCartResult;

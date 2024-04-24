@@ -3,14 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
-const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
+
+
+const PayCartKakao = ({setPaymentSuccess, totalPrice, productName, cartItems}) => {
 
     let loginUser = useSelector((state)=>{ return state.loginUser })
 
+    
     const navigate = useNavigate();
 
     let lastTimestamp = 0;
     let orderNum = 0;
+
+
+
     
     function makeMerchantUid() {
         const currentTimestamp = new Date().getTime();
@@ -26,17 +32,31 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
         const merchantUid = currentTimestamp + '_' + orderNum;
         return merchantUid;
     }
-    
+
     const [buyerInfo, setBuyerInfo] = useState({
-        pg : 'kakaopay.TC0ONETIME',
-        pay_method : 'card',
+        pg: 'kakaopay.TC0ONETIME',
+        pay_method: 'card',
         merchant_uid: makeMerchantUid(), 
-        name : tName,
-        amount : String(tPrice),
-        uid : loginUser.uid,
-        uname: loginUser.uname,
-        pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
+        name: '',
+        amount: '',
+        uid: '',
+        uname: '',
+        pay_time: ''
     });
+
+    useEffect(() => {
+        if (productName && totalPrice && loginUser) {
+            setBuyerInfo({
+                ...buyerInfo,
+                name: productName,
+                amount: String(totalPrice),
+                uid: loginUser.uid,
+                uname: loginUser.uname,
+                pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
+            });
+        }
+    }, [productName, totalPrice, loginUser]);
+
 
     useEffect(() => {
         // 외부 스크립트 로드를 위한 스크립트 태그 생성
@@ -62,11 +82,12 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
         return () => {
             document.body.removeChild(script);
         };
-    }, []);
+       }, []);
+
 
     function requestPay() {
         setPaymentSuccess(false); // 결제 시도 전에 초기화
-
+     
         var IMP = window.IMP;
         if (IMP) {
 
@@ -75,19 +96,20 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                     pg: 'kakaopay.TC0ONETIME',
                     pay_method: 'card',
                     merchant_uid: buyerInfo.merchant_uid,
-                    name: tName,
-                    amount: tPrice,
+                    name: productName,
+                    amount: totalPrice,
                     buyer_email: loginUser.uid,
                     buyer_name: loginUser.uname,
                     //m_redirect_url : 'http://localhost:3000/pedal/payment'
                 },
-             
                 function callback(response) {
                     const { success, error_msg } = response;
                     
                     if (success) {
                         // 결제 성공 시
                         alert('결제 성공!');
+
+
                         // 결제 정보를 서버에 전송
                         fetch('http://localhost:4000/pedal/savePaymentInfo', {
                             method: 'POST',
@@ -99,7 +121,6 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                 pay_time: moment().format('YYYY-MM-DD HH:mm:ss') // 현재 시간으로 설정
                             }),
                         })
-                    
                             .then((response) => response.json()) // JSON 형식으로 파싱
                             .then((data) => {
                                 console.log('결제 정보 저장됨:', data); // 실제 데이터 출력
@@ -107,48 +128,51 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                 setBuyerInfo({
                                     ...data,
                                     pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
-                                });
+                                })        
+                              
+                                
 
-                                //MyTicket(나의티켓구매내역)으로 보냄
-                                fetch('http://localhost:4000/pedal/saveMyTicketList', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    //DB 필드명과 동일해야함
-                                    body: JSON.stringify({
-                                        mtMerchantUid:buyerInfo.merchant_uid,
-                                        mtName: tName,
-                                        mtAmount: tPrice,
-                                        mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
-                                        uid: loginUser.uid,
-                                        uname: loginUser.uname,
-                                    }),
-                                })
-                                    .then((response) => response.json()) // JSON 형식으로 파싱
-                                    .then((data) => {
-                                        console.log('결제 정보 저장됨:', data);
+                                // //MyTicket(나의티켓구매내역)으로 보냄   ORDER 추가시 여기서 수정 
+                                // fetch('http://localhost:4000/pedal/saveMyTicketList', {
+                                //     method: 'POST',
+                                //     headers: {
+                                //         'Content-Type': 'application/json',
+                                //     },
+                                //     //DB 필드명과 동일해야함
+                                //     body: JSON.stringify({
+                                //         mtMerchantUid:buyerInfo.merchant_uid,
+                                //         mtName: tName,
+                                //         mtAmount: tPrice,
+                                //         mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
+                                //         uid: loginUser.uid,
+                                //         uname: loginUser.uname,
+                                //     }),
+                                //  })
+                                //     .then((response) => response.json()) // JSON 형식으로 파싱
+                                //     .then((data) => {
+                                //         console.log('결제 정보 저장됨:', data);
 
-                                        setBuyerInfo((prevState) => ({
-                                            ...prevState,
-                                            mt_merchant_uid: data.mt_merchant_uid,
-                                            mt_name: data.mt_name,
-                                            mt_amount: data.mt_amount,
-                                            mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
-                                            uid: loginUser.uid,
-                                            uname: loginUser.uname,
-                                        }));
-                                    })
-                                    .catch((error) => {
-                                        console.error('결제 정보 저장 중 오류 발생:', error);
-                                    });
+                                //         setBuyerInfo((prevState) => ({
+                                //             ...prevState,
+                                //             mt_merchant_uid: data.mt_merchant_uid,
+                                //             mt_name: data.mt_name,
+                                //             mt_amount: data.mt_amount,
+                                //             mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
+                                //             uid: loginUser.uid,
+                                //             uname: loginUser.uname,
+                                //         }));
+                                //     })
+                                    // .catch((error) => {
+                                    //     console.error('결제 정보 저장 중 오류 발생:', error);
+                                    // });
                             })
                             .catch((error) => {
                                 console.error('결제 정보 저장 중 오류 발생:', error);
                             });
                             
                             setPaymentSuccess(true);
-                            navigate('/pedal/payment', { state: { buyerInfo: buyerInfo } });
+                            navigate('/pedal/cartPayment', { state: { buyerInfo: buyerInfo } });
+                            
                     } else {
                         // 결제 실패 시
                         alert(`결제 실패: ${error_msg}`);
@@ -159,13 +183,13 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
             console.error('IMP 객체를 찾을 수 없습니다.');
         }
     }
-    
+
 
     return (
         <div>
-            <button onClick={requestPay}>카카오페이 결제하기</button>
+        <button onClick={requestPay} className="btn btn-primary">구매</button>
         </div>
     );
 };
 
-export default PayCredit;
+export default PayCartKakao;
