@@ -177,7 +177,7 @@ function MyPageTicketList() {
               )}
           </div>
           <>
-              <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
+            <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
                   &nbsp;메인으로&nbsp;
               </button>
           </>

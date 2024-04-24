@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import store from '../nav/store.js';
 import MyPageTicketList from './myPage/MyPageTicketList.js';
 import Home1 from './home/Home1.js';
+import PayCartResult from './cart/cartPay/PayCartResult.js';
 // import InsertData from './InsertComponent/InsertData.js';
 
 
@@ -41,6 +42,7 @@ const Main = () => {
                         <Route path="/pedal/:ticketType" element={<TicketBuy/>}/>
                         <Route path="/pedal/ticketBuy" Component={TicketBuy}/>
                         <Route path="/pedal/payment" Component={PayResult}/>
+                        <Route path="/pedal/cartPayment" Component={PayCartResult}/>
                         <Route path="/pedal/station" Component={Map}/>
                         <Route path="/pedal/myTicketList" Component={MyPageTicketList}/>
                         {/* <Route path="/insertData" Component={InsertData}/> */}

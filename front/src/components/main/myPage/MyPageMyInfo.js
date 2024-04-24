@@ -1,35 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginToken } from '../../nav/store';
 
-function MyPageInfo() {
-  // 사용자 정보 관련 state
-  const [uName, setUName] = useState('');
-  const [uPhone, setUPhone] = useState('');
-  const [uAddress, setUAddress] = useState('');
-  const [uAddrDetail, setUAddrDetail] = useState('');
+const MyPageInfo = memo(() => {
+  const loginUser = useSelector(state => state.loginUser);
+  const uid = loginUser.uid
+  const dispatch = useDispatch();
 
-  // 컴포넌트가 마운트될 때 사용자 정보를 불러오는 함수
+
+  const [userInfo, setUserInfo] = useState({
+    uid: '',
+    uname: '',
+    uphone: '',
+    uadress: '',
+    uadressdetail: '',
+  });
+
+
   useEffect(() => {
-    // API 호출 로직을 추가하여 사용자 정보를 불러오고 상태를 설정합니다.
-  }, []);
+    async function fetchUserInfo() {
+     
+      if (!loginUser.uid) {
+        console.error('사용자가 로그인하지 않았습니다.');
+        return;
+      }
+      try {
+        const response = await axios.get(`http://localhost:4000/pedal/${uid}`);
+        setUserInfo(response.data); 
+      } catch (error) {
+        console.error('사용자 정보를 불러오는데 실패했습니다.', error);
+      }
+    }
 
-  // 정보 업데이트 함수
-  const updateUserInfo = () => {
-    // API 호출 로직을 추가하여 사용자 정보를 업데이트합니다.
+    fetchUserInfo();
+  }, [uid]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const updateUserInfo = async () => {
+    if (!loginUser.uid) {
+      alert('사용자가 로그인하지 않았습니다.');
+      return;
+    }
+    try {
+      await axios.put(`http://localhost:4000/pedal/${uid}`, userInfo);
+      
+      alert('사용자 정보가 업데이트 되었습니다.');
+    } catch (error) {
+      console.error('사용자 정보 업데이트 실패', error);
+      alert('정보 업데이트에 실패했습니다.');
+    }
   };
 
   return (
-    <div>
-      <input type="text" value={uName} onChange={e => setUName(e.target.value)} placeholder="이름" />
-      <br/>
-      <input type="text" value={uPhone} onChange={e => setUPhone(e.target.value)} placeholder="전화번호" />
-      <br/>
-      <input type="text" value={uAddress} onChange={e => setUAddress(e.target.value)} placeholder="주소" />
-      <br/>
-      <input type="text" value={uAddrDetail} onChange={e => setUAddrDetail(e.target.value)} placeholder="상세 주소" />
-      <br/>
-      <button onClick={updateUserInfo}>정보 업데이트</button>
+    <div style={{marginLeft:200, marginTop:10}}>
+     
+      <div style={{backgroundColor:'#008080'}}>
+        아이디 : <input type="text" name="uid" value={userInfo.uid || ''} onChange={handleInputChange} placeholder="이메일형식의 아이디를 입력하세요" /><br/>
+        이 름: <input type="text" name="uname" value={userInfo.uname || ''} onChange={handleInputChange} placeholder="이름을 입력하세요" /> <br/>
+        휴대전화 : <input type="text" name="uphone" value={userInfo.uphone || ''} onChange={handleInputChange} placeholder="휴대폰 번호를 입력하세요" /><br/>
+        주소 : <input type="text" name="uaddress" value={userInfo.uaddress || ''} onChange={handleInputChange} placeholder="주소를 입력하세요" /><br/>
+        상세주소 : <input type="text" name="uaddrdetail" value={userInfo.uaddrdetail || ''} onChange={handleInputChange} placeholder="상세 주소를 입력하세요" /><br/>
+        <button onClick={updateUserInfo}>정보 업데이트</button>
+      </div>
     </div>
   );
-}
+});
 
 export default MyPageInfo;
