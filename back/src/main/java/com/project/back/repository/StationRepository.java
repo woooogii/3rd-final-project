@@ -1,11 +1,16 @@
 package com.project.back.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+import java.util.*;
 import com.project.back.entity.StationEntity;
 
 
-
-public interface StationRepository extends JpaRepository<StationEntity, Long>{
-    
+@Repository("StationRepository")
+public interface StationRepository extends JpaRepository<StationEntity, Long> {
+    @Query("SELECT s FROM station s WHERE s.rent_nm LIKE :keyword%")
+    List<StationEntity> findStationByRentNmContaining(String keyword);
 }
+

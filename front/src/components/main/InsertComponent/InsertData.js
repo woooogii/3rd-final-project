@@ -12,7 +12,7 @@ const InsertData = () => {
 //api 데이터 받아오기
     const fetchData = async () => {
         try {
-            const response = await fetch('http://openapi.seoul.go.kr:8088/6454624c56726c6134305a78427545/json/tbCycleStationInfo/1/100/');
+            const response = await fetch('http://openapi.seoul.go.kr:8088/6454624c56726c6134305a78427545/json/tbCycleStationInfo/1/500/');
             const data = await response.json();
             console.log(data);
             setCycleData(data.stationInfo.row);

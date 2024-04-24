@@ -6,6 +6,7 @@ import Home from './home/Home';
 import Join from './user/Join';
 import Login from './user/Login';
 import Navibar from '../nav/Navibar';
+import Footer from './footer/Ffooter.js'
 import Shop from './shop/Shop';
 import MyPageMain from './myPage/MyPageMain';
 import Ticket from './ticket/Ticket';
