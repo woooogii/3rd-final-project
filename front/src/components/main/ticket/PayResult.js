@@ -137,8 +137,8 @@ const PayResult = () => {
             <hr style={{width:'700px'}}/>
             <br />
             <div className='btn'>
-                <button type="button" class="btn btn-outline-primary" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
-                <button class="btn btn-primary" type="button" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
+                <button type="button" className="btn btn-outline-primary" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
+                <button className="btn btn-primary" type="button" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
             </div>
         </StyledContent>
     );

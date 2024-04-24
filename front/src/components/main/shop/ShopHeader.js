@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '../../../styles/nav/nav.css'
+import { BsCart3 } from "react-icons/bs";
 
 
 const ShopHeader = () => {
@@ -28,6 +29,7 @@ const ShopHeader = () => {
                     <Nav.Link onClick={()=>{navigate('/pedal/shop/aaa')}} id="custom-menu">기타등등🛍️</Nav.Link>
                     <Nav.Link>지금 Link로 다른 경로 보내기 말고, 버튼에 따라 디비 불러오는거만 다르게</Nav.Link>
                 </Nav>
+                <BsCart3 style={{ fontSize: '24' }} onClick={() => { navigate('/pedal/cart') }} />
                 </Navbar.Collapse>
             </Container>
           </Navbar>

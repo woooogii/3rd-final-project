@@ -1,3 +1,8 @@
+
+.line{
+    border: 1.5px solid #BDBDBD;
+}
+
 .grid > div {
     padding: 0;
 }
@@ -26,7 +31,6 @@
     position: relative;
 }
 
-.one > img,
 .two > img,
 .three > img,
 .four > img,
@@ -39,3 +43,8 @@
     top: 0;
     left: 0;
 }
+
+.one > img{
+    width: 70%;
+}
+

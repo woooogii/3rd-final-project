@@ -1,0 +1,114 @@
+* {
+    font-family: noto-sans; 
+  }
+  
+  .bg-body-tertiary {
+    background-color: white !important;
+  }
+  
+  .navbar-brand{
+    color:#fff;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 265px;
+    padding-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  
+  .menu-button{
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .container-fluid{
+  
+    font-size: 15px;
+   
+  }
+  
+  .header_right1{
+    justify-content: flex-end;
+    width: 450px;
+    display: flex;
+    font-size: 17px;
+  }
+  
+  .header_right2{
+    justify-content: flex-end;
+    width: 620px;
+    display: flex;
+    padding-right: 120px;
+    gap:7px;
+    color: #1675F2;
+    display: flex;
+  }
+  
+  /*
+  .header_right1{
+    justify-content: flex-end;
+    width: 450px;
+    display: flex;
+    padding-top: 10px;
+    gap:20px;
+    font-size: 17px;
+  }
+  */
+  
+  .nav-item {
+    font-size: 19px;
+    font-family: noto-sans; 
+    font-weight: bold;
+    color: #eee; 
+    background-color: transparent;
+    border-bottom: 3px solid transparent; /* 초기에는 투명한 선으로 설정 */
+    transition: border-bottom 0.3s ease; /* 변화에 대한 애니메이션 효과 추가 */
+  }
+  
+  .nav-item:hover {
+    border-bottom: 3px solid #1675F2;
+  }
+  
+  
+  .navbar-nav{
+    width: 390px;
+    margin-right: initial;
+    display: flex;
+    justify-content: space-between;
+    color: #A4A4A4;
+    margin-top: 20px;
+  }
+  
+  .navbar-collapse {
+    padding-right: 130px;
+  }
+  
+  .navbar-nav .nav-link.active,
+  .navbar-nav .nav-link.show {
+    font-family: noto-sans; 
+    color:#A4A4A4;
+    height: initial;
+  }
+  
+  .btn{
+        margin-left: 20px;
+        margin-top: 10px;
+  }
+  
+  @media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+      margin-left: 50px;
+    }
+  }
+
+  .form-control{
+    width: 290px;
+    border-radius: 30px;
+    font-size: 13px;
+    padding-left: 30px;
+  }
+
+  .form-control {
+    border-top-right-radius: 0; /* 오른쪽 위 보더값 제거 */
+}

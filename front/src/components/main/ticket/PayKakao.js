@@ -38,7 +38,6 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
         pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
     });
 
-
     useEffect(() => {
         // 외부 스크립트 로드를 위한 스크립트 태그 생성
         const script = document.createElement('script');
@@ -82,13 +81,13 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                     buyer_name: loginUser.uname,
                     //m_redirect_url : 'http://localhost:3000/pedal/payment'
                 },
+             
                 function callback(response) {
                     const { success, error_msg } = response;
                     
                     if (success) {
                         // 결제 성공 시
                         alert('결제 성공!');
-
                         // 결제 정보를 서버에 전송
                         fetch('http://localhost:4000/pedal/savePaymentInfo', {
                             method: 'POST',
@@ -100,6 +99,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                 pay_time: moment().format('YYYY-MM-DD HH:mm:ss') // 현재 시간으로 설정
                             }),
                         })
+                    
                             .then((response) => response.json()) // JSON 형식으로 파싱
                             .then((data) => {
                                 console.log('결제 정보 저장됨:', data); // 실제 데이터 출력
@@ -108,7 +108,6 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     ...data,
                                     pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
                                 });
-        
 
                                 //MyTicket(나의티켓구매내역)으로 보냄
                                 fetch('http://localhost:4000/pedal/saveMyTicketList', {

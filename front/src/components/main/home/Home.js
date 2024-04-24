@@ -1,13 +1,30 @@
-import MainButton from '../myPage/MainButton';
-import React from 'react';
-import './home.css'
-
+import React, { useState, useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
+import MainButton from '../myPage/MainButton'
 const Home = () => {
-    
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const closeModal = () => setModalIsOpen(false);
+
+    useEffect(() => {
+        setModalIsOpen(true);
+    }, []);
+
     return (
-       
         <div>
-            <hr/>
+            {/* <Modal show={modalIsOpen} onHide={closeModal}  style={{ width: '100%', height:'100%', maxWidth: '1000px' }} >
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                <img src='/image/popup.png' alt='' style={{ maxWidth: '100%', height: 'auto' }}/>
+                </Modal.Body>
+            </Modal> */}
+            <hr class='line' style={{width:'80vw',marginLeft:'170px'}}/>
+            <br/><br/>
+            <div class="main1">
+                <img src="/image/001.png" alt="" style={{paddingLeft:'270px', width:'1600px' }}/>
+            </div>
              <div class="one">
                 <img src="/image2/main1.jpg" alt="" />
             </div>

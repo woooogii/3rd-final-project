@@ -2,7 +2,7 @@ import React, { useEffect, useRef} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import ShopHeader from './ShopHeader';
+import ShopHead from './ShopHead';
 
 import '../../../styles/nav/nav.css'
 import ProductList from './ProductList';
@@ -32,7 +32,8 @@ const Shop = () => {
     return (
         <>
             <div ref={startHereRef}>
-            <ShopHeader id="#custom-shopHead"/>
+            {/* <ShopHeader id="#custom-shopHead"/> */}
+            <ShopHead id="head"/>
             </div>
                
               {(loginUser && loginUser.uid && loginUser.uname) ? (
