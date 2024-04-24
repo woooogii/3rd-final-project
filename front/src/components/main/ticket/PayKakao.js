@@ -28,7 +28,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
     }
     
     const [buyerInfo, setBuyerInfo] = useState({
-        pg : 'html5_inicis',
+        pg : 'kakaopay.TC0ONETIME',
         pay_method : 'card',
         merchant_uid: makeMerchantUid(), 
         name : tName,
@@ -116,6 +116,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     headers: {
                                         'Content-Type': 'application/json',
                                     },
+                                    //DB 필드명과 동일해야함
                                     body: JSON.stringify({
                                         mtMerchantUid:buyerInfo.merchant_uid,
                                         mtName: tName,
@@ -129,7 +130,6 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     .then((data) => {
                                         console.log('결제 정보 저장됨:', data);
 
-                                        //DB 필드명과 동일해야함
                                         setBuyerInfo((prevState) => ({
                                             ...prevState,
                                             mt_merchant_uid: data.mt_merchant_uid,

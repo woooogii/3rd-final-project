@@ -95,6 +95,28 @@ const Navibar = () => {
             }
         };
 
+        const handleGoogleLogout = async () => {
+          try {
+              const response = await axios.delete('http://localhost:4000/pedal/googleLogout', { withCredentials: true });
+              if (response.status === 200) {
+                  //서버에서 쿠키삭제하고나면 토큰,uid,uname 다 비움 
+                  setToken(null);
+                  setUid('');
+                  setUname('');
+                  // 로그아웃 성공시 그자리에서 새로고침만 
+                  navigate(0);
+              } else {
+                  console.error('로그아웃 요청이 실패했습니다.');
+              }
+          } catch (error) {
+              console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
+          }
+      };
+
+
+
+
+
 
 return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -121,8 +143,19 @@ return (
         {token !== null ? (
                         <div className='header_right1'>
                             <div>{uname}님&nbsp;<PiUserCircle style={{fontSize:'30px', marginBottom:'5px'}} /></div>
-                                <Nav.Link onClick={() => { handleLogout() }} className='menu-button'>로그아웃</Nav.Link>
-                                <Nav.Link href="/pedal/myPage" className='menu-button'>마이페이지</Nav.Link>
+                                
+
+                                {
+                                cookies.jwtToken ? (
+                                  <Nav.Link onClick={() => { handleLogout() }} class='menu-button'>로그아웃</Nav.Link>
+                                ) : (
+                                  <Nav.Link onClick={() => { handleGoogleLogout() }} class='menu-button'>로그아웃</Nav.Link>
+                                )
+                            }
+
+
+
+                                <Nav.Link href="/pedal/myPage" class='menu-button'>마이페이지</Nav.Link>
                                 <BsCart3 style={{fontSize:'24'}} onClick={() => { navigate('/pedal/cart') }} />
                         </div>
                     ) : (

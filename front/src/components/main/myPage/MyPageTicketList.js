@@ -1,11 +1,10 @@
-// MyPageTicketList.js
-
 import axios from 'axios';
 import React, { useState, useEffect} from 'react';
 import { Tabs, Switch } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MyTicketList = styled.div`
   margin: 50px;
@@ -50,83 +49,84 @@ const MyTicketList = styled.div`
 
 function MyPageTicketList() {
 
-    // 구매한 티켓 목록을 state로 관리
-    const [tickets, setTickets] = useState([]);
-
+  const [tickets, setTickets] = useState([]);
+  
   const navigate = useNavigate();
-  
+
   const onChange = (key) => {
-    console.log(key);
+      console.log(key);
   };
-  
+
   const items = [
-    {
-      key: '1',
-      label: '구매 내역',
-    },
-  ]
-  
+      {
+          key: '1',
+          label: '구매 내역',
+      },
+  ];
 
-
-  // 티켓 정보를 불러오는 함수
-  useEffect(() => {
-    const fetchMyTicketData = async () => {
-
+  const fetchMyTicketData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/pedal/myTicketList');
-        const ticketData = response.data.map(ticket => ({
-          ...ticket,
-          myStatus: ticket.mtStatus === '미사용',
-          payTime: moment(ticket.mtPayTime).format('YYYY.MM.DD HH:mm:ss'), // DB에서 가져온 시간
+          const response = await axios.get('http://localhost:4000/pedal/myTicketList');
+          const ticketData = response.data.map(ticket => ({
+            ...ticket,
+            payTime: moment(ticket.mtPayTime).format('YYYY.MM.DD HH:mm:ss'),
         }));
-        setTickets(ticketData);
+          ticketData.forEach(ticket => {
+            console.log("사용완료: ", ticket.myStatus);
+        });
+         
+          console.log("데이터", response.data);
+          setTickets(ticketData);
       } catch (error) {
-        console.error('티켓 목록을 불러오지 못했습니다:', error);
+          console.error('티켓 목록을 불러오지 못했습니다:', error);
       }
+  };
+  const [user,setUser] = useState(''); 
+  const loginUser = useSelector((state) => state.loginUser)
+
+  useEffect(() => {
+    setUser(loginUser.uid);
+  }, [loginUser.uid]);
+  
+  useEffect(() => {
+    if(user!==''){
+      fetchMyTicketData();
     }
-    fetchMyTicketData();
-  }, []);
-  
-  
-  // 티켓 이용 여부 변경 함수
+  }, [user]);
+
+
+  const filteredTickets = tickets.filter(ticket => ticket.uid === loginUser.uid);
+
   const toggleTicketStatus = async (mtMerchantUid) => {
     try {
+        const startTime = moment();
+        const updatedTickets = tickets.map(ticket => {
+            if (ticket.mtMerchantUid === mtMerchantUid) {
+                return {
+                    ...ticket,
+                    myStatus: !ticket.myStatus
+                };
+            }
+            return ticket;
+        });
+        setTickets(updatedTickets);
 
-      const startTime = moment();
-      await axios.post('http://localhost:4000/pedal/ticketStatus', {
-        mtMerchantUid,
-         newStatus: !tickets.find(ticket => ticket.mtMerchantUid === mtMerchantUid).myStatus,
-        startTime: startTime.format('YYYY.MM.DD HH:mm:ss')
-      });
-      const updatedTickets = tickets.map(ticket => {
-        if (ticket.mtMerchantUid === mtMerchantUid) {
-            return {
-                ...ticket,
-                myStatus: !ticket.myStatus
-            };
+        // 변경된 티켓 상태를 서버로 전송합니다.
+        const newStatus = updatedTickets.find(ticket => ticket.mtMerchantUid === mtMerchantUid).myStatus;
+        const response = await axios.post('http://localhost:4000/pedal/ticketStatus', {
+            mtMerchantUid,
+            newStatus,
+            startTime: startTime.format('YYYY.MM.DD HH:mm:ss')
+        });
+        
+        if (response.status !== 200) {
+          fetchMyTicketData();
+            console.error('서버 응답 오류:', response.statusText);
         }
-        return ticket;
-    });
-    setTickets(updatedTickets);
-} catch (error) {
-    console.error('티켓의 이용 여부를 변경하지 못했습니다:', error);
-}
+    } catch (error) {
+        console.error('티켓의 이용 여부를 변경하지 못했습니다:', error);
+    }
 };
-      
-  //     // 티켓 목록 다시 가져오기
-  //     const response = await axios.get('http://localhost:4000/pedal/myTicketList');
-  //     const ticketData = response.data.map(ticket => ({
-  //       ...ticket,
-  //       myStatus: ticket.mtStatus === '미사용',
-  //       payTime: moment(ticket.mtPayTime).format('YYYY.MM.DD HH:mm:ss'),
-  //     }));
-  //     setTickets(ticketData); // 수정: setTickets로 변경
-  //   } catch (error) {
-  //     console.error('티켓의 이용 여부를 변경하지 못했습니다:', error);
-  //   }
-  // };
-
-  console.log('구매시간!!!', tickets.map(ticket => ticket.mtPayTime));
 
   return (
       <MyTicketList>
@@ -149,7 +149,7 @@ function MyPageTicketList() {
           <hr />
 
           <div>
-              {tickets.length === 0 ? (
+              {filteredTickets.length === 0 ? (
                   <div>
                       <br />
                       <p style={{ textAlign: 'center', marginTop: '10px' }}>데이터가 없습니다.</p>
@@ -157,7 +157,7 @@ function MyPageTicketList() {
                       <hr />
                   </div>
               ) : (
-                  tickets.map((ticket) => (
+                  filteredTickets.map((ticket) => (
                       <div key={ticket.mtId}>
                           <div className="myTicket_list" style={{ width: '1300px' }}>
                               <div style={{ width: '10%', paddingLeft: '30px' }}>{ticket.mtMerchantUid}</div>
@@ -168,7 +168,7 @@ function MyPageTicketList() {
                               <div style={{ width: '21%' }}>{ticket.mtPayTime}</div>
                               <div style={{ width: '10%' }}>
                                   {ticket.myStatus ? '사용완료' : '미사용'}&nbsp;
-                                  <Switch checked={ticket.myStatus} onChange={() => toggleTicketStatus(ticket.mtMerchantUid)} />
+                                  <Switch checked={ticket.myStatus} onChange={() => toggleTicketStatus(ticket.mtMerchantUid)}  disabled={ticket.myStatus} />
                               </div>
                           </div>
                           <hr />{' '}

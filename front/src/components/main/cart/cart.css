@@ -1,5 +1,9 @@
 .pay-card{
     width: 50%;
-    height: 400px;
-    border: 1px solid grey;
+    height: 300px;
+    border: 2px solid #9E9FA5;
+    padding: 10px;
+    text-align: center;
+    line-height: 3;
+  
 }

@@ -1,7 +1,5 @@
 package com.project.back.config.jwt;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,11 +19,12 @@ public class SecurityUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String uId) throws UsernameNotFoundException {
 
         UserEntity user = userRepository.findByuId(uId);
-        if (user == null) {
-            throw new UsernameNotFoundException(uId + " 사용자 없음");
-        } else {
-            return new SecurityUser(user);
-        }
+            if (user == null) {
+                return null;
+            
+            } else {
+                return new SecurityUser(user);
+            }
 
     
     }
