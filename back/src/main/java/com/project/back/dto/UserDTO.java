@@ -19,7 +19,7 @@ public class UserDTO {
 
     private String uAddress; 
 
-    private String uAddrDetail; 
+    private String uaddrdetail; 
 
     private String uSaveFileName; 
 

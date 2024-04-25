@@ -29,11 +29,16 @@ const MyPageCheckPW = ({ setActiveComponent }) => {
   };
 
   return (
-    <div style={{padding: 20}}>
-      <h2>비밀번호 확인</h2>
-      <input type="password" value={upwd} onChange={handlePasswordChange} placeholder="현재 비밀번호 입력" />
-      <button onClick={checkPassword}>확인</button>
-    </div>
+    <div className="myPageCheckPWContainer">
+  <h2>비밀번호 확인</h2>
+  <input
+    type="password"
+    value={upwd}
+    onChange={handlePasswordChange}
+    placeholder="현재 비밀번호 입력"
+  />
+  <button onClick={checkPassword}>확인</button>
+</div>
   );
 };
 
