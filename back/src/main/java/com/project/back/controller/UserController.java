@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -36,6 +35,7 @@ public class UserController {
         
         System.out.println(userDTO.getUId());
         System.out.println(userDTO.getUPwd());
+        System.out.println(userDTO.getUaddrdetail());
         userService.joinProcess(userDTO);
 
         return true;

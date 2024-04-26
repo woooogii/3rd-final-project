@@ -45,7 +45,7 @@ const MainPageDefault = ({ setActiveComponent, tokenType }) => {
                             <h5 className="card-title">나의 이용 내역</h5>
                             <p className="card-text"><b>/</b></p>
                             <button onClick={() => setActiveComponent('tickets')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>티켓 구매 내역</button>
-                            <button onClick={() => setActiveComponent('checkpwd')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>상점 이용 내역</button>
+                            <button onClick={() => setActiveComponent('orders')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>상점 이용 내역</button>
                         </div>
                     </div>
                     

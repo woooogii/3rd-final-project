@@ -174,7 +174,7 @@ const Cart = () => {
         </button>
       </MyTicketList>
         <CartPayContainer>
-          <CartPay totalPrice={totalPrice} cartItems={cartItems} />
+          <CartPay totalPrice={totalPrice} cartItems={cartItems} itemQuantities={itemQuantities}/>
         </CartPayContainer>
       </div>
     </>

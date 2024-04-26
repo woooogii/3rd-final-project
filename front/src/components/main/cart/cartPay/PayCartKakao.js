@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 
 
-const PayCartKakao = ({setPaymentSuccess, totalPrice, productName, cartItems}) => {
+const PayCartKakao = ({setPaymentSuccess, totalPrice, productName, cartItems, itemQuantities}) => {
 
     let loginUser = useSelector((state)=>{ return state.loginUser })
 
@@ -128,30 +128,32 @@ const PayCartKakao = ({setPaymentSuccess, totalPrice, productName, cartItems}) =
                                 setBuyerInfo({
                                     ...data,
                                     pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
-                                })        
+                                });        
                               
-                                
+                                //order리스트에 추가해서 내가 구매한 물품내역 볼 수 있게 함
+                                    fetch('http://localhost:4000/pedal/saveMyOrder',{
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            oId:buyerInfo.merchant_uid,
+                                            user:buyerInfo.uid,
+                                            oBuyDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+                                            products: cartItems.map(item => item.pid),
+                                            amounts: itemQuantities
+                                            
+                                        }),
+                                    })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        console.log('결제 정보 저장됨:', data);
 
-                                // //MyTicket(나의티켓구매내역)으로 보냄   ORDER 추가시 여기서 수정 
-                                // fetch('http://localhost:4000/pedal/saveMyTicketList', {
-                                //     method: 'POST',
-                                //     headers: {
-                                //         'Content-Type': 'application/json',
-                                //     },
-                                //     //DB 필드명과 동일해야함
-                                //     body: JSON.stringify({
-                                //         mtMerchantUid:buyerInfo.merchant_uid,
-                                //         mtName: tName,
-                                //         mtAmount: tPrice,
-                                //         mtPayTime: moment().format('YYYY-MM-DD HH:mm:ss'), 
-                                //         uid: loginUser.uid,
-                                //         uname: loginUser.uname,
-                                //     }),
-                                //  })
-                                //     .then((response) => response.json()) // JSON 형식으로 파싱
-                                //     .then((data) => {
-                                //         console.log('결제 정보 저장됨:', data);
-
+                                        
+                                        
+                                    })
+                              
+                           
                                 //         setBuyerInfo((prevState) => ({
                                 //             ...prevState,
                                 //             mt_merchant_uid: data.mt_merchant_uid,

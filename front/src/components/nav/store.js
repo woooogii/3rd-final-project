@@ -56,6 +56,8 @@ const totalPrice = createSlice({
 });
 
 
+
+
 //loginUser state 초기화하는 함수(loginToken) export
 export let { loginToken } = loginUser.actions
 export let {addToCart} = cartItemStore.actions;

@@ -14,7 +14,7 @@ function MyPageSidebar({ setActiveComponent, tokenType }) {
             <h4><b>구매 관리</b></h4>
             <hr/>
             <li onClick={() => setActiveComponent('tickets')}>티켓 구매내역</li>
-            <li onClick={() => setActiveComponent('store')}>상점 구매내역</li>
+            <li onClick={() => setActiveComponent('orders')}>상점 구매내역</li>
           </ul>
         );
       case 'jwtToken':
@@ -25,7 +25,7 @@ function MyPageSidebar({ setActiveComponent, tokenType }) {
             <li onClick={() => setActiveComponent('info')}>사용자 정보수정</li>
             <li onClick={() => setActiveComponent('checkpwd')}>비밀번호 변경</li>
             <li onClick={() => setActiveComponent('tickets')}>티켓 구매내역</li>
-            <li onClick={() => setActiveComponent('store')}>상점 구매내역</li>            
+            <li onClick={() => setActiveComponent('orders')}>상점 구매내역</li>            
           </ul>
         );
       default:

@@ -1,10 +1,20 @@
 package com.project.back.entity;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,24 +25,26 @@ public class OrderEntity {
 
      
 
-    @Id
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "o_id")
-    private Long oId;
+    @Id
+    private Long oNum;
 
-    /* 
+
+    @Column(name = "o_id")
+    private String oId;
 
     @Column(name = "u_id")
-    private String user;
-    //User참조, 구매자 id
+    private String uid;
 
     @Column(name = "o_buydate")
-    private LocalDate oBuyDate;
+    private String oBuyDate;
 
-    //하나의 order이 많은 OrderDetail을 가짐 > OrderDetailEntity을 매핑. 매핑한 애는 order
-    //주문번호 삭제 시 상세 주문도 함께 삭제
-    @Column(name = "od_id")
-    private List<OrderDetailEntity> orderDetail;
+    // 상품 ID
+    @Column(name = "product_id")
+    private Integer productId;
 
-    */
+    // 상품 수량
+    @Column(name = "amount")
+    private Integer amount;
 }

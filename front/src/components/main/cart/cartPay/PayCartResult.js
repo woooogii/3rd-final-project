@@ -97,7 +97,7 @@ const PayCartResult = () => {
     }
 
     const onMain = () => {
-        navigate('/pedal/home');
+        navigate('/pedal/shop');
     }
 
 
@@ -145,7 +145,7 @@ const PayCartResult = () => {
             <br />
             <div className='btn'>
                 <button type="button" class="btn btn-outline-primary" onClick={onMyPage}>&nbsp;마이페이지&nbsp;</button>
-                <button class="btn btn-primary" type="button" onClick={onMain}>&nbsp;메인으로&nbsp;</button>
+                <button class="btn btn-primary" type="button" onClick={onMain}>&nbsp;쇼핑 계속하기&nbsp;</button>
             </div>
         </StyledContent>
     );
