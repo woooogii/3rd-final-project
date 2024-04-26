@@ -37,12 +37,10 @@ const SearchModal = ({onCloseModal,handleClick}) => {
                             </div>
                         </fieldset>
                     </form>
-                </div>
-                <div className=''>
-                    <ul id="placesList">
+                    <ul className='search-value'>
                         {searchResults.length >1 ?
                             (searchResults.map((item) => (
-                                <li key={item.rent_id_nm}>
+                                <li key={item.rent_id_nm} className='value-item'>
                                 <span onClick={() =>handleClick(item)}>{item.rent_id_nm}</span>
                                 </li>
                             ))):(

@@ -103,7 +103,6 @@
     font-size: 30px;
     cursor: pointer;
 }
-
 .bi-location {
     position: absolute;
     top: 30%;
@@ -123,7 +122,6 @@
     justify-content: center;
     align-items: center;
 }
-
 .bi-search {
     position: absolute;
     top: 40%;
@@ -160,7 +158,7 @@
     width: 100%;
     height: 100vh;
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 .search-close{
     position: absolute;
@@ -203,7 +201,7 @@
     overflow: hidden;
     width: 0;
     height: 0;
-    font-size: 0 !important;
+    font-size: 0;
     text-indent: -9000px;
     text-align: left;
 }
@@ -214,9 +212,27 @@
 .box-search input{
     line-height: 40px;
     border: none;
-    font-size: 13px;
+    font-size: 18px;
+    font-weight: 500;
     margin-left: 5%;
     outline: none;
+}
+
+.search-value{
+    font-size: 18px;
+    margin-top: 3%;
+    margin-left: 5%;
+    align-items: center;
+}
+.value-item{
+    position: relative;
+    width: 50%;
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+    margin-top: 16px;
+    background: #fff;
+    border-radius: 50px;
 }
 
 .moddal .popdup { 
