@@ -59,8 +59,8 @@ public class ProductController {
         return "pedal/product/list";
     }
 
-    //지은 리스트 출력
-    @GetMapping(value = {"/shop","/shop/list","/shop/search"})
+    //지은 리스트 출력(shop메인,검색)
+    @GetMapping(value = {"/shop","/shop/search"})
     public List<ProductEntity> searchData() {
         return productService.getAllProductEntities();
     }

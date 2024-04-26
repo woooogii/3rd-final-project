@@ -1,6 +1,6 @@
 package com.project.back.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,7 +36,7 @@ public class ProductEntity {
     private String pDescription;
 
     @Column(name = "p_regdate")
-    private LocalDate pRegDate;
+    private LocalDateTime pRegDate = LocalDateTime.now();;
 
     @Column(name = "p_image1")
     private String pImage1;
