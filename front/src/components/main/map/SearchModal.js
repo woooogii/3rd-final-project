@@ -35,12 +35,13 @@ const SearchModal = ({onCloseModal,handleClick}) => {
                                 <input type='text' value={keyword} onChange={(evt)=>setKeyword(evt.target.value)} placeholder='검색어를 입력해주세요.'/> 
                                 <CgSearch className='search-icon' onClick={() => searchDB()}/>
                             </div>
-                        </fieldset>
+                        </fieldset> 
                     </form>
                     <ul className='search-value'>
                         {searchResults.length >1 ?
                             (searchResults.map((item) => (
                                 <li key={item.rent_id_nm} className='value-item'>
+                                    <span className='circle'></span>
                                 <span onClick={() =>handleClick(item)}>{item.rent_id_nm}</span>
                                 </li>
                             ))):(

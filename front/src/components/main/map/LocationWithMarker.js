@@ -105,6 +105,7 @@ const LocationWithMarker = ({ entities}) => {
           <div className="map-info-container">
           <div className="info" id='content'>
               <div className="title">
+                <div className='title-circle '></div>
                 <div className='title-text'>{content.rent_id_nm}</div>
                 <div className='title-like'>
                   <i onClick={onLike}>

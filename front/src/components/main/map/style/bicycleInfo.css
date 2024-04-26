@@ -39,17 +39,25 @@
 .info .title {
     display: flex;
 }
+.info .title-circle {
+    margin-top: 26px;
+    margin-left: 35px;
+    width: 1px;
+    height: 1px;
+    border: 4px solid  #1e96fc;
+    border-radius: 50%;
+}
 .title-text{
     margin-top: 16px;
-    margin-left: 35px;
+    margin-left: 15px;
     color: #0c508d;
     font-size: 20px;
     font-weight: 800;
 }
 .title-like{
-    font-size: 20px;
+    font-size: 17px;
     color: #0c508d;
-    margin-top: 14px;
+    margin-top: 18px;
     margin-left: 5px;
 }
 
@@ -61,7 +69,7 @@
     align-items: center;
     margin-top: 16px;
     background: #f3f3f3;
-    border-radius: 50px;
+    border-radius: 15px;
 }
 
 .info .box > div{
@@ -223,6 +231,7 @@
     margin-top: 3%;
     margin-left: 5%;
     align-items: center;
+    font-weight: 500;
 }
 .value-item{
     position: relative;
@@ -231,10 +240,15 @@
     margin-left: 25px;
     align-items: center;
     margin-top: 16px;
-    background: #fff;
-    border-radius: 50px;
 }
-
+.circle {
+    margin-right: 15px;
+    margin-bottom: 6px;
+    width: 1px;
+    height: 1px;
+    border: 4px solid  #1e96fc;
+    border-radius: 50%;
+}
 .moddal .popdup { 
     position: absolute;
     width: 100%;
