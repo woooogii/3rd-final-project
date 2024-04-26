@@ -1,0 +1,41 @@
+index.css
+
+.visual{
+    width:500px;
+    align-items: center;
+    padding-bottom:40px
+}
+
+.visual img{
+    width: 100%;
+}
+.product{
+    width:100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.product h2{
+    text-align: center;
+    padding-top:50px;
+    padding-bottom:40px;
+}
+.product ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.product ul li{
+    list-style: none;
+    width:25%;
+    border: 3px solid #fff;
+    padding-bottom: 20px;
+}
+.product ul li img{
+    width: 100%;
+}
+.product ul li h3{
+    padding: 10px;
+}
+.product ul li p {
+    padding: 0 10px;
+}

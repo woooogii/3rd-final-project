@@ -2,15 +2,26 @@
   font-family: noto-sans; 
 }
 
+.bg-body-tertiary {
+  background-color: white !important;
 
-.navbar-brand{
+}
+
+
+/* .navbar-brand{
   color:#1675F2;
   font-size: 47px;
   font-weight: bold;
   padding-left: 120px;
   padding-top: 15px;
-}
+} */
 
+.logo img {
+  width: 170px;
+  height: 65px;
+  margin-left: 230px;
+  margin-top: 20px;
+}
 
 .menu-button{
   width: 300px;
@@ -28,19 +39,17 @@
   justify-content: flex-end;
   width: 450px;
   display: flex;
-  padding-top: 10px;
-  gap:20px;
   font-size: 17px;
 }
 
 .header_right2{
   justify-content: flex-end;
-  width: 450px;
+  width: 620px;
   display: flex;
-  padding-top: 10px;
-  padding-right: 50px;
-  gap:32px;
-  font-size: 17px;
+  padding-right: 120px;
+  gap:7px;
+  color: #1675F2;
+  display: flex;
 }
 
 /*
@@ -55,7 +64,6 @@
 */
 
 .nav-item {
-  padding-top: 15px;
   font-size: 19px;
   font-family: noto-sans; 
   font-weight: bold;
@@ -69,20 +77,35 @@
   border-bottom: 3px solid #1675F2;
 }
 
+
 .navbar-nav{
-  width: 500px;
-  margin-right: 242.462px !important;
-  padding-right: 100px;
-  justify-content: space-around;
+  width: 390px;
+  margin-right: initial;
+  display: flex;
+  justify-content: space-between;
+  color: #A4A4A4;
+  margin-top: 20px;
 }
 
 .navbar-collapse {
-  flex-grow: initial;
   padding-right: 130px;
 }
 
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
   font-family: noto-sans; 
-  color: #585858; /* 원하는 색상값으로 설정 */
+  /* color:#959595;  */
+  color:#A4A4A4; 
+  height: initial;
+}
+
+.btn{
+      margin-left: 20px;
+      margin-top: 10px;
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    margin-left: 50px;
+  }
 }

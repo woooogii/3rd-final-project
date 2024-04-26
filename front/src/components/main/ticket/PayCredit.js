@@ -2,6 +2,46 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
+
+const Credit = styled.div`
+
+    position: absolute;
+    margin-top: -385px;
+    margin-left: 240px;
+
+    .box_credit {
+        width: 250px;
+        height: 600px;
+        border-radius: 20px;
+        border: 1px solid #a4a4a4;
+        padding: 10px;
+    }
+
+    .box_credit b {
+        align-self: flex-start;
+        margin-left: 10px;
+    }
+
+    .price_credit {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+    }
+
+    .price_amount_credit {
+        font-size: 35px;
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: -25px;
+        color: #1675f2;
+    }
+`;
+
 
 const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
@@ -107,7 +147,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     ...data,
                                     pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
                                 });
-        
+                     
 
                                 //MyTicket(나의티켓구매내역)으로 보냄
                                 fetch('http://localhost:4000/pedal/saveMyTicketList', {
@@ -138,6 +178,8 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                             uid: loginUser.uid,
                                             uname: loginUser.uname,
                                         }));
+                                        console.log(data.amount);
+                                        console.log(data.name);
                                     })
                                     .catch((error) => {
                                         console.error('결제 정보 저장 중 오류 발생:', error);
@@ -149,6 +191,8 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                             
                             setPaymentSuccess(true);
                             navigate('/pedal/payment', { state: { buyerInfo: buyerInfo } });
+                                       
+                         
                     } else {
                         // 결제 실패 시
                         alert(`결제 실패: ${error_msg}`);
@@ -161,9 +205,16 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
     }
 
     return (
-        <div>
-            <button onClick={requestPay}>신용카드 결제하기</button>
-        </div>
+        <Credit>
+            <div className="box_credit">
+                <div className="price_credit">
+                    총 금액 ㅣ &nbsp;&nbsp;
+                    <span className="price_amount_credit">{tPrice && <span>{tPrice}</span>}</span>
+                    &nbsp;<span style={{ fontWeight: 'bold' }}>원</span>
+                </div>
+                <Button className="btn_credit" type="primary" onClick={requestPay} style={{ backgroundColor: '#1675f2', marginTop:'-50px', marginRight:'15px' }}>결제하기</Button>
+            </div>
+        </Credit>
     );
 };
 

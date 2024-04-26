@@ -1,4 +1,5 @@
 package com.project.back.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -9,13 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
-import com.project.back.entity.PaymentEntity;
 import com.project.back.entity.ProductEntity;
 import com.project.back.service.ProductService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,8 +37,8 @@ public class ProductController {
     }
     */
 
-    //지은 아이템 인풋 실제 사용
-    @PostMapping("/product/created")
+    //지은 상품 등록
+    @PostMapping("/shop/created")
     public String createdProduct(@RequestParam("pname") String pName,
                                @RequestParam("pcategory") String pCategory,
                                @RequestParam("pprice") Long pPrice,
@@ -58,14 +58,28 @@ public class ProductController {
         }
         return "pedal/product/list";
     }
-    
-    //지은 전체 리스트 출력
-    @GetMapping("/product/list")
-    public List<ProductEntity> getAllProduct(){
+
+    //지은 리스트 출력(shop메인,검색)
+    @GetMapping(value = {"/shop","/shop/search"})
+    public List<ProductEntity> searchData() {
         return productService.getAllProductEntities();
     }
 
-    @GetMapping("/product/image/{pid}")
+    //지은 카테고리 상품 리스트 출력
+    @GetMapping("/shop/list/{category}")
+    public ResponseEntity<List<ProductEntity>> getCateProduct(@PathVariable("category") String category){
+        try {
+            List<ProductEntity> cateData = productService.getCateList(category);
+            return ResponseEntity.ok(cateData);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+
+    //지은 이미지 출력
+    @GetMapping("/shop/image/{pid}")
     public ResponseEntity<List<String>> getProductWithImage(@PathVariable("pid") Long id){
         try {
             List<String> imgUrls = productService.findPImageUrlsBypId(id);
@@ -80,6 +94,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
 
     //수인 상세페이지 
     @GetMapping("/productDetail/{pId}")

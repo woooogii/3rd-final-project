@@ -50,6 +50,7 @@ const Join = () => {
         try {
             const response = await axios.post('http://localhost:4000/pedal/join', form);
             if (response.data === true) {
+                console.log(form)
                 alert('가입이 완료되었습니다.');
                 navigate('/pedal/login');
             } else {

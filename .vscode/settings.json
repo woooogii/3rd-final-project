@@ -1,9 +1,3 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic",
-    "cSpell.words": [
-        "inicis",
-        "kakaopay"
-    ],
-    "java.debug.settings.onBuildFailureProceed": true,
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic"
 }

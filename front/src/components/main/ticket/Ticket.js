@@ -50,14 +50,15 @@ const StyledTickets = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 50vh; /* 화면 전체를 차지하도록 설정 */
+        height: 45vh; 
+        color: #585858;
     }
 
     .redirectLogin hr {
         width: 60vw;
         border: 1px solid #A4A4A4;
-        
     }
+
 
 `;
 
@@ -111,8 +112,8 @@ const Ticket = () => {
                     </>
                 ) : (
                     <div className='redirectLogin'>
-                        <p style={{fontSize:'19px'}}>로그인이 필요합니다.</p><br/>
-                        <hr/><br/>
+                        <p style={{fontSize:'19px'}}>로그인이 필요합니다.</p>
+                        <hr style={{width:'20vw'}}/><br/>
                         <Button type="primary" onClick={redirectLogin} style={{ width: '110px', height: '40px', fontSize: '18px', paddingBottom:'25px' }}>Login</Button>
                     </div>
 

@@ -1,0 +1,121 @@
+
+element.style {
+}
+.custom_Zone ul li:first-child p {
+    width: 178px;
+    padding-top: 0;
+    color: #898989;
+}
+.custom_Zone ul li p {
+    width: 217px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #898989;
+    line-height: 20px;
+}
+p {
+    
+}
+.footer >html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, button, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style: inherit;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: inherit;
+    vertical-align: top;
+    letter-spacing: 0;
+    line-height: 1.2;
+    color:#4f4f4f;
+    
+}
+user agent stylesheet
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+    display: flex;
+}
+.custom_Zone ul li {
+    display: inline-block;
+    padding: 0 0;
+    text-align: left;
+}
+ul, li, ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+user agent stylesheet
+li {
+    text-align: -webkit-match-parent;
+}
+.custom_Zone ul {
+    width: 1260px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+user agent stylesheet
+ul {
+    list-style-type: disc;
+}
+
+
+
+.first {
+    float: left;
+    box-sizing: border-box;
+}
+
+.aaa{
+    display: flex;
+    float: left;
+    margin-left: 375px;
+    box-sizing: border-box;
+    text-decoration: none;
+    width: 45%;
+    
+}
+.bbb{
+    display: flex;
+    float: right;
+    margin-right:460px;
+    box-sizing: border-box;
+    text-decoration: none;
+    
+}
+
+.second >li >a{
+    font-weight: bold;
+    color: #3d3d3d;
+    text-decoration: none;
+}
+
+
+.information {
+    clear: both; 
+    margin-top: 20px;
+    background-color: #dddddd;
+    color:#4f4f4f;
+}
+.information >p {
+    clear: both; 
+    margin-top: 20px;
+    background-color: #dddddd;
+    color:#4f4f4f;
+    margin-left: 375px;
+}
+
+.image{
+     width: 11px;
+     height: 11px; 
+     flex-grow: 0;
+}
+
+.aaa >li >a{
+    text-decoration: none;
+}

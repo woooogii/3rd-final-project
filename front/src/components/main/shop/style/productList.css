@@ -1,0 +1,36 @@
+index.css
+
+.visual img{
+    width: 100%;
+}
+.product{
+    width:100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.product h2{
+    text-align: center;
+    padding-bottom:40px
+}
+.product ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* 아이템이 왼쪽에서 시작되도록 설정 */
+}
+.product ul li{
+    list-style: none;
+    width:25%;
+    border: 3px solid #fff;
+    padding-bottom: 20px;
+    flex-direction: column; /* 이미지를 왼쪽에 정렬 */
+    align-items: flex-start; /* 이미지를 왼쪽에 정렬 */
+}
+.product ul li img{
+    width: 100%;
+}
+.product ul li h3{
+    padding: 10px;
+}
+.product ul li p {
+    padding: 0 10px;
+}

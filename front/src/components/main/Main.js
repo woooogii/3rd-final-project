@@ -12,12 +12,15 @@ import Ticket from './ticket/Ticket';
 import TicketBuy from './ticket/TicketBuy';
 import PayResult from './ticket/PayResult';
 import ProductDetail from './shop/ProductDetail';
-import Map from './map/Map';
 import { Provider } from 'react-redux';
 import store from '../nav/store.js';
 import MyPageTicketList from './myPage/MyPageTicketList.js';
-import Home1 from './home/Home1.js';
-// import InsertData from './InsertComponent/InsertData.js';
+import PayCartResult from './cart/cartPay/PayCartResult.js';
+import CategoryList from './shop/CategoryList.js';
+import AddProduct from './shop/AddProduct.js';
+import SearchList from './shop/SearchList.js';
+import InsertData from './InsertComponent/InsertData.js';
+import BicycleData from './map/BicycleData.js';
 
 
 
@@ -28,7 +31,6 @@ const Main = () => {
             <Router>
                     <Navibar/>
                     <Routes>
-                        {/* 이건 테스트하고 지워 */}<Route path="pedal/homeTest" Component={Home1}/>
                         <Route path="/" Component={Home}/>
                         <Route path="/pedal/home" Component={Home}/>
                         <Route path="/pedal/login" Component={Login}/>
@@ -41,9 +43,13 @@ const Main = () => {
                         <Route path="/pedal/:ticketType" element={<TicketBuy/>}/>
                         <Route path="/pedal/ticketBuy" Component={TicketBuy}/>
                         <Route path="/pedal/payment" Component={PayResult}/>
-                        <Route path="/pedal/station" Component={Map}/>
+                        <Route path="/pedal/cartPayment" Component={PayCartResult}/>
+                        <Route path="/pedal/station" Component={BicycleData}/>
                         <Route path="/pedal/myTicketList" Component={MyPageTicketList}/>
-                        {/* <Route path="/insertData" Component={InsertData}/> */}
+                        <Route path="/pedal/shop/created" Component={AddProduct}/>
+                        <Route path="/insertData" Component={InsertData}/>
+                        <Route path="/pedal/shop/search" element={<SearchList />} />
+                        <Route path="/pedal/shop/list/:category" element={<CategoryList />}/>
                         <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
                     </Routes>
             </Router>

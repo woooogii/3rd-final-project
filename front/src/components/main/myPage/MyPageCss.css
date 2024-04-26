@@ -1,12 +1,195 @@
 /* styles.css */
 .sidebar {
+  width: 250px; /* 넓이를 고정값인 250px으로 설정 */
+  margin-top: 150px; 
+  margin-left: 70px;
+  top: 20vh; 
   position: sticky;
-  top: 20px; /* 상단에서 얼마나 떨어진 곳에 고정될지 설정 */
-  height: 100vh; /* 전체 높이 */
-  overflow-y: auto; /* 필요 시 스크롤바 표시 */
+  height: 500px; /* 고정된 높이 값으로 설정 */
+  border: 1px solid #ccc; /* 연한 회색 보더라인 설정 */
+  border-radius: 10px; /* 동그란 모서리 설정 */
+  text-align: center;
+  padding: 20px;
+  line-height: 4;
 }
+
+.sidebar > ul > li {
+  cursor: pointer;
+}
+
+
 
 ul {
   padding: 0;
   list-style: none;
+}
+
+.card.text-end {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 10px;
+  }
+
+.card-title {
+  text-align: left;
+  padding-left: 20px;
+}
+
+
+b {
+  margin-right: 10px;
+}
+
+
+
+.defualtContainer {
+  width: 60%;
+  margin-top: 15vh;
+  margin-left: 15vh;
+}
+
+.postmodal{
+  background : rgba(0,0,0,0.25);
+  position : fixed;
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+}
+
+
+/* 내 정보 수정 css */
+.myPageInfoContainer {
+  
+  margin-top: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.myPageInfoBox {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-width: 500px;
+  margin: auto;
+}
+
+.myPageInfoBox h2 {
+  color: #1675F2;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.myPageInfoBox .formGroup {
+  margin-bottom: 16px;
+}
+
+.myPageInfoBox .formGroup label {
+  display: block;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.myPageInfoBox .formGroup input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.myPageInfoBox .formGroup input:focus {
+  outline: none;
+  border-color: #1675F2;
+  box-shadow: 0 0 0 2px rgba(22, 117, 242, 0.2);
+}
+
+.myPageInfoBox .formGroup button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1675F2;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.myPageInfoBox .formGroup button:hover {
+  background-color: #0f5de8;
+}
+
+.myPageInfoBox .formGroup button:disabled {
+  background-color: #96c0f2;
+}
+
+.myPageInfoBox .formGroup .popupButton {
+  background-color: transparent;
+ 
+  color: #1675F2;
+  padding: 0;
+  margin-top: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.myPageInfoBox .formGroup .popupButton:hover {
+  text-decoration: none;
+}
+
+
+/* 비밀번호 확인 부분 css */
+.myPageCheckPWContainer {
+  padding: 20px;
+  width: 100%;
+  max-width: 400px; 
+  margin: auto;
+  margin-top: 10%; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.myPageCheckPWContainer h2 {
+  margin-bottom: 20px;
+  color: #1675F2;
+}
+
+.myPageCheckPWContainer input {
+  width: calc(100% - 40px); /* 패딩 고려 */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.myPageCheckPWContainer input:focus {
+  border-color: #1675F2;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(22, 117, 242, 0.2);
+}
+
+.myPageCheckPWContainer button {
+  width: calc(100% - 40px); /* 패딩 고려 */
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1675F2;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.myPageCheckPWContainer button:hover {
+  background-color: #0f5de8;
+}
+
+.myPageCheckPWContainer button:disabled {
+  background-color: #96c0f2;
+  cursor: default;
+}
+
+.btn_info{
+  margin-left: 50px;
 }
