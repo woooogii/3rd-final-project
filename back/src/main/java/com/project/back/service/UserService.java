@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.back.config.oauth.SocialEntity;
+import com.project.back.config.oauth.SocialRepository;
+import com.project.back.dto.SocialDTO;
 import com.project.back.config.email.MailSendService;
 import com.project.back.dto.UserDTO;
 import com.project.back.entity.UserEntity;
@@ -22,6 +25,9 @@ public class UserService {
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    SocialRepository socialRepository;
 
     @Autowired
     MailSendService mailSendService;
@@ -75,6 +81,24 @@ public class UserService {
 
     public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
+    }
+
+
+    public SocialEntity callSocialInfo(String email){
+        return socialRepository.findByEmail(email);
+    }
+
+    public SocialEntity updateSocialInfo(String email, SocialDTO socialDTO) {
+        // 데이터베이스에서 사용자를 찾습니다.
+        SocialEntity social = socialRepository.findByEmail(email);
+
+        social.setEmail(socialDTO.getEmail());
+        social.setPhone(socialDTO.getPhone());
+        social.setAddress(socialDTO.getAddress());
+        social.setAddrDetail(socialDTO.getAddrDetail());
+
+        // 변경된 사용자 정보를 데이터베이스에 저장합니다.
+        return socialRepository.save(social);
     }
 
 

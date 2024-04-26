@@ -1,6 +1,5 @@
 package com.project.back.config.oauth;
 
-
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -65,6 +64,4 @@ public class OauthService extends DefaultOAuth2UserService {
 
         return new CustomOAuth2User(oAuth2Response, role);
     }
-
-
 }

@@ -6,27 +6,28 @@ const MainPageDefault = ({ setActiveComponent, tokenType }) => {
     return (
         <div style={{backgroundColor: '#ffffff'}} className='defaultContainer'>
             {tokenType === 'googleJwtToken' ? (
-                <div className="card text-end">
+                <div>
                    
-                    <p>이거시 구글 로그인의 디폴트 페이지.</p>
-                    <div className="card-body">
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                   
+                    <div className="card text-end">
+                        <div className="card-body">
+                            <h5 className="card-title">개인정보</h5>
+                            <p className="card-text"><b> / </b></p>
+                            <button onClick={() => setActiveComponent('info')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>개인정보 조회 및 수정</button>
+                            
+                        </div>
                     </div>
-                  
-                </div>
+                    <br/>
+                    <div className="card text-end">
+                        <div className="card-body">
+                            <h5 className="card-title">개인정보</h5>
+                            <p className="card-text"><b> / </b></p>
+                            <button onClick={() => setActiveComponent('info')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>개인정보 조회 및 수정</button>
+                            <button onClick={() => setActiveComponent('checkpwd')} className='btn' style={{backgroundColor: '#1675F2', fontSize: '17px'}}>비밀번호 변경</button>
+                        </div>
+                    </div>
+                    </div>   
+                
             ) : (
                 <>
                     <div className="card text-end">

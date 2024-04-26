@@ -38,7 +38,7 @@ const MyPage = () => {
   const renderComponent = (component) => {
     switch (component) {
       case 'info':
-        return <MyPageInfo />;
+        return <MyPageInfo setActiveComponent={setActiveComponent}/>;
       case 'checkpwd':
         return <MyPageCheckPW setActiveComponent={setActiveComponent} />;
       case 'tickets':
