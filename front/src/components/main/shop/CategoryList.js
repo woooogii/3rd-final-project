@@ -6,11 +6,13 @@ import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
 import ShopHeader from './ShopHeader';
 import Pagination from '@mui/material/Pagination';
+import AddProduct from './AddProduct';
 //import Pagination from "react-js-pagination";
 
 const CategoryList = () => {
     const [cateData, setCateData] = useState([]);
     const { category } = useParams();
+    const [reloadProducts, setReloadProducts] = useState(false);
     
     const startHereRef = useRef(null);
     useEffect(() => {
@@ -31,7 +33,13 @@ const CategoryList = () => {
             }
         };
         fetchData();
-    }, [category]);
+    }, [category, reloadProducts]);
+
+    const handleProductAdded = () => {
+        // 상품이 추가되면 상태를 업데이트하여 상품 목록을 다시 로드함
+        console.log("상품 재로드 실행")
+        setReloadProducts(prev => !prev);
+    };
 
     //select 순서 정렬
     const [sortOrder, setSortOrder] = useState("noFilter");
@@ -89,6 +97,7 @@ const CategoryList = () => {
                             <option value={"highPrice"}>높은가격순</option>
                             <option value={"lowPrice"}>낮은가격순</option>
                     </select>
+                    <AddProduct onProductAdded={handleProductAdded} />
                     <ul info ={postsData(sortedData)}>
                         {sortedData && sortedData.map(item =>
                             <ProductItem key={item.pid} item={item}/>

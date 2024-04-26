@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { useParams } from 'react-router-dom';
+
 import { MdModeEditOutline } from "react-icons/md";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { Modal, Button } from 'react-bootstrap';
@@ -9,8 +9,8 @@ import '../shop/Review.css';
 
 const Review = ({ product, loginUser }) => {
 
-const { pId } = useParams();
-   console.log('product.pId:', pId);
+//const { pId } = useParams();
+   console.log('product.pId:', product.pid);
 
     const [content, setContent] = useState('');
     const [entities, setEntities] = useState([]);
@@ -32,10 +32,10 @@ const { pId } = useParams();
     }
 
     useEffect(() => {
-        if (pId) {
-            fetchData(pId);
+        if (product.pid) {
+            fetchData(product.pid);
         }
-    }, [pId]);
+    }, [product.pid]);
 
     const fetchData = async () => {
         try {
@@ -54,7 +54,7 @@ const { pId } = useParams();
         const rdate = moment().format('YYYY-MM-DD HH:mm:ss');
 
         const data = {
-            pId: pId,
+            pid: product.pid,
             rcontent: content,
             rdate: rdate,
             rstar: null,
@@ -64,7 +64,7 @@ const { pId } = useParams();
         try {
             const response = await axios.post('http://localhost:4000/pedal/review', data);
             console.log('데이터 전달 성공: ', response.data);
-            fetchData(pId);
+            fetchData(product.pid);
             setContent('');
         } catch (error) {
             console.error('데이터 전달 에러:', error);
@@ -93,7 +93,7 @@ const { pId } = useParams();
                                 </span>
                                 <span className="review-icons">
                                     <MdModeEditOutline onClick={handleShow} />
-                                    <FaDeleteLeft onClick={() => onDel(pId)} />
+                                    <FaDeleteLeft onClick={() => onDel(entity.pid)} />
                                 </span>
                             </div>
                         </li>
