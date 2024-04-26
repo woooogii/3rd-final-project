@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './style/bicycleInfo.css';
-import { FaSearchLocation } from "react-icons/fa";
 import SearchModal from './SearchModal';
+import { TbCurrentLocation } from "react-icons/tb";
+import { CgSearch } from "react-icons/cg";
+import { FaRegStar,FaStar } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
 
-const LocationWithMarker = ({ entities, locNow, getLocation }) => {
+const LocationWithMarker = ({ entities}) => {
   const [content, setContent] = useState({rent_id_nm:'',sta_add1:'',hold_num:''});
   const [isOpen,setIsOpen] = useState(false);//마커 클릭
   const [isShow,setIsShow] = useState(false);//검색 모달
+  const [like,setLike] = useState(false);
+
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -14,7 +19,7 @@ const LocationWithMarker = ({ entities, locNow, getLocation }) => {
     const mapContainer = document.getElementById('map');
     const options = {
       center: new window.kakao.maps.LatLng(37.4989896, 127.0317389),
-      level: 6,
+      level: 4,
     };
     mapRef.current = new window.kakao.maps.Map(mapContainer, options);
 
@@ -23,7 +28,7 @@ const LocationWithMarker = ({ entities, locNow, getLocation }) => {
       'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
      imageSize = new window.kakao.maps.Size(24, 35);
 
-    entities.forEach((item) => {
+     entities.forEach((item) => {
       const position = new window.kakao.maps.LatLng(item.sta_lat, item.sta_long),
       markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -41,14 +46,26 @@ const LocationWithMarker = ({ entities, locNow, getLocation }) => {
           hold_num: item.hold_num,
         });
         openResult();
-
       });
     });
     return () => {
       // 컴포넌트가 언마운트될 때 마커와 지도를 제거
       mapRef.current.relayout();
     };
-  }, [entities, locNow]);
+  }, [entities]);
+
+  const getLocation=()=>{
+    navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const locPosition = new window.kakao.maps.LatLng(lat, lon)
+        mapRef.current.setCenter(locPosition); 
+    },(error)=>{
+        console.error(error)
+    },
+    { enableHighAccuracy: true }
+    );
+}
   
   //마커 클릭 이벤트
   const closeResult = () => { // 닫기 버튼 클릭 시 창 삭제
@@ -72,36 +89,50 @@ const LocationWithMarker = ({ entities, locNow, getLocation }) => {
       bounds.extend(placePosition);
       mapRef.current.setBounds(bounds);
   }
+  //즐겨찾기
+  const onLike=()=>{
+    setLike(true);
+  }
 
   return (
-    <div className="map_wrap">
-      <button onClick={getLocation}>내위치찾기</button>
-
-      <div id="map" style={{ width: '800px', height: '400px', position: 'relative', overflow: 'hidden' }}></div>
-      {isOpen && 
-          <div className="wrap">
-            <div className="info" id='content'>
-                <div className="title"> 
-                    {content.rent_id_nm}
-                    <div className="close" title="닫기" onClick={closeResult}></div>
-                </div>
-                <div className="body"> 
-                    <div className="desc"> 
-                        <div className="ellipsis">{content.sta_add1}</div>
-                        <div className="jibun ellipsis">대여 가능 수:
-                        {content.hold_num>0?content.hold_num:0}</div>
-                    </div>
-                </div>
-            </div>  
-          </div>
-        }
-
-      <div className="bi bi-search" onClick={onOpenModal}>
-        <FaSearchLocation/>
-        {isShow && <SearchModal onCloseModal={onCloseModal} handleClick={handleClick}/> }
+    <>
+    <div className='map-container'>
+      <div id='map' className='map-show' ref={mapRef}></div>
+      <div className='bi bi-location' onClick={getLocation}>
+        <TbCurrentLocation/>
       </div>
-      
+      {isOpen && 
+          <div className="map-info-container">
+          <div className="info" id='content'>
+              <div className="title">
+                <div className='title-text'>{content.rent_id_nm}</div>
+                <div className='title-like'>
+                  <i onClick={onLike}>
+                      {like ? <FaStar/>:<FaRegStar/>}
+                  </i>
+                  {/* {Numeral(like).format(0.0)} */}
+                </div>
+                <div className="close" onClick={closeResult}>
+                  <IoCloseSharp/>
+                </div>
+              </div>
+              <div className='box'>
+                <div className='name'>위치</div>
+                <div className='addr'>{content.sta_add1}</div>
+              </div>
+              <div className='box'>
+                <div className='name'>대여 가능 수</div>
+                <div className='num'>
+                  {content.hold_num>0?content.hold_num:0}
+                </div>
+              </div>
+            </div>
+            </div>
+        }
+        <CgSearch className="bi-search" onClick={onOpenModal}/>
     </div>
+      {isShow && <SearchModal onCloseModal={onCloseModal} handleClick={handleClick}/> }
+    </>
   );
 };
 

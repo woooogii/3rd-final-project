@@ -1,67 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import SearchList from './SearchList';
+import Shop from './Shop';
 
 const Search = () => {
-    const [searchKeyword,setSearchKeyword] = useState('');
-    const [searchInput, setSearchInput] = useState('');
-    const [searchData,setSearchData]= useState('');
-    const [filteredResults, setFilteredResults] = useState([]);
-    //기능 ing
-    useEffect(() => {
-        fetchData();
-    }, []);
 
-    const fetchData = async () => {
+    //테스트
+    const [getData,setGetData]= useState([]);
+    const [searchValue,setSearchValue] = useState('');
+    const [filteredResults, setFilteredResults] = useState([]);
+
+    useEffect(() => {
+    const fetchData = async () => {//전체 데이터 가져오기
         try {
             const response = await axios.get('http://localhost:4000/pedal/shop/search');
-            setSearchData(response.data);
+            setGetData(response.data);
         } catch (error) {
             console.error('error_fetch', error);
         }
     };
+    fetchData();
+    }, []);
 
-
-    const searchItems=(value)=>{
-        setSearchInput(value);
-        if(searchInput!==''){
-            const filteredData=searchData.filter((item) => {
-                return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase());
-            });
-            setFilteredResults(filteredData);
-        }else{
-            setFilteredResults(searchData);
-        }
+    const searchItems = (e) => {//가져온 전체 데이터 검색어에 맞게 필터링하기
+        const filteredData=getData.filter((item) => {
+            return Object.values(item).join('').toLowerCase().includes(searchValue.toLowerCase());
+        });
+        setFilteredResults(filteredData);
     }
+    useEffect(() => {// 검색어가 변경될 때마다 필터링된 결과 초기화
+        setFilteredResults([]);
+    }, [searchValue]);
+
     return (
         <div>
             <form onSubmit={(evt) => { evt.preventDefault()}}>
-                <input type='text' value={searchKeyword} onChange={(evt)=>searchItems(evt.target.value)} placeholder='Search'/>
-                <button onClick={fetchData}>검색하기</button> 
+                <input type='text' value={searchValue} onChange={(e)=>setSearchValue(e.target.value)} placeholder='Search'/>
+                <button onClick={()=>searchItems()}>검색</button>
             </form>
-
-            {searchInput && 
-                searchInput.map(item=>
-                <ul key={item.pid}>
-                    <li>{item.pname}</li>
-                    <li>{item.pprice}</li>
-                </ul>
-            )}
-            
-            {/* {searchInput.length>1 ? 
-                (filteredResults.map(item=>
-                <ul key={item.pid}>
-                        <li>{item.pname}</li>
-                        <li>{item.pprice}</li>
-                    </ul>
-                ))
-            :
-                (searchData.map((item) => 
-                    <ul key={item.pid}>
-                        <li>{item.pname}</li>
-                        <li>{item.pprice}</li>
-                    </ul>
-                ))
-            } */}
+            {filteredResults.length > 0 && 
+                <SearchList filteredResults={filteredResults} searchValue={searchValue}/>}
         </div>
     );
 };

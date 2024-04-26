@@ -24,7 +24,7 @@ const ShopHeader = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link onClick={()=>{navigate('/pedal/shop/list')}} id="custom-menu">전체상품</Nav.Link>
+                    <Nav.Link onClick={()=>{navigate('/pedal/shop/created')}} id="custom-menu">전체상품</Nav.Link>
                     <Nav.Link onClick={()=>{navigate('/pedal/shop/list/bicycle')}} id="custom-menu">자전거🚴</Nav.Link>
                     <Nav.Link onClick={()=>{navigate('/pedal/shop/list/equipments')}} id="custom-menu">안전용품🎫</Nav.Link>
                     <Nav.Link onClick={()=>{navigate('/pedal/shop/search')}} id="custom-menu">

@@ -84,8 +84,7 @@ const Navibar = () => {
         setToken(null);
         setUid('');
         setUname('');
-        // 로그아웃 성공시 그자리에서 새로고침만 
-        navigate(0);
+        navigate("/pedal/home");
       } else {
         console.error('로그아웃 요청이 실패했습니다.');
       }
@@ -102,8 +101,7 @@ const Navibar = () => {
         setToken(null);
         setUid('');
         setUname('');
-        // 로그아웃 성공시 그자리에서 새로고침만 
-        navigate(0);
+        navigate("/pedal/home");
       } else {
         console.error('로그아웃 요청이 실패했습니다.');
       }

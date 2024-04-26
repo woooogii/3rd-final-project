@@ -26,4 +26,10 @@ public class SocialEntity {
     private String email;
 
     private String role;
+
+    private String phone;
+
+    private String address;
+
+    private String addrDetail;
 }

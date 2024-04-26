@@ -10,6 +10,7 @@ import './style/mainList.css';
 import AddProduct from './AddProduct';
 import ProductItem from './ProductItem';
 import Search from './Search';
+import ShopHeader from './ShopHeader';
 
 
 const Shop = () => {

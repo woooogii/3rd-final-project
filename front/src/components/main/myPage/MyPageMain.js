@@ -8,6 +8,7 @@ import MyPageTicketList from './MyPageTicketList';
 import MainPageDefault from './MainPageDefault';
 import MyPageUpdatePW from './MyPageUpdatePW';
 import MpSnsInfo from './MpSnsInfo';
+import MyPageOrders from './MyPageOrders';
 
 const MyPage = () => {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -37,11 +38,13 @@ const MyPage = () => {
   const renderComponent = (component) => {
     switch (component) {
       case 'info':
-        return <MyPageInfo />;
+        return <MyPageInfo setActiveComponent={setActiveComponent}/>;
       case 'checkpwd':
         return <MyPageCheckPW setActiveComponent={setActiveComponent} />;
       case 'tickets':
         return <MyPageTicketList />;
+      case 'orders':
+        return <MyPageOrders />;
       case 'updatePassword':
         return <MyPageUpdatePW setActiveComponent={setActiveComponent} />;
       case 'googleInfo':
