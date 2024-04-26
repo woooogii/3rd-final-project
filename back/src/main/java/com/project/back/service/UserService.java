@@ -1,18 +1,16 @@
 package com.project.back.service;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.back.config.oauth.SocialEntity;
 import com.project.back.config.oauth.SocialRepository;
 import com.project.back.dto.SocialDTO;
-import com.project.back.config.email.MailSendService;
+
 import com.project.back.dto.UserDTO;
 import com.project.back.entity.UserEntity;
 import com.project.back.repository.UserRepository;
@@ -29,8 +27,6 @@ public class UserService {
     @Autowired
     SocialRepository socialRepository;
 
-    @Autowired
-    MailSendService mailSendService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -103,33 +99,6 @@ public class UserService {
 
 
     
-    public ResponseEntity<String> findPwdByUser(Map<String, String> user){
-        Optional<UserEntity> userOptional = userRepository.findById(user.get("uid"));
-        
-        if(userOptional.isPresent()){
-            UserEntity userEntity = userOptional.get();
-            String dbUserTel = userEntity.getUPhone();
-            String inputTel = user.get("uTel");
-
-            if(dbUserTel.equals(inputTel)){
-                CompletableFuture.runAsync(()->{//메일전송 완료 딜레이로 비동기 처리
-                    try {
-                        mailSendService.sendEmailForCertification(user.get("uid"));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                return ResponseEntity.ok("메인 전송");
-            } else {
-                return ResponseEntity.notFound().build();
-                //db에 email 있는데 유저가 입력한 tel이 다름
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-            //db에 email 맞는게 없음
-        }
-    }
 
 }
 

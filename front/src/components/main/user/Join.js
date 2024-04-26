@@ -61,8 +61,33 @@ const Join = () => {
         }
     };
 
-    const handleEmailVerification = () => {
-        // 여기에 이메일 인증 처리 로직 추가
+    const handleEmailVerification = async () => {
+        
+        try {
+            const response = await axios.post('http://localhost:4000/pedal/email-certification', form);
+            
+            
+            // 1. 카트랑 오더리스트에 이미지 넣기 
+           
+            // 1. css점검 
+
+            // 1.인증버튼은 비활성화 상태
+            // 2.이메일을 적으면 인증버튼이 활성화됨
+            // 3.누르면 지금 이 함수가 실행됨
+            // 4.인풋칸 하나가 더 생김(4자리 입력할거)
+            // 5.그럼 이메일을 받게됨 숫자 4자리
+            // 6.맞게 쓰고 누르면(틀리면 틀렸다고 빨간 메세지) 사용 가능한 이메일입니다 띄우면서 통과. 
+            //     근데 버튼누르면 서버에 요청 한번 더해야됨 "pedal/check-certification" 여기로 
+            
+            // 7.이건 시간 되면 비밀번호 찾기도 한번 추가 
+            // 8.비번은 걍 난수 보내주고 그거로 비번 업데이트해서 다시 비번 수정시키기 등등등등
+
+
+
+        } catch (error) {
+            
+        }
+
         console.log('이메일 인증 시작');
     };
 
@@ -114,8 +139,11 @@ const Join = () => {
                         <input className="join-input" type="text" id="uaddrdetail" value={form.uaddrdetail} onChange={handleChange} placeholder="상세주소" required />
                     </div>
                     <div className="join-form-group">
-                        <button className='join-button' type="submit">가입하기</button>
-                        <button className='join-button' type="button" onClick={() => navigate('/pedal/login')}>취소</button>
+
+
+                        <button type="button" id='btn' class="btn btn-outline-primary" onClick={() => navigate('/pedal/login')}  style={{borderRadius:'20px', fontSize:'17px',}} >&nbsp; 취소하기 &nbsp;</button>
+                        <button type="submit" id='btn'  class="btn btn-primary" style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;가입하기&nbsp;</button>
+                        
                     </div>
                 </form>
             </div>
