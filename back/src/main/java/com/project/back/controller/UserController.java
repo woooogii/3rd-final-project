@@ -37,6 +37,7 @@ public class UserController {
         
         System.out.println(userDTO.getUId());
         System.out.println(userDTO.getUPwd());
+        System.out.println(userDTO.getUaddrdetail());
         userService.joinProcess(userDTO);
 
         return true;
