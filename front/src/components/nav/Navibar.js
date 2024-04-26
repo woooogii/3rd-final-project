@@ -125,7 +125,7 @@ const Navibar = () => {
 
         {/* 로고 */}
         {/* <a class="navbar-brand" href="/pedal/home">PEDAL</a> */}
-        <a class="logo" href="/pedal/home"><img src='/image/logo2.png' alt=''/></a>
+        <a class="logo" href="/pedal/home"><img src='/image/logo03.png' alt='' style={{width:'210px'}}/></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

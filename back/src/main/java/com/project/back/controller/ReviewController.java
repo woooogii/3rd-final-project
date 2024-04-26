@@ -35,8 +35,8 @@ public class ReviewController {
 
     // 특정 상품에 대한 리뷰 조회
     @GetMapping("/review/{pId}")
-    public ReviewEntity getReviewById(@PathVariable Long pId) {
-        return reviewService.getReviewById(pId);
+    public List<ReviewEntity> getReviewById(@PathVariable Long pId) {
+        return reviewService.findBypId(pId);
     }
 
   

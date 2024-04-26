@@ -67,7 +67,7 @@ const Shop = () => {
             }}>구매</button>
 
             <br/><br/><br/><br/><br/><br/>
-            {/* <AddProduct/> */}
+            <AddProduct/>
 
             <div className='main'>
                 <div className='visual'>

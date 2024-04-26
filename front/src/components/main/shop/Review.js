@@ -54,7 +54,7 @@ const { pId } = useParams();
         const rdate = moment().format('YYYY-MM-DD HH:mm:ss');
 
         const data = {
-            pid: pId,
+            pId: pId,
             rcontent: content,
             rdate: rdate,
             rstar: null,

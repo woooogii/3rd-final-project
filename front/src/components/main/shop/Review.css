@@ -10,6 +10,7 @@ textarea {
     border-radius: 5px;
 }
 
+/* 리뷰버튼 */
 button[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -19,15 +20,18 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+/* 리뷰버튼 */
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* 리뷰모달버튼 */
 .modal-footer {
     padding: 10px 20px;
     border-top: 1px solid #ccc;
 }
 
+/* 리뷰모달버튼 */
 .modal-footer .btn-primary {
     background-color: #007bff;
     color: #fff;
@@ -62,3 +66,12 @@ button[type="submit"]:hover {
     width: 500px;
     height: 110px;
 }
+
+.submit_content{
+    width: 450px;
+    height: 100px;
+    margin-top: 25px;
+}
+
+
+
