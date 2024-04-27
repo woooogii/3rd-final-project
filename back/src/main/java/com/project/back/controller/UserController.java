@@ -1,6 +1,8 @@
 package com.project.back.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.project.back.config.oauth.SocialEntity;
 import com.project.back.dto.SocialDTO;
@@ -13,11 +15,12 @@ import com.project.back.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -26,7 +29,7 @@ public class UserController {
     
     private final UserService userService;
     private UserRepository userRepository;
-
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     public UserController(UserService userService){
         this.userService = userService;
     }
@@ -44,8 +47,8 @@ public class UserController {
     }
     
     //마이페이지 유저 정보 불러오기 (수정 시 필요)
-    @GetMapping("/pedal/{uId}")
-public ResponseEntity<UserDTO> callUserInfo(@PathVariable String uId) {
+    @GetMapping("/pedal/normal")
+public ResponseEntity<UserDTO> callUserInfo(@RequestParam String uId) {
     UserEntity userEntity = userService.callUserInfo(uId);
     if (userEntity == null) {
         return ResponseEntity.notFound().build();
@@ -65,9 +68,10 @@ public ResponseEntity<UserDTO> callUserInfo(@PathVariable String uId) {
     return ResponseEntity.ok(userDTO);
 }
 
-@PutMapping("/pedal/{uId}")
-public ResponseEntity<UserDTO> updateUser(@PathVariable String uId, @RequestBody UserDTO userDTO) {
-    UserEntity updatedUserEntity = userService.updateUserInfo(uId, userDTO);
+@PutMapping("/pedal/normal")
+public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
+    logger.info("Starting updateUser in UserController");
+    UserEntity updatedUserEntity = userService.updateUserInfo(userDTO.getUId(), userDTO);
     if (updatedUserEntity == null) {
         return ResponseEntity.notFound().build();
     }
@@ -111,48 +115,6 @@ public ResponseEntity<?> updatePassword(@RequestBody UserPasswordDTO userPasswor
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
     }
 }
-
-@GetMapping("/pedal/google/{email}")
-        public ResponseEntity<SocialDTO> callsocialInfo(@PathVariable String email) {
-            SocialEntity socialEntity = userService.callSocialInfo(email);
-            if (socialEntity == null) {
-                return ResponseEntity.notFound().build();
-            }
-        
-            SocialDTO socialDTO = new SocialDTO();
-            socialDTO.setEmail(socialEntity.getEmail());     
-            socialDTO.setPhone(socialEntity.getPhone());
-            socialDTO.setAddress(socialEntity.getAddress());
-            socialDTO.setAddrDetail(socialEntity.getAddrDetail());
-       
-            // 비밀번호와 같은 민감한 정보는 DTO에 설정하지 않습니다.
-        
-            return ResponseEntity.ok(socialDTO);
-        }
-        
-        @PutMapping("/pedal/google/{email}")
-        public ResponseEntity<SocialDTO> updateUser(@PathVariable String email, @RequestBody SocialDTO socialDTO) {
-            SocialEntity updatedSocialEntity = userService.updateSocialInfo(email, socialDTO);
-            if (updatedSocialEntity == null) {
-                return ResponseEntity.notFound().build();
-            }
-        
-            SocialDTO updatedSocialDTO = new SocialDTO();
-           
-            updatedSocialEntity.setEmail(updatedSocialEntity.getEmail());
-            updatedSocialEntity.setPhone(updatedSocialEntity.getPhone());
-            updatedSocialEntity.setAddress(updatedSocialEntity.getAddress());
-            updatedSocialEntity.setAddrDetail(updatedSocialEntity.getAddrDetail());
-        
-            return ResponseEntity.ok(updatedSocialDTO);
-        }
-
-
-
-
-
-
-
 
 
 

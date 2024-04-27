@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.project.back.config.email.MailSendService;
+
 import com.project.back.entity.UserEntity;
 import com.project.back.repository.UserRepository;
 
