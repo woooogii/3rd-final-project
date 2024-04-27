@@ -12,7 +12,7 @@ const Kakao = styled.div`
     margin-top: -490px;
     margin-left: 240px;
 
-    .box {
+    .box_kakao {
         width: 250px;
         height: 600px;
         border-radius: 20px;
@@ -20,19 +20,20 @@ const Kakao = styled.div`
         padding: 10px;
     }
 
-    .box b {
+    .box_kakao b {
         align-self: flex-start;
         margin-left: 10px;
     }
 
-    .price {
+    .price_kakao {
+        margin-top: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 30vh;
     }
 
-    .price_amount {
+    .price_amount_kakao {
         font-size: 35px;
         font-weight: bold;
         display: inline-block;
@@ -121,6 +122,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                     //m_redirect_url : 'http://localhost:3000/pedal/payment'
                 },
              
+             
                 function callback(response) {
                     const { success, error_msg } = response;
                     
@@ -138,6 +140,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                 pay_time: moment().format('YYYY-MM-DD HH:mm:ss') // 현재 시간으로 설정
                             }),
                         })
+                    
                     
                             .then((response) => response.json()) // JSON 형식으로 파싱
                             .then((data) => {
@@ -202,13 +205,13 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
     return (
         <Kakao>
-            <div className="box">
-                <div className="price">
+            <div className="box_kakao">
+                <div className="price_kakao">
                     총 금액 ㅣ &nbsp;&nbsp;
-                    <span className="price_amount">{tPrice && <span>{tPrice}</span>}</span>
+                    <span className="price_amount_kakao">{tPrice && <span>{tPrice}</span>}</span>
                     &nbsp;<span style={{ fontWeight: 'bold' }}>원</span>
                 </div>
-                <Button type="primary" onClick={requestPay} style={{ backgroundColor: '#1675f2', marginTop:'-50px', marginRight:'15px' }}>결제하기</Button>
+                <Button className='btn_kakao' type="primary" onClick={requestPay} style={{ backgroundColor: '#1675f2', marginTop:'-50px', marginRight:'15px' }}>결제하기</Button>
             </div>
         </Kakao>
     ); 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './join.css';
+import Post from '../myPage/post';
 
 const Join = () => {
     const navigate = useNavigate();
@@ -20,6 +21,18 @@ const Join = () => {
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [showCertificationInput, setShowCertificationInput] = useState(false);
     const [isCertified, setIsCertified] = useState(false); // 추가: 인증 완료 여부
+
+    //주소 API부분-----------------------------------------------------------
+    const [popup, setPopup] = useState(false); // 팝업 표시 여부
+    const handleAddress = (newAddress) => {
+    setForm({ ...form, uaddress: newAddress }); // 새 주소를 폼 상태에 저장
+    setPopup(false); // 팝업 닫기
+    };
+
+    const togglePopup = () => {
+        setPopup(!popup);
+    };
+    ////////////////////////////////////////////////////
 
     // 이메일 형식 검사
     const validateEmail = (email) => {
@@ -211,16 +224,19 @@ const Join = () => {
                         />
                     </div>
                     <div className="join-form-group">
-                        <input
-                            className="join-input"
-                            type="text"
-                            id="uaddress"
-                            value={form.uaddress}
-                            onChange={handleChange}
-                            placeholder="주소"
-                            required
-                        />
-                    </div>
+    <label htmlFor="uaddress"></label>
+    <input
+        className="join-input"
+        type="text"
+        id="uaddress"
+        value={form.uaddress}
+        onChange={handleChange}
+        placeholder="주소를 입력하세요"
+        readOnly
+    />
+    <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
+    {popup && <Post setCompany={handleAddress} />}
+</div>
                     <div className="join-form-group">
                         <input
                             className="join-input"

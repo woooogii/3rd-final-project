@@ -5,7 +5,6 @@ import './style/productList.css';
 import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
 import Pagination from '@mui/material/Pagination';
-import AddProduct from './AddProduct';
 //import Pagination from "react-js-pagination";
 
 const CategoryList = () => {
@@ -34,12 +33,6 @@ const CategoryList = () => {
         fetchData();
     }, [category, reloadProducts]);
 
-    const handleProductAdded = () => {
-        // 상품이 추가되면 상태를 업데이트하여 상품 목록을 다시 로드함
-        console.log("상품 재로드 실행")
-        setReloadProducts(prev => !prev);
-    };
-
     //select 순서 정렬
     const [sortOrder, setSortOrder] = useState("noFilter");
     
@@ -62,16 +55,20 @@ const CategoryList = () => {
     }
     const sortedData = sortData(cateData, sortOrder);
     //페이징
-    const [currPage, setCurrPage] = useState(1);
-    const [postsPerPage,setPostsPerPage] = useState(8);
-    const lastPostIndex = currPage * postsPerPage;
-    const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts =sortedData.slice(firstPostIndex,lastPostIndex);
+    const [page, setPage] = useState(1); //페이지
+    const limit = 4; // posts가 보일 최대한의 갯수
+    const offset = (page-1)*limit; // 시작점과 끝점을 구하는 offset
+
+    const [currPage, setCurrPage] = useState(page)
+    let firstNum = currPage - (currPage % 5) + 1
+    let lastNum = currPage - (currPage % 5) + 5
+    
 
 
     return (
         <>
             <div ref={startHereRef}>
+            {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
             </div>
             <div className='main'>
@@ -87,12 +84,11 @@ const CategoryList = () => {
                     </select>
                     <ul>
                         {sortedData && sortedData.map(item =>
-                            <ProductItem key={item.pid} item={item} currentPosts={currentPosts}/>
+                            <ProductItem key={item.pid} item={item}/>
                         )}
                     </ul>
                 </div>
 
-                <Pagination shape="rounded" style={{marginLeft:'45%'}}/>
             </div>
         </>
     );

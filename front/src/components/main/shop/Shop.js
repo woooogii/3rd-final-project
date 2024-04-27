@@ -43,6 +43,18 @@ const Shop = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pedal/shop');
+                setEntities(response.data);
+            } catch (error) {
+                console.error('error_fetch', error);   
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
             <div ref={startHereRef}>
@@ -63,9 +75,6 @@ const Shop = () => {
                 (loginUser && loginUser.uid && loginUser.uname) ? buyItem() : loginFirst();
             }}>구매</button>
 
-            <br/><br/><br/><br/><br/><br/>
-            
-
             <div className='main'>
                 <div className='visual'>
                     <img src ="/bennerImage/main11.jpg" alt="배너이미지1"/> 
@@ -78,11 +87,7 @@ const Shop = () => {
                         )}
                     </ul>
                 </div>
-            </div>
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                        
+            </div>         
         </>
     );
 };
