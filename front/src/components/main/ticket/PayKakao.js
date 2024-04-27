@@ -122,6 +122,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                     //m_redirect_url : 'http://localhost:3000/pedal/payment'
                 },
              
+             
                 function callback(response) {
                     const { success, error_msg } = response;
                     
@@ -139,6 +140,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                 pay_time: moment().format('YYYY-MM-DD HH:mm:ss') // 현재 시간으로 설정
                             }),
                         })
+                    
                     
                             .then((response) => response.json()) // JSON 형식으로 파싱
                             .then((data) => {

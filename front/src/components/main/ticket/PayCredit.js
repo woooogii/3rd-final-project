@@ -148,6 +148,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
                                 });
                      
+                     
 
                                 //MyTicket(나의티켓구매내역)으로 보냄
                                 fetch('http://localhost:4000/pedal/saveMyTicketList', {
@@ -180,6 +181,8 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                         }));
                                         console.log(data.amount);
                                         console.log(data.name);
+                                        console.log(data.amount);
+                                        console.log(data.name);
                                     })
                                     .catch((error) => {
                                         console.error('결제 정보 저장 중 오류 발생:', error);
@@ -191,6 +194,8 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                             
                             setPaymentSuccess(true);
                             navigate('/pedal/payment', { state: { buyerInfo: buyerInfo } });
+                                       
+                         
                                        
                          
                     } else {

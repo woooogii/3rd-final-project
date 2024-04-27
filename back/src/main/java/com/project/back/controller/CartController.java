@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import com.project.back.dto.CartDTO;
+import com.project.back.dto.CartDTO;
 import com.project.back.entity.CartEntity;
 import com.project.back.entity.ProductEntity;
 import com.project.back.service.CartService;
@@ -47,10 +48,12 @@ public class CartController {
             cartService.addToCart(user, productId, quantity);
 
             return ResponseEntity.ok("Product successfully added to cart.");
+            return ResponseEntity.ok("Product successfully added to cart.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product to cart.");
         }
     }
+
 
     @GetMapping("/pedal/mycart")
     public List<CartDTO> showMyCart(@RequestParam String uid) {
@@ -83,7 +86,16 @@ public class CartController {
     @Transactional
     @PostMapping("/pedal/cartRemove")
     public ResponseEntity<String> removeCartOneItem(@RequestBody Map<String, String> requestData) {
+    public ResponseEntity<String> removeCartOneItem(@RequestBody Map<String, String> requestData) {
         String uId = requestData.get("uid");
+        Long pId = Long.parseLong(requestData.get("pid"));
+
+        try {
+            cartService.removeCartItem(uId, pId);
+            return ResponseEntity.ok("Cart item removed successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to remove cart item.");
+        }
         Long pId = Long.parseLong(requestData.get("pid"));
 
         try {

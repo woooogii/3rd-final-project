@@ -7,7 +7,13 @@
 
 }
 
+.bg-body-tertiary {
+  background-color: white !important;
 
+}
+
+
+/* .navbar-brand{
 /* .navbar-brand{
   color:#1675F2;
   font-size: 47px;
@@ -49,6 +55,11 @@
   padding-right: 120px;
   gap:7px;
   color: #1675F2;
+  width: 620px;
+  display: flex;
+  padding-right: 120px;
+  gap:7px;
+  color: #1675F2;
   display: flex;
 }
 
@@ -78,7 +89,14 @@
 }
 
 
+
 .navbar-nav{
+  width: 390px;
+  margin-right: initial;
+  display: flex;
+  justify-content: space-between;
+  color: #A4A4A4;
+  margin-top: 20px;
   width: 390px;
   margin-right: initial;
   display: flex;
@@ -94,6 +112,20 @@
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
   font-family: noto-sans; 
+  /* color:#959595;  */
+  color:#A4A4A4; 
+  height: initial;
+}
+
+.btn{
+      margin-left: 20px;
+      margin-top: 10px;
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    margin-left: 50px;
+  }
   /* color:#959595;  */
   color:#A4A4A4; 
   height: initial;

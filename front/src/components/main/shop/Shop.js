@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axios from 'axios';
 
+import ShopHead from './ShopHead';
 import ShopHead from './ShopHead';
 
 import '../../../styles/nav/nav.css'
+import './style/mainList.css';
 import './style/mainList.css';
 import AddProduct from './AddProduct';
 import ProductItem from './ProductItem';
@@ -14,6 +18,7 @@ import ShopHeader from './ShopHeader';
 
 
 const Shop = () => {
+    const [entities, setEntities] = useState(null);
     const [entities, setEntities] = useState(null);
     const navigate = useNavigate()
     const startHereRef = useRef(null);
@@ -46,9 +51,23 @@ const Shop = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pedal/shop');
+                setEntities(response.data);
+            } catch (error) {
+                console.error('error_fetch', error);   
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
             <div ref={startHereRef}>
+            {/* <ShopHeader id="#custom-shopHead"/> */}
+            <ShopHead id="head"/>
             {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
             </div>
@@ -87,6 +106,7 @@ const Shop = () => {
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        
                         
         </>
     );
