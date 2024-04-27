@@ -1,6 +1,6 @@
 package com.project.back.service;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.back.config.oauth.SocialEntity;
 import com.project.back.config.oauth.SocialRepository;
 import com.project.back.dto.SocialDTO;
+
 import com.project.back.dto.UserDTO;
 import com.project.back.entity.UserEntity;
 import com.project.back.repository.UserRepository;

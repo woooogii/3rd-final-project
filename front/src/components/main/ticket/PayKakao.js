@@ -2,6 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
+
+
+const Kakao = styled.div`
+
+    position: absolute;
+    margin-top: -490px;
+    margin-left: 240px;
+
+    .box {
+        width: 250px;
+        height: 600px;
+        border-radius: 20px;
+        border: 1px solid #a4a4a4;
+        padding: 10px;
+    }
+
+    .box b {
+        align-self: flex-start;
+        margin-left: 10px;
+    }
+
+    .price {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+    }
+
+    .price_amount {
+        font-size: 35px;
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: -25px;
+        color: #1675f2;
+    }
+`;
 
 const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
@@ -162,10 +201,17 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
     
 
     return (
-        <div>
-            <button onClick={requestPay}>카카오페이 결제하기</button>
-        </div>
-    );
+        <Kakao>
+            <div className="box">
+                <div className="price">
+                    총 금액 ㅣ &nbsp;&nbsp;
+                    <span className="price_amount">{tPrice && <span>{tPrice}</span>}</span>
+                    &nbsp;<span style={{ fontWeight: 'bold' }}>원</span>
+                </div>
+                <Button type="primary" onClick={requestPay} style={{ backgroundColor: '#1675f2', marginTop:'-50px', marginRight:'15px' }}>결제하기</Button>
+            </div>
+        </Kakao>
+    ); 
 };
 
 export default PayCredit;

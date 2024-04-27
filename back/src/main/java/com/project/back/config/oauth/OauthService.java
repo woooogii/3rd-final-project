@@ -1,19 +1,11 @@
 package com.project.back.config.oauth;
 
-import java.nio.file.attribute.UserPrincipal;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-
-import com.project.back.entity.UserEntity;
 import com.project.back.repository.UserRepository;
 
 @Service
@@ -72,6 +64,4 @@ public class OauthService extends DefaultOAuth2UserService {
 
         return new CustomOAuth2User(oAuth2Response, role);
     }
-
-
 }

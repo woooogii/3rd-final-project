@@ -71,7 +71,7 @@ public class CartController {
                 cartDTO.setPImage2(product.getPImage2());
                 cartDTO.setPImage3(product.getPImage3());
                 cartDTO.setPImage4(product.getPImage4());
-                cartDTO.setPImageUrls(product.getPImageUrls());
+                //cartDTO.setPImageUrls(product.getPImageUrls());
                 cartDTO.setCAmount(cartItem.getCAmount());
                 cartInfo.add(cartDTO);
             }

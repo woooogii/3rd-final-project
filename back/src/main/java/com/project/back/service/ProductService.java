@@ -10,8 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.back.entity.ProductEntity;
 import com.project.back.repository.ProductRepository;
-
-import java.util.Optional;
 @Service("ProductService")
 public class ProductService {
     
@@ -46,29 +44,6 @@ public class ProductService {
         return null;
     }
 
-    //검색 데이터 출력 ing
-    
-    // public List<ProductEntity> searchData(String searchValue){
-    //     try {
-    //         List<ProductEntity> result = productRepository.findProductByPnameContaining(searchValue);
-    //         if(result.isEmpty()){
-    //             return Collections.emptyList(); // 빈 리스트 반환
-    //         }
-    //         return result;
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //         throw new RuntimeException("데이터 불러오기 오류: " + e.getMessage());
-    //     }
-    // }
-
-    //이미지 여러개 출력
-    public List<String> findPImageUrlsBypId(Long pId){
-        ProductEntity productEntity = productRepository.findBypId(pId).orElse(null);
-        if (productEntity != null) {
-            return productEntity.getPImageUrls();
-        }
-        return null;
-    }
 
     public List<String> saveProductsWithImages(ProductEntity productEntity, List<MultipartFile> files) {
         List<String> imageUrls = new ArrayList<>();
@@ -76,7 +51,7 @@ public class ProductService {
         try {
             String absolutePath = new File("").getAbsolutePath() + File.separator;
             // 실제 파일 저장 위치
-            String PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
+            String PATH =  "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
                     + File.separator + "images" + File.separator + "productImg"; // 절대 경로 사용
 
             File productImg = new File(absolutePath + PATH);
@@ -117,7 +92,8 @@ public class ProductService {
             System.out.print(e.toString());
             return null;
         }
-        productEntity.setPImageUrls(imageUrls);
+        //productEntity.setPImageUrls(imageUrls);
+        productEntity.setProductImages(imageUrls);
         productRepository.save(productEntity);
         return imageUrls;
     }

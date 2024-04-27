@@ -15,13 +15,15 @@ index.css
 .product ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start; /* 아이템이 왼쪽에서 시작되도록 설정 */
 }
 .product ul li{
     list-style: none;
     width:25%;
     border: 3px solid #fff;
     padding-bottom: 20px;
+    flex-direction: column; /* 이미지를 왼쪽에 정렬 */
+    align-items: flex-start; /* 이미지를 왼쪽에 정렬 */
 }
 .product ul li img{
     width: 100%;
@@ -33,11 +35,6 @@ index.css
     padding: 0 10px;
 }
 
-.modal {}
-.modal .bg { position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.33);}
-.modal .popup { position: absolute; left: 50%; top: 50%; width: 500px; height: 600px; padding: 30px; background: #fff; transform: translate(-50%, -50%);}
-.modal .popup h3 { font-size: 30px; margin-bottom: 20px;}
-.modal .popup div {width: 100%; height: 430px; overflow: hidden;}
-.modal .popup div img  {width: 100%;}
-.modal .popup strong {font-size: 20px;}
-.modal .popup .close {position: absolute; right: 30px; top: 30px; font-size: 40px; cursor: pointer;}
+#demo-simple-select-label{
+    width: 100px;
+}

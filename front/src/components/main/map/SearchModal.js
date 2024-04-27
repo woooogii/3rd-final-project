@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { IoCloseSharp } from "react-icons/io5";
+import { CgSearch } from "react-icons/cg";
 
 const SearchModal = ({onCloseModal,handleClick}) => {
     const [keyword,setKeyword] = useState('');
@@ -22,27 +24,33 @@ const SearchModal = ({onCloseModal,handleClick}) => {
     };
 
     return (
-        <div className='menu_wrap'>
-            <div className="option">
-                <div>
+        <div className='search-container'>
+            <div className='search-warp'>
+                <div className='search-close' onClick={onCloseModal}><IoCloseSharp/></div>
+                <div className='search-box'>
                     <form onSubmit={(evt) => { evt.preventDefault()}}>
-                        <input type='text' value={keyword} onChange={(evt)=>setKeyword(evt.target.value)} placeholder='검색어를 입력해주세요.'/> 
-                        <button onClick={() => searchDB()}>검색하기</button> 
+                        <fieldset className='field-set'>
+                            <legend className='legend-set'></legend>
+                            <div className='box-search'>
+                                <input type='text' value={keyword} onChange={(evt)=>setKeyword(evt.target.value)} placeholder='검색어를 입력해주세요.'/> 
+                                <CgSearch className='search-icon' onClick={() => searchDB()}/>
+                            </div>
+                        </fieldset> 
                     </form>
+                    <ul className='search-value'>
+                        {searchResults.length >1 ?
+                            (searchResults.map((item) => (
+                                <li key={item.rent_id_nm} className='value-item'>
+                                    <span className='circle'></span>
+                                <span onClick={() =>handleClick(item)}>{item.rent_id_nm}</span>
+                                </li>
+                            ))):(
+                                <span></span>
+                            )
+                        }
+                    </ul>
                 </div>
             </div>
-            <hr/>
-
-            <ul id="placesList">
-                {searchResults.length &&
-                    searchResults.map((item) => (
-                        <li key={item.rent_id_nm}>
-                        <span onClick={() =>handleClick(item)}>{item.rent_id_nm}</span>
-                        </li>
-                    ))
-                }
-            </ul>
-            <button onClick={onCloseModal}>닫기</button>
         </div>
     );
 };

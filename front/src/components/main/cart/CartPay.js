@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import './cart.css'
 import PayCartKakao from './cartPay/PayCartKakao';
 
-const CartPay = ({totalPrice, cartItems}) => {
+const CartPay = ({totalPrice, cartItems,itemQuantities}) => {
     const [productName, setProductName] = useState('');
     const [payment, setPayment] = useState('kakaopay');
     const [paymentSuccess, setPaymentSuccess] = useState('');
@@ -20,7 +20,12 @@ const CartPay = ({totalPrice, cartItems}) => {
         if (cartItems.length > 0) {
             setProductName(cartItems[0].pname);
         }
-    }, [cartItems]);
+        console.log(itemQuantities)
+
+
+
+
+    }, [cartItems,itemQuantities]);
 
 
     const handleModule = (e) => {
@@ -52,7 +57,7 @@ const CartPay = ({totalPrice, cartItems}) => {
             <input type="radio" name="payment" value="kakaopay" onChange={handleModule} checked="true"/>
             <img src="/image/kakaopay.png" alt="kakaopay" style={{ width: '50px', height: 'auto', position: 'relative', top: '2px' }} />
             <br />
-            {payment === 'kakaopay' && <PayCartKakao setPaymentSuccess={setPaymentSuccess} totalPrice={totalPrice} productName={productName} cartItems={cartItems}/>}
+            {payment === 'kakaopay' && <PayCartKakao setPaymentSuccess={setPaymentSuccess} totalPrice={totalPrice} productName={productName} cartItems={cartItems} itemQuantities={itemQuantities}/>}
         </div>
     );
 };

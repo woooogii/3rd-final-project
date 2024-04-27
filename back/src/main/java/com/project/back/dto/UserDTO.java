@@ -20,7 +20,7 @@ public class UserDTO {
     private String uAddress; 
 
     private String uaddrdetail; 
-
+                
     private String uSaveFileName; 
 
     private String uOriginalFileName; 

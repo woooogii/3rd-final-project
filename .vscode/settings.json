@@ -1,8 +1,13 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "cSpell.words": [
+        "antd",
         "inicis",
-        "kakaopay"
+        "Kakao",
+        "kakaopay",
+        "Navibar",
+        "Tname",
+        "Tprice"
     ],
     "java.debug.settings.onBuildFailureProceed": true,
     "java.configuration.updateBuildConfiguration": "automatic"

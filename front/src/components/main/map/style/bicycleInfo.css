@@ -1,58 +1,275 @@
-
-
-.wrap{
-    display: block;
+.map-container{
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+.map-show{
     position: absolute;
-    padding: 0;
-    margin: 0;
-    display: block;
-    width: 800px;
-    height: 100px;
-    box-sizing: border-box;
-    background: red;
-    z-index: 999999;
-    box-shadow: 0px -5px 16px 3px rgba(0, 0, 0, 0.3);
-    border-radius: 15px 15px 0px 0px;
+    width: 70%;
+    height: 550px;
+    padding: 30px;
+    border: 1px solid #ccc;
 }
 
-.wrap .info {
+.map-info-container{
+    position: absolute;
+    width: 60%;
+    height: 170px;
+    bottom: 50px;
+    border-radius: 20px 20px 20px 20px;
+    background: #fff;
+    box-shadow: 0px -5px 16px 3px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.info {
+    position: absolute;
+    width: 100%;
+    height: 120px;
+    border-radius: 20px 20px 20px 20px;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+}
+.info .title {
+    display: flex;
+}
+.info .title-circle {
+    margin-top: 26px;
+    margin-left: 35px;
+    width: 1px;
+    height: 1px;
+    border: 4px solid  #1e96fc;
+    border-radius: 50%;
+}
+.title-text{
+    margin-top: 16px;
+    margin-left: 15px;
+    color: #0c508d;
+    font-size: 20px;
+    font-weight: 800;
+}
+.title-like{
+    font-size: 17px;
+    color: #0c508d;
+    margin-top: 18px;
+    margin-left: 5px;
+}
+
+.box{
+    position: relative;
+    width: 95%;
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+    margin-top: 16px;
+    background: #f3f3f3;
+    border-radius: 15px;
+}
+
+.info .box > div{
+    float: left;
+    line-height: 38px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.info .box > div:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.info .box > div.name{
+    width: 110px;
+    text-align: left;
+    padding-left: 25px;
+}
+
+.info .box > div.addr{
+    width: 300px;
+    text-align: left;
+    padding-left: 12px;
+}
+
+.info .box > div.num{
+    width: 35px;
+    text-align: left;
+    padding-left: 12px;
+}
+
+.info .close {
+    position: absolute;
+    top: 4px;
+    right: 30px;
+    color: #0c508d;
+    font-size: 30px;
+    cursor: pointer;
+}
+.bi-location {
+    position: absolute;
+    top: 30%;
+    right: 16%;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 20%;
+    font-weight: bold;
+    font-size: 25px;
+    width: 35px;
+    height: 35px;
+    color: #147edbd7;
+    z-index: 1;
+    outline: 3px solid rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bi-search {
+    position: absolute;
+    top: 40%;
+    right: 16%;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 20%;
+    font-size: 25px;
+    font-weight: bold;
+    width: 35px;
+    height: 35px;
+    color: #147edbd7;
+    z-index: 1;
+    outline: 3px solid rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center; /* 텍스트를 수평 중앙 정렬 */
+    align-items: center; /* 텍스트를 수직 중앙 정렬 */
+}
+
+.search-container {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 99999999;
+    box-sizing: border-box;
+}
+
+.search-warp{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.search-close{
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: #147edbd7;
+    font-size: 40px;
+    width: 17px;
+    height: 17px;
+}
+.search-box{
+    height: 50px;
+    width: 80%;
+    background-color: #fff;
+    border: 3px solid #1e96fc;
+    border-radius: 50px;
+    padding: 0;
+    clear: both;
+    position: fixed;
+    top: 70px;
+    z-index: 1005;
+    margin-left: 5%;
+    left: 4%;
+}
+.search-icon{
+    float: right;
+    margin-top: 7px;
+    margin-right: 15px;
+    font-size: 30px;
+    color: #1e96fc;
+}
+
+.field-set{
+    border: none;
+}
+.legend-set{
+    position: absolute !important;
+    left: -10000px !important;
+    top: -90000px !important;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    text-indent: -9000px;
+    text-align: left;
+}
+.box-search{
+    width: 100%;
+    position: relative;
+}
+.box-search input{
+    line-height: 40px;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 5%;
+    outline: none;
+}
+
+.search-value{
+    font-size: 18px;
+    margin-top: 3%;
+    margin-left: 5%;
+    align-items: center;
+    font-weight: 500;
+}
+.value-item{
+    position: relative;
+    width: 50%;
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+    margin-top: 16px;
+}
+.circle {
+    margin-right: 15px;
+    margin-bottom: 6px;
+    width: 1px;
+    height: 1px;
+    border: 4px solid  #1e96fc;
+    border-radius: 50%;
+}
+.moddal .popdup { 
+    position: absolute;
     width: 100%;
     height: 120px;
     border-radius: 15px 15px 0px 0px;
     background: #fff;
+    justify-content: center; /* Add this line */
+    align-items: center; /* Add this line */
 }
-
-.wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-
-.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-
-.info .close {
+.moddal .popupd { 
     position: absolute;
-    top: 10px;right: 10px;
-    color: #888;
-    width: 17px;height: 17px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    height: 600px;
+    padding: 30px;
+    background: #6b0606;
+    transform: translate(-50%, -50%);
 }
-.info .close:hover {cursor: pointer;}
-.info .body {
-    position: relative;
-    overflow: hidden;
-}
-
-.info .desc {
-    position: relative;
-    margin: auto;height: 40px;
-}
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-
-
-    .map_wrap {position:relative;width:100%;height:350px;}
-    .title {font-weight:bold;display:block;}
-    .hAddr {
-        position:absolute;
-        left:10px;
-        bottom: 1px;;
-        border-radius: 2px;
-        background:#fff;
-        background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+.modal .podpup h3 { font-size: 30px; margin-bottom: 20px;}
+.modal .podpup div {width: 100%; height: 430px; overflow: hidden;}
+.modal .podpup div img  {width: 100%;}
+.modal .podpup strong {font-size: 20px;}
+.modal .podpup .close {position: absolute; right: 30px; top: 30px; font-size: 40px; cursor: pointer;}

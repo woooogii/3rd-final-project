@@ -84,8 +84,7 @@ const Navibar = () => {
         setToken(null);
         setUid('');
         setUname('');
-        // 로그아웃 성공시 그자리에서 새로고침만 
-        navigate(0);
+        navigate("/pedal/home");
       } else {
         console.error('로그아웃 요청이 실패했습니다.');
       }
@@ -102,8 +101,7 @@ const Navibar = () => {
         setToken(null);
         setUid('');
         setUname('');
-        // 로그아웃 성공시 그자리에서 새로고침만 
-        navigate(0);
+        navigate("/pedal/home");
       } else {
         console.error('로그아웃 요청이 실패했습니다.');
       }
@@ -125,7 +123,7 @@ const Navibar = () => {
 
         {/* 로고 */}
         {/* <a class="navbar-brand" href="/pedal/home">PEDAL</a> */}
-        <a class="logo" href="/pedal/home"><img src='/image/logo2.png' alt=''/></a>
+        <a class="logo" href="/pedal/home"><img src='/image/logo03.png' alt='' style={{width:'210px'}}/></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

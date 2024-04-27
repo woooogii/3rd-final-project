@@ -64,22 +64,20 @@ const StyledContent = styled.div`
     } */
 
     .btn_cart {
-        width: 265px;
-        height: 50px;
-        background-color: #fff;
-        border: 1px solid #343a40;
-        font-size: 17px;
-        border-radius: 10px;
-        margin-left: 10px;
-        margin-top: 550px;
-        margin-top: -400px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+    width: 265px;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #343a40;
+    font-size: 17px;
+    border-radius: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-    .btn_cart:hover {
+.btn_cart:hover {
     background-color: #1675F2;
-    color:#fff; 
+    color: #fff;
     border: none;
 }
 
@@ -91,19 +89,12 @@ const StyledContent = styled.div`
         font-size: 17px;
     } */
 
-    .btns{
-        display: flex;
-        justify-content: flex-end;
-        padding-right: 400px;
-        padding-bottom: 80px;
-        position: relative; 
-        
-        
-    }
+    .btns {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 400px;
+    padding-bottom: 80px;
 
-    .btns_group {
-    position: absolute; 
-    top: -60px; /* 버튼을 위로 이동하는 값을 조정합니다 */
 }
 
     //상품설명,리뷰,교환반품 밑줄 - 파란색 하이라이트
@@ -366,23 +357,20 @@ const ProductDetail = () => {
             <div className='btns'>
                 <div className='btns_group'>
                     <div>
-                        {/* <button type="button" className="btn_buy" onClick={onBuy}>
-                        &nbsp;바로 구매&nbsp;
-                    </button> */}
-                     <button
-                        type="button"
-                        className="btn_cart"
-                        onClick={clickPick}
-                        style={{ width: '60px', backgroundColor: '#F2CE16' }}
-                    >
-                        {/* selectPick 상태에 따라 아이콘을 변경합니다. */}
-                        {selectPick ? <PiHeartFill value={selectPick} style={{ fontSize: '23px' }} /> : <PiHeart style={{ fontSize: '23px' }} />}
-                    </button>
-                    <button type="button" className="btn_cart" onClick={onCart}>
-                        &nbsp;장바구니&nbsp;
-                    </button>
+                        <button
+                            type="button"
+                            className="btn_cart"
+                            onClick={clickPick}
+                            style={{ width: '60px', backgroundColor: '#F2CE16' }}
+                        >
+                            {/* selectPick 상태에 따라 아이콘을 변경 */}
+                            {selectPick ? <PiHeartFill value={selectPick} style={{ fontSize: '23px' }} /> : <PiHeart style={{ fontSize: '23px' }} />}
+                        </button>
+                        <button type="button" className="btn_cart" onClick={onCart}>
+                            &nbsp;장바구니&nbsp;
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <br />
@@ -432,41 +420,7 @@ const ProductDetail = () => {
                 {selectBox === 'policy' && (
                     <>
                         <p className="policy">
-                            <b>반품/교환 안내</b>
-                            <br />
-                            <br /> 다음의 반품 교환 사유가 발생했을 경우 고객센터로 전화하시어 반품 교환사유를 말씀하시고 관련절차 등을 안내 받으시기 바랍니다.
-                            <br />
-                            <br />
-                            반품 교환상품이 당사로 입고 된 이후에 환불 또는 교환처리가 됨을 양지해 주시기 바랍니다.
-                            <br />
-                            <br /> - 상품의 하자 또는 상품 페이지상에서 제공된 상품정보와 상이할 경우에 의한 반품 <br />
-                            <br />
-                            (상품 수령후 3개월 이내에 해 주시면 되고, 반품 배송비는 당사에서 부담합니다.)
-                            <br />
-                            <br /> - 고객님의 단순변심에 의한 반품 <br />
-                            <br />
-                            (반품요청은 상품 수령 후 7일 이내에 해 주셔야 하며, 이때 반품 배송비는 고객님께서 부담하셔야 합니다)
-                            <br />
-                            <br /> [반품/교환이 불가능한 경우] <br />
-                            <br />- 반품/교환 요청기간이 경과한 경우. - 상품을 구매하신 고객께서 상품의 구성품을 잃어버리거나 파손한 경우.
-                            <br />
-                            <br /> - 포장 또는 제품을 훼손하여 상품가치가 현저히 상실된 경우. <br />- 상품을 구매하신 고객께서 이미 상품을 사용한 경우. <br />
-                            <br />
-                            [반품/교환시 주의사항] 이상유무 점검이 끝나기 전까지는 포장박스를 버리지 마십시오. <br />
-                            <br />
-                            반품시에는 택배로 회수해야 하기 때문에 기존 자전거 포장 박스가 필요합니다.
-                            <br />
-                            <br /> 이후 저희가 택배기사분을 보내 드리면 전달해 주시면 됩니다.
-                            <br />
-                            <br /> 반품 교환 진행 순서
-                            <br />
-                            <br /> 1. 제품 문의하기에 신청 (사진을 첨부해주시면 쉽게 판별)
-                            <br />
-                            <br /> 2. 교환건 판별 및 교환재고 확인 <br />
-                            <br />
-                            3. 택배 발송 <br />
-                            <br />
-                            4. 나무자전거에서 상태확인후 고객님께 새제품 발송 소요기간은 넉넉히 7일정도로 여유롭게 기다리시면 좋은 제품을 다시 받아 보실수 있습니다.
+                            <img src='/image/refund.jpg' alt=''/>
                         </p>
                     </>
                 )}

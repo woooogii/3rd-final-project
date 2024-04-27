@@ -151,7 +151,7 @@ const Cart = () => {
             cartItems.map((item) => (
               <div key={item.pid}>
                 <div className="myTicket_list">
-                  <div style={{ width: '15%', paddingLeft: '10px' }}><Image src="/image/03.jpg" /></div>
+                  <div style={{ width: '15%', paddingLeft: '10px' }}><Image src={item.pimage1} /></div>
                   <div style={{ width: '25%' }}>{item.pname}</div>
                   <div style={{ width: '20%' }}>{item.pprice}원</div>
                   <div style={{ width: '15%', paddingLeft: '30px'}}>
@@ -174,7 +174,7 @@ const Cart = () => {
         </button>
       </MyTicketList>
         <CartPayContainer>
-          <CartPay totalPrice={totalPrice} cartItems={cartItems} />
+          <CartPay totalPrice={totalPrice} cartItems={cartItems} itemQuantities={itemQuantities}/>
         </CartPayContainer>
       </div>
     </>

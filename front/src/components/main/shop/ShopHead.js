@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
@@ -10,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsCart2 } from "react-icons/bs";
 import { IoCaretDown } from "react-icons/io5";
 import { PiList } from "react-icons/pi";
+
 
 
 const ShopHead = () => {
@@ -83,7 +85,16 @@ const ShopHead = () => {
         }
     };
 
-
+/////////////검색
+const [searchValue, setSearchValue] = useState('');
+const onSearch = () => {
+    if (searchValue) {
+      navigate(`/pedal/shop/search?searchValue=${encodeURIComponent(searchValue)}`);
+    }
+};
+useEffect(()=>{
+    onSearch();
+},[]);
 
 
   return (
@@ -105,13 +116,13 @@ const ShopHead = () => {
                   <div class="collapse navbar-collapse" id="navbarText">
                       <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '240px', display: 'flex', justifyContent: 'space-between', marginLeft: '-15px' }}>
                           <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="/pedal/station" style={{ color: '#fff', marginBottom: '15px' }}>
+                              <a class="nav-link active" aria-current="page" href="/pedal/shop/list/bicycle" style={{ color: '#fff', marginBottom: '15px' }}>
                                   자전거
                               </a>
                           </li>
                           <span style={{ marginTop: '8px', fontSize: '20px', color: '#fff' }}>ㅣ</span>
                           <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="/pedal/ticket" style={{ color: '#fff' }}>
+                              <a class="nav-link active" aria-current="page" href="/pedal/shop/list/equipments" style={{ color: '#fff' }}>
                                   안전용품
                               </a>
                           </li>
@@ -120,9 +131,11 @@ const ShopHead = () => {
                           
                               <div class="header_right2">
                                   <div style={{ display: 'flex' }}>
-                                      <form className="d-flex" role="search" style={{ marginRight: '50px', position: 'relative' }}>
-                                          <input className="form-control me-2" type="search" placeholder=" ✨오늘의 특가!!" aria-label="Search" />
-                                          <button
+                                      <form onSubmit={(evt) => { evt.preventDefault()}}
+                                      className="d-flex" role="search" style={{ marginRight: '50px', position: 'relative' }}>
+                                          <input value={searchValue} onChange={(e)=>setSearchValue(e.target.value)}
+                                          className="form-control me-2" type="search" placeholder=" ✨오늘의 특가!!" aria-label="Search" />
+                                          <button onClick={onSearch}
                                               type="button"
                                               className="btn btn-outline-primary"
                                               style={{
