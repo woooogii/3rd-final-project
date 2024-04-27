@@ -11,9 +11,13 @@ export const Container = styled.div`
         overflow-y: initial; /* 스크롤 숨김 */
     }
 
-    .scroll-container::-webkit-scrollbar {
-    display: none;
-}
+    body::-webkit-scrollbar {
+        display: none; /* Chrome, Safari 등에서 스크롤바 숨김 */
+    }
+
+        .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
 
     section {
         position: relative;

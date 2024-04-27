@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.*;
-import java.nio.charset.StandardCharsets;
 
 import com.project.back.entity.ProductEntity;
 import com.project.back.service.ProductService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriUtils;
 
 @RestController
 @RequestMapping("/pedal")
@@ -71,24 +69,6 @@ public class ProductController {
         try {
             List<ProductEntity> cateData = productService.getCateList(category);
             return ResponseEntity.ok(cateData);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-    
-
-    //지은 이미지 출력
-    @GetMapping("/shop/image/{pid}")
-    public ResponseEntity<List<String>> getProductWithImage(@PathVariable("pid") Long id){
-        try {
-            List<String> imgUrls = productService.findPImageUrlsBypId(id);
-            List<String> encodedUrls = new ArrayList<>();
-            for (String url : imgUrls) {
-                String encodedUrl = UriUtils.encode(url, StandardCharsets.UTF_8);
-                encodedUrls.add(encodedUrl);
-            }
-            return ResponseEntity.ok(encodedUrls);
         } catch (Exception e) {
             System.out.println(e.toString());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

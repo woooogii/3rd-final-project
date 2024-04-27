@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { loginToken } from './store';
 import { useDispatch } from 'react-redux';
 
 
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/nav/nav.css'
-import { PiUserCirclePlusThin,PiUserListThin  } from "react-icons/pi";
 import { PiUserCirclePlusThin,PiUserListThin  } from "react-icons/pi";
 
 
@@ -20,13 +17,7 @@ const Navibar = () => {
   const dispatch = useDispatch();
   const [cookies] = useCookies();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [cookies] = useCookies();
-  const navigate = useNavigate();
 
-  const [token, setToken] = useState(null);
-  const [uid, setUid] = useState('');
-  const [uname, setUname] = useState('');
   const [token, setToken] = useState(null);
   const [uid, setUid] = useState('');
   const [uname, setUname] = useState('');
@@ -41,30 +32,12 @@ const Navibar = () => {
       setGoogleUser();
     }
   }, [cookies.jwtToken, cookies.googleJwtToken]);
-  useEffect(() => {
-    if (cookies.jwtToken) {
-      console.log("걍 토큰 있네")
-      setUser();
-    } else if (cookies.googleJwtToken) {
-      console.log("구글 토큰 있네")
-      setGoogleUser();
-    }
-  }, [cookies.jwtToken, cookies.googleJwtToken]);
 
 
 
 
   const setUser = () => {
-  const setUser = () => {
 
-    let token;
-    let decodedToken;
-    try {
-      const token = cookies.jwtToken; //쿠키에서 토큰 빼오기
-      decodedToken = jwtDecode(token); //가져온 토큰 디코딩
-    } catch (error) {
-      console.log(error)
-    }
     let token;
     let decodedToken;
     try {
@@ -76,22 +49,14 @@ const Navibar = () => {
 
     const uid = decodedToken.sub; //디코딩된 토큰 속 uid
     const uname = decodedToken.nickname; //디코딩된 토큰 속 uname
-    const uid = decodedToken.sub; //디코딩된 토큰 속 uid
-    const uname = decodedToken.nickname; //디코딩된 토큰 속 uname
 
-    setToken(token);
-    setUid(uid);
-    setUname(uname);
     setToken(token);
     setUid(uid);
     setUname(uname);
 
     dispatch(loginToken({ uid: uid, uname: uname })); //store.js로 uid,uname보내주기
   }
-    dispatch(loginToken({ uid: uid, uname: uname })); //store.js로 uid,uname보내주기
-  }
 
-  const setGoogleUser = () => {
   const setGoogleUser = () => {
     let decodedToken;
     try {
@@ -99,25 +64,15 @@ const Navibar = () => {
       decodedToken = jwtDecode(token); // 가져온 토큰 디코딩
       const uid = decodedToken.email; // 디코딩된 토큰 속 uid
       const uname = decodedToken.sub; // 디코딩된 토큰 속 uname
-      const token = cookies.googleJwtToken; // 쿠키에서 토큰 빼오기
-      decodedToken = jwtDecode(token); // 가져온 토큰 디코딩
-      const uid = decodedToken.email; // 디코딩된 토큰 속 uid
-      const uname = decodedToken.sub; // 디코딩된 토큰 속 uname
 
       setToken(token);
       setUid(uid);
       setUname(uname);
-      setToken(token);
-      setUid(uid);
-      setUname(uname);
 
-      dispatch(loginToken({ uid: uid, uname: uname })); // store.js로 uid, uname 보내주기
       dispatch(loginToken({ uid: uid, uname: uname })); // store.js로 uid, uname 보내주기
     } catch (error) {
       console.log(error)
-      console.log(error)
     }
-  }
   }
 
 
@@ -137,39 +92,7 @@ const Navibar = () => {
       console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
     }
   };
-  const handleLogout = async () => {
-    try {
-      const response = await axios.delete('http://localhost:4000/pedal/logout', { withCredentials: true });
-      if (response.status === 200) {
-        //서버에서 쿠키삭제하고나면 토큰,uid,uname 다 비움 
-        setToken(null);
-        setUid('');
-        setUname('');
-        navigate("/pedal/home");
-      } else {
-        console.error('로그아웃 요청이 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
-    }
-  };
 
-  const handleGoogleLogout = async () => {
-    try {
-      const response = await axios.delete('http://localhost:4000/pedal/googleLogout', { withCredentials: true });
-      if (response.status === 200) {
-        //서버에서 쿠키삭제하고나면 토큰,uid,uname 다 비움 
-        setToken(null);
-        setUid('');
-        setUname('');
-        navigate("/pedal/home");
-      } else {
-        console.error('로그아웃 요청이 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('로그아웃 요청 중 에러가 발생했습니다.', error);
-    }
-  };
   const handleGoogleLogout = async () => {
     try {
       const response = await axios.delete('http://localhost:4000/pedal/googleLogout', { withCredentials: true });
@@ -234,36 +157,6 @@ const Navibar = () => {
 
                 <button type="button" id='btn' class="btn btn-outline-primary" onClick={() => navigate('/pedal/myPage')}  style={{borderRadius:'20px', fontSize:'15px'}} >&nbsp;마이페이지&nbsp;</button> 
 
-                {
-                  cookies.jwtToken ? (
-                    <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleLogout() }}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;로그아웃&nbsp;</button>
-                  ) : (
-                    <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleGoogleLogout() }}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;로그아웃&nbsp;</button>
-                  )
-                }
-               
-              </div>
-            ) : (
-
-              <div class='header_right2'>
-               
-                <PiUserCirclePlusThin style={{ fontSize: '45px', marginTop:'5px',marginRight:'-9px'}} onClick={() => navigate('/pedal/login')} />
-               
-                <div>
-                  <button type="button" id='btn' class="btn btn-outline-primary" onClick={() => navigate('/pedal/login')}  style={{borderRadius:'20px', fontSize:'17px',}} >&nbsp;&nbsp; 로그인 &nbsp;&nbsp;</button>
-                  <button type="button" id='btn'  class="btn btn-primary"onClick={() => navigate('/pedal/join')}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;회원가입&nbsp;</button>
-                </div>
-
-              </div>
-            )}
-
-          </span>
-        </div>
-      </div>
-    </nav>
-    {/* <hr class='line' style={{width:'80vw',marginLeft:'170px'}}/> */}
-  </div>
-  );
                 {
                   cookies.jwtToken ? (
                     <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleLogout() }}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;로그아웃&nbsp;</button>

@@ -84,7 +84,6 @@ const CategoryList = () => {
             <div ref={startHereRef}>
             {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
-            <ShopHeader/>
             </div>
             <div className='main'>
                 <br/>
@@ -97,7 +96,6 @@ const CategoryList = () => {
                             <option value={"highPrice"}>높은가격순</option>
                             <option value={"lowPrice"}>낮은가격순</option>
                     </select>
-                    <AddProduct onProductAdded={handleProductAdded} />
                     <ul info ={postsData(sortedData)}>
                         {sortedData && sortedData.map(item =>
                             <ProductItem key={item.pid} item={item}/>
