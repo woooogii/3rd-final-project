@@ -67,7 +67,7 @@ const CategoryList = () => {
     const limit = 4; // posts가 보일 최대한의 갯수
     const offset = (page-1)*limit; // 시작점과 끝점을 구하는 offset
 
-    const [currPage, setCurrPage] = useState(page)
+    const [currPage, setCurrPage] = useState(1);
     let firstNum = currPage - (currPage % 5) + 1
     let lastNum = currPage - (currPage % 5) + 5
     
