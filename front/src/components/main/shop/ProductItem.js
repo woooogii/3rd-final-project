@@ -1,25 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './style/productList.css';
 
 const ProductItem = ({item}) => {
-    // const [imageURLs, setImageURLs] = useState([]);
-    
-    // useEffect(()=>{
-    //     getProductImage(item.pid);
-    // },[]);
-
-    // const getProductImage=async(pid)=>{
-    //     try {
-    //         const response = await axios.get(`http://localhost:4000/pedal/shop/image/${pid}`, { cache: false });
-    //         // 받은 데이터를 디코딩하여 이미지 URL 리스트에 저장
-    //         const decodedURLs = response.data.map((url) => decodeURIComponent(url));
-    //         setImageURLs(decodedURLs);
-    //     } catch (error) {
-    //         console.error('error_fetch_image', error);
-    //     }
-    // }
     console.log(item);
 
     const navigate = useNavigate('');

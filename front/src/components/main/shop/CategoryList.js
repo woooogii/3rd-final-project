@@ -4,7 +4,6 @@ import axios from 'axios';
 import './style/productList.css';
 import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
-import ShopHeader from './ShopHeader';
 import Pagination from '@mui/material/Pagination';
 import AddProduct from './AddProduct';
 //import Pagination from "react-js-pagination";
@@ -74,7 +73,6 @@ const CategoryList = () => {
         <>
             <div ref={startHereRef}>
             <ShopHead id="head"/>
-            <ShopHeader/>
             </div>
             <div className='main'>
                 <br/>
@@ -87,7 +85,6 @@ const CategoryList = () => {
                             <option value={"highPrice"}>높은가격순</option>
                             <option value={"lowPrice"}>낮은가격순</option>
                     </select>
-                    <AddProduct onProductAdded={handleProductAdded} />
                     <ul>
                         {sortedData && sortedData.map(item =>
                             <ProductItem key={item.pid} item={item} currentPosts={currentPosts}/>

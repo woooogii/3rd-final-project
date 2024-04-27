@@ -55,9 +55,9 @@ public class ProductService {
                     + File.separator + "images" + File.separator + "productImg"; // 절대 경로 사용
 
             File productImg = new File(absolutePath + PATH);
-            if (!productImg.exists()) {
-                productImg.mkdirs(); // 폴더가 없을 경우 폴더 만들기
-            }
+            // if (!productImg.exists()) {
+            //     productImg.mkdirs(); // 폴더가 없을 경우 폴더 만들기
+            // }
     
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {

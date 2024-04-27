@@ -7,9 +7,7 @@ import ShopHead from './ShopHead';
 
 import '../../../styles/nav/nav.css'
 import './style/mainList.css';
-import AddProduct from './AddProduct';
 import ProductItem from './ProductItem';
-//import ShopHeader from './ShopHeader';
 
 
 const Shop = () => {
@@ -48,7 +46,6 @@ const Shop = () => {
     return (
         <>
             <div ref={startHereRef}>
-            {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
             </div>
                
