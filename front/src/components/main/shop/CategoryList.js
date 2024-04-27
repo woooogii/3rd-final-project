@@ -63,26 +63,16 @@ const CategoryList = () => {
     }
     const sortedData = sortData(cateData, sortOrder);
     //페이징
-    const [page, setPage] = useState(1); //페이지
-    const limit = 4; // posts가 보일 최대한의 갯수
-    const offset = (page-1)*limit; // 시작점과 끝점을 구하는 offset
-
     const [currPage, setCurrPage] = useState(1);
-    let firstNum = currPage - (currPage % 5) + 1
-    let lastNum = currPage - (currPage % 5) + 5
-    
-    const postsData = (posts) => {
-      if(posts){
-        let result = posts.slice(offset, offset + limit);
-        return result;
-      }
-    }
+    const [postsPerPage,setPostsPerPage] = useState(8);
+    const lastPostIndex = currPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts =sortedData.slice(firstPostIndex,lastPostIndex);
 
 
     return (
         <>
             <div ref={startHereRef}>
-            {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
             <ShopHeader/>
             </div>
@@ -98,15 +88,14 @@ const CategoryList = () => {
                             <option value={"lowPrice"}>낮은가격순</option>
                     </select>
                     <AddProduct onProductAdded={handleProductAdded} />
-                    <ul info ={postsData(sortedData)}>
+                    <ul>
                         {sortedData && sortedData.map(item =>
-                            <ProductItem key={item.pid} item={item}/>
+                            <ProductItem key={item.pid} item={item} currentPosts={currentPosts}/>
                         )}
                     </ul>
                 </div>
 
-                <Pagination shape="rounded" style={{marginLeft:'45%'}}
-                limit={limit} page={page} totalPosts={sortedData.length} setPage={setPage}/>
+                <Pagination shape="rounded" style={{marginLeft:'45%'}}/>
             </div>
         </>
     );
