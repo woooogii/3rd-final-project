@@ -1,33 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import MainButton from '../myPage/MainButton'
-import { InfoBox, Container,} from './styles';
-import { FaLocationDot } from "react-icons/fa6";
+import MainButton from '../myPage/MainButton';
+import { InfoBox, Container } from './styles';
+import { FaLocationDot } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-import { RiSingleQuotesL,RiSingleQuotesR } from "react-icons/ri";
-
+import {  RiSingleQuotesL, RiSingleQuotesR } from 'react-icons/ri';
+import { BsDashLg } from 'react-icons/bs';
 
 const Home = () => {
-
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    const [showSlideEffect, setShowSlideEffect] = useState(false);
     const navigate = useNavigate();
+    const [currentSection, setCurrentSection] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            if (scrollPosition > 400) {
-                setShowSlideEffect(true); // 스크롤 위치가 400보다 크면 슬라이드 효과 활성화
-            } else {
-                setShowSlideEffect(false); // 아니면 비활성화
-            }
+            const windowHeight = window.innerHeight;
+
+            const newSection = Math.floor(scrollPosition / windowHeight);
+            setCurrentSection(newSection);
         };
 
         window.addEventListener('scroll', handleScroll);
 
         return () => {
-            setShowSlideEffect(false); // 페이지를 벗어날 때 슬라이드 상태 초기화
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
@@ -35,171 +30,225 @@ const Home = () => {
 
     return (
         <Container>
-            {/* <Modal show={modalIsOpen} onHide={closeModal}  style={{ width: '100%', height:'100%', maxWidth: '1000px' }} >
+            {/* <MainButton/> */}
+            <main className="scroll-container">
+                <section className={currentSection === 0 ? 'is-visible' : ''}>
+                    {/* <Modal show={modalIsOpen} onHide={closeModal}  style={{ width: '100%', height:'100%', maxWidth: '1000px' }} >
                 <Modal.Header closeButton>
                 </Modal.Header>
                 <Modal.Body>
                 <img src='/image/popup.png' alt='' style={{ maxWidth: '100%', height: 'auto' }}/>
                 </Modal.Body>
             </Modal> */}
-            <hr className="line" style={{ width: '80vw', marginLeft: '220px' }} />
-            <br />
-            <br />
-            <div className="main1">
-                <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
-            </div>
-
-            <InfoBox>
-                <div>
-                    <ul>
-                        <li>
-                            <a href="http://localhost:3000/pedal/station">
-                                <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
-                                &nbsp; 대 여 방 법
-                            </a>
-                        </li>
-                        <span style={{ color: '#fff' }}>ㅣ</span>
-                        <li>
-                            <a href="http://localhost:3000/pedal/station">
-                                <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
-                                &nbsp; 대 여 소
-                            </a>
-                        </li>
-                        <span style={{ color: '#fff' }}>ㅣ</span>
-                        <li>
-                            <a href="http://localhost:3000/pedal/ticket">
-                                <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
-                                &nbsp; 이 용 권 안 내
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </InfoBox>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col">
-    <div class="card">
-      <img src="/image/kakaopay.png" class="card-img-top" alt="..."/>
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="..."/>
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="..."/>
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-            <div className="one">
-                <div className="one_class">
-                    <img src="/image/main08.png" alt="" />
-                    <div className="one_text">
-                        <hr />
-                        <h2>언제, 어디서나, 자유롭고 편리하게</h2>
-                        <h5>
-                            <b>자전거를 이용해</b> 목적지로 이동할 수 있는
-                            <br />
-                            <br />
-                            녹색대중교통수단 <b>자전거 무인 대여제</b>입니다.
-                        </h5>
+                    <hr className="line1" style={{ width: '75vw', marginLeft: '190px'}} />
+                    <br />
+                    <br />
+                    <div className="main1">
+                        <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
                     </div>
-                    <div className="one_btn">
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            onClick={() => navigate('/pedal/station')}
-                            style={{ borderRadius: '15px', fontSize: '20px', paddingLeft: '20px', paddingRight: '20px' }}
-                        >
-                            구경하기
-                        </button>
+
+                    <InfoBox>
+                        <div>
+                            <ul>
+                                <li>
+                                    <a href="http://localhost:3000/pedal/station">
+                                        <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
+                                        &nbsp; 대 여 방 법
+                                    </a>
+                                </li>
+                                <span style={{ color: '#fff' }}>ㅣ</span>
+                                <li>
+                                    <a href="http://localhost:3000/pedal/station">
+                                        <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
+                                        &nbsp; 대 여 소
+                                    </a>
+                                </li>
+                                <span style={{ color: '#fff' }}>ㅣ</span>
+                                <li>
+                                    <a href="http://localhost:3000/pedal/ticket">
+                                        <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
+                                        &nbsp; 이 용 권 안 내
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </InfoBox>
+                </section>
+                <section className={currentSection === 1 ? 'is-visible' : ''}>
+                    <div id="pedal">
+                        <div>
+                            <BsDashLg />
+                        </div>
+                        <span>PEDAL</span>
                     </div>
-                </div>
-            </div>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            <div class="card">
+                                <img src="/image/bicycle01.png" class="card-img-top" alt="..." style={{ width: '230px', paddingBottom: '30px' }} />
+                                <div class="card-body">
+                                    <h5 class="card-title">공영자전거</h5>
+                                    <hr />
+                                    <p class="card-text">
+                                        공영자전거는 누구나 편리하게
+                                        <br /> 이용할 수 있습니다.
+                                        <br />
+                                        홈페이지나 앱을 통해 이용가능하도록
+                                        <br /> 설계되었으며, 내구성이 강한 소재를
+                                        <br /> 적용하여 안전과 편의성을
+                                        <br /> 최대한 반영하였습니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
-            <div className="three">
-                <div className="three_class">
-                    <img src="/image2/main7.jpg" alt="" />
-                    <div className="three_text">
-                        <h1>
-                            <RiSingleQuotesL />
-                            <span>세상과 소통하는 우리</span>
-                            <RiSingleQuotesR />
-                            <hr />
-                            {/* <div className={`slider-container ${showSlideEffect ? 'show-slide' : ''}`}>
-                                <img
-                                    src="/image/bicycle.jpg"
-                                    alt=""
-                                    className="sliding-image"
-                                    style={{ left: showSlideEffect ? '50%' : '100%', width:'300px' }} // 슬라이드 효과 발동 시 중앙으로 이동
-                                />
-                            </div> */}
-                        </h1>
-                        <h5>지금, 서울시에서 만나보세요</h5>
+                        <div class="col">
+                            <div class="card">
+                                <img src="/image/bicycle02.png" class="card-img-top" alt="..." style={{ width: '105px', paddingBottom: '30px' }} />
+                                <div class="card-body">
+                                    <h5 class="card-title">위치기반 서비스</h5>
+                                    <hr />
+                                    <p class="card-text">
+                                        서비스 구역 내에서만 사용자가
+                                        <br /> 자전거를 빌리고 반납할 수 있습니다. <br />
+                                        서비스 이용 중에 서비스 구역을
+                                        <br />
+                                        벗어나면 위치기반 시스템에서 <br />
+                                        위치를 찾을 수 없으므로 자전거를
+                                        <br /> 반납할 수 없습니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card">
+                                <img src="/image/bicycle03.png" class="card-img-top" alt="..." style={{ width: '145px', paddingBottom: '30px' }} />
+                                <div class="card-body">
+                                    <h5 class="card-title">스마트락</h5>
+                                    <hr />
+                                    <p class="card-text">
+                                        스마트락은 자전거의 뒷바퀴에
+                                        <br /> 부착하는 잠금장치이며 스마트폰 및<br /> 서비스 서버와의 통신을 통하여
+                                        <br /> 승인된 사용자인 경우 위 부분에 있는
+                                        <br /> QR코드로 스마트폰을 이용한 <br />
+                                        대여기능을 지원합니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </section>
+                <section className={currentSection === 2 ? 'is-visible' : ''}>
+                    <div className="two">
+                        <div className="two_class">
+                            <img src="/image/scenery06.png" alt="" />
+                            <div className="two_text1">
+                                <hr />
+                                <h2>자전거와 함께 하는 즐거운 일상,</h2>
+                                <h5>건강한 도시의 삶을 경험할 수 있습니다.</h5>
+                            </div>
+                            <div className="two_btn1">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    onClick={() => navigate('/pedal/ticket')}
+                                    style={{ borderRadius: '15px', fontSize: '18px', paddingLeft: '20px', paddingRight: '20px' }}
+                                >
+                                    이용권 안내
+                                </button>
+                            </div>
+                            <div className="two_btn2">
+                                <button type="button" class="btn btn-primary" onClick={() => navigate('/pedal/shop')} style={{ borderRadius: '15px', fontSize: '18px' }}>
+                                    쇼핑몰 구경
+                                </button>
+                            </div>
+                            <div className="two_text2">
+                                <hr />
+                                <h2>
+                                    <span style={{ paddingLeft: '210px' }}>또 하나의 기쁨을</span>
+                                    <br />
+                                    페달의민족과 함께 즐겨보세요!
+                                </h2>
+                                <h5 style={{ paddingLeft: '350px' }}>구경하고가세요</h5>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className={currentSection === 3 ? 'is-visible' : ''}>
+                    <div className="three">
+                        <div className="three_class">
+                            <img src="/image2/main7.jpg" alt="" />
+                            <div className="three_text">
+                                <h1>
+                                    <RiSingleQuotesL style={{ marginBottom: '40px' }} />
+                                    &nbsp;세상과 소통하는 우리&nbsp;
+                                    <RiSingleQuotesR style={{ marginBottom: '40px' }} />
+                                </h1>
+                                {/* <h1>
+                            <RiDoubleQuotesL style={{ marginBottom: '40px' }} />
+                            &nbsp;&nbsp;세상과 소통하는 우리&nbsp;&nbsp;
+                            <RiDoubleQuotesR style={{ marginBottom: '40px' }} />
+                        </h1> */}
+                                <hr />
+                                <h5>지금, 서울시에서 만나보세요</h5>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className={currentSection === 4 ? 'is-visible' : ''}>
+                    <div className="one">
+                        <div className="one_class">
+                            <img src="/image/main08.png" alt="" />
+                            <div className="one_text">
+                                <hr />
+                                <h2>언제, 어디서나, 자유롭고 편리하게</h2>
+                                <h5>
+                                    <b>자전거를 이용해</b> 목적지로 이동할 수 있는
+                                    <br />
+                                    <br />
+                                    녹색대중교통수단 <b>자전거 무인 대여제</b>입니다.
+                                </h5>
+                            </div>
+                            <div className="one_btn">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    onClick={() => navigate('/pedal/station')}
+                                    style={{ borderRadius: '15px', fontSize: '18px', paddingLeft: '20px', paddingRight: '20px' }}
+                                >
+                                    구경하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className={currentSection === 5 ? 'is-visible' : ''}>
+                    <div className="four">
+                        <div className="four_class">
+                            <div className="four_btn2">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    onClick={() => navigate('/pedal/shop')}
+                                    style={{ borderRadius: '15px', fontSize: '18px', backgroundColor: '#facc2e', border: 'none', paddingLeft: '15px', paddingRight: '15px' }}
+                                >
+                                    쇼핑몰 구경
+                                </button>
+                            </div>
+                            <img src="/image/bicycle03.jpeg" alt="" />
+                            <div className="four_text2">
+                                <hr />
+                                <h2>
+                                    <span style={{ paddingLeft: '210px' }}>또 하나의 기쁨을</span>
+                                    <br />
+                                    페달의민족과 함께 즐겨보세요!
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
 
-            <div className="two">
-                <div class="mix_photo1">
-                    <img src="/image2/main3.jpg" alt="" />
-                    <img src="/image2/main6.jpg" alt="" />
-                </div>
-                <div class="mix_photo2">
-                    <img src="/image2/main5.jpeg" alt="" />
-                    <img src="/image2/main4.jpg" alt="" />
-                </div>
-            </div>
-
-            {/* <div class="grid">
-                <div class="three-one">
-                    <img src="/image2/main3.jpg" alt="" />
-                </div>
-                <div class="three-four">
-                    <img src="/image2/main6.jpg" alt="" />
-                </div>
-                <div class="three-two">
-                    <img src="/image2/main5.jpeg" alt="" />
-                </div>
-                <div class="three-three">
-                    <img src="/image2/main4.jpg" alt="" />
-                </div>
-            </div> */}
-
-            <div class="grid">
-                <div className="five-one">
-                    <img src="/image2/main8.jpg" alt="" />
-                </div>
-                <div className="five-two">
-                    <img src="/image2/main9.jpg" alt="" />
-                </div>
-                <div className="five-three">
-                    <img src="/image2/main10.jpg" alt="" />
-                </div>
-                <div className="five-four">
-                    <img src="/image2/main11.jpg" alt="" />
-                </div>
-            </div>
-            <div className="six">
-                <img src="/image2/main12.jpg" alt="" />
-            </div>
-
-            <MainButton />
         </Container>
     );
 };

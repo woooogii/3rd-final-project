@@ -10,6 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override  
     public void addResourceHandlers(ResourceHandlerRegistry registry) {  
         registry.addResourceHandler("/images/**") 
-        .addResourceLocations("file:///C:/VSCode/2nd/pedal/back/src/main/resources/static/images/productImg"); // 정적 리소스가 위치한 디렉토리 경로
-    } 
+        .addResourceLocations("file:///Users/YOO/Desktop/pedal/back/src/main/resources/static/images/productImg"); // 정적 리소스가 위치한 디렉토리 경로
+       
+    }  
 }

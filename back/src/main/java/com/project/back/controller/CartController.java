@@ -52,6 +52,7 @@ public class CartController {
         }
     }
 
+
     @GetMapping("/pedal/mycart")
     public List<CartDTO> showMyCart(@RequestParam String uid) {
         List<CartEntity> cartItems = cartService.getMyCartList(uid);
@@ -71,7 +72,6 @@ public class CartController {
                 cartDTO.setPImage2(product.getPImage2());
                 cartDTO.setPImage3(product.getPImage3());
                 cartDTO.setPImage4(product.getPImage4());
-                //cartDTO.setPImageUrls(product.getPImageUrls());
                 cartDTO.setCAmount(cartItem.getCAmount());
                 cartInfo.add(cartDTO);
             }
@@ -92,5 +92,7 @@ public class CartController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to remove cart item.");
         }
+
+       
     }
 }

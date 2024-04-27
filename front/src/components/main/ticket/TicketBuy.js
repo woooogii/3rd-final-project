@@ -58,7 +58,7 @@ const TicketBuy = () => {
     };
 
     const StyledTickets = styled.div`
-        margin-top: 210px;
+        margin-top: 130px;
         display: flex;
         justify-content: center;
         margin-right: 300px;

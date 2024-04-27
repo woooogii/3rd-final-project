@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
@@ -9,8 +8,8 @@ import '../shop/ShopHead.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsCart2 } from "react-icons/bs";
-import { IoCaretDown } from "react-icons/io5";
 import { PiList } from "react-icons/pi";
+import { BsExclamationLg } from "react-icons/bs";
 
 
 
@@ -153,7 +152,10 @@ useEffect(()=>{
                                               검색
                                           </button>
                                       </form>
-                                      <BsCart2 onClick={onBuy} style={{ color: '#fff', fontSize: '37px', marginRight: '30px'}} />
+                                    <BsCart2 onClick={onBuy} style={{ color: '#fff', fontSize: '37px' }} />
+                                    <div onClick={() => navigate('/pedal/shop/created')}>
+                                      <BsExclamationLg style={{ color: '#fff', fontSize: '30px' }} />
+                                    </div>
                                   </div>
                               </div>
                       </span>

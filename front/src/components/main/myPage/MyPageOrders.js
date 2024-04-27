@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect} from 'react';
 import { Tabs, Switch } from 'antd';
 import styled from 'styled-components';
+import { Image } from '../cart/CartStyle';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -111,7 +112,7 @@ return (
               sortedOrders.map((order) => (
                   <div key={order.onum}>
                       <div className="myTicket_list" style={{ width: '1300px' }}>
-                          <div style={{ width: '10%', paddingLeft: '30px' }}><img src={order.pimage}   /></div>
+                          <div style={{ width: '10%', paddingLeft: '30px' }}><Image src={order.pimage}   /></div>
                           <div style={{ width: '20%' }}>{order.pname}</div>
                           <div style={{ width: '10%' }}>{order.pprice}</div>
                           <div style={{ width: '20%' }}>{order.amount}</div>

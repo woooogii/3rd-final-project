@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import LocationWithMarker from './LocationWithMarker';
-//import InsertData from '../InsertComponent/InsertData';
+// import InsertData from '../InsertComponent/InsertData';
 
 
 const BicycleData = () => {
