@@ -111,7 +111,7 @@ return (
               sortedOrders.map((order) => (
                   <div key={order.onum}>
                       <div className="myTicket_list" style={{ width: '1300px' }}>
-                          <div style={{ width: '10%', paddingLeft: '30px' }}></div>
+                          <div style={{ width: '10%', paddingLeft: '30px' }}><img src={order.pimage}   /></div>
                           <div style={{ width: '20%' }}>{order.pname}</div>
                           <div style={{ width: '10%' }}>{order.pprice}</div>
                           <div style={{ width: '20%' }}>{order.amount}</div>
