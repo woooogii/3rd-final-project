@@ -8,7 +8,26 @@ import MyPageTicketList from './MyPageTicketList';
 import MainPageDefault from './MainPageDefault';
 import MyPageUpdatePW from './MyPageUpdatePW';
 import MpSnsInfo from './MpSnsInfo';
-import MyPageOrders from './MyPageOrders';
+import styled from 'styled-components';
+
+const MyPageMainHead = styled.div`
+
+    .myPageMainHead {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+            top: 110px;
+            left: 380px;
+
+            hr {
+                position: absolute;
+                border: 10px solid #1675f2;
+                width: 180px;
+                margin-left: -10px;
+                top: 10px;
+            }
+        }
+`;
 
 const MyPage = () => {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -43,8 +62,6 @@ const MyPage = () => {
         return <MyPageCheckPW setActiveComponent={setActiveComponent} />;
       case 'tickets':
         return <MyPageTicketList />;
-      case 'orders':
-        return <MyPageOrders />;
       case 'updatePassword':
         return <MyPageUpdatePW setActiveComponent={setActiveComponent} />;
       case 'googleInfo':
@@ -61,7 +78,13 @@ const MyPage = () => {
         tokenType={tokenType}
       />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: 70, marginLeft: 50, marginRight: 70 }}>
-        <h1 style={{ textAlign: 'left', cursor: 'pointer', width: 'fit-content' }} onClick={() => setActiveComponent(null)}>마이페이지</h1>
+      <MyPageMainHead>
+        <div className='myPageMainHead'>
+          <hr />
+          <h2 style={{ textAlign: 'left', cursor: 'pointer', width: 'fit-content' }} onClick={() => setActiveComponent(null)}>마이페이지</h2>
+          </div>
+      </MyPageMainHead>
+
         <hr />
         {renderComponent(activeComponent)}
         

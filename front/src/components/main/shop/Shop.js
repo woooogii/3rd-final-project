@@ -9,7 +9,7 @@ import '../../../styles/nav/nav.css'
 import './style/mainList.css';
 import AddProduct from './AddProduct';
 import ProductItem from './ProductItem';
-//import ShopHeader from './ShopHeader';
+import Search from './Search';
 
 
 const Shop = () => {
@@ -45,6 +45,18 @@ const Shop = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pedal/shop');
+                setEntities(response.data);
+            } catch (error) {
+                console.error('error_fetch', error);   
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
             <div ref={startHereRef}>
@@ -67,7 +79,7 @@ const Shop = () => {
             }}>구매</button>
 
             <br/><br/><br/><br/><br/><br/>
-            
+            <AddProduct/>
 
             <div className='main'>
                 <div className='visual'>
@@ -75,6 +87,7 @@ const Shop = () => {
                 </div>
                 <div className='product'>
                     <h2>상품</h2>
+                    <Search/>
                     <ul>
                         {entities && entities.map(item => 
                             <ProductItem key={item.pid} item={item}/>
@@ -85,6 +98,7 @@ const Shop = () => {
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        
                         
         </>
     );

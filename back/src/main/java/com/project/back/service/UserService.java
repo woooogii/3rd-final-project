@@ -3,7 +3,7 @@ package com.project.back.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,9 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    SocialRepository socialRepository;
-
+    @Qualifier("socialRepository")
+    // @Autowired
+    // SocialRepository socialRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -65,6 +65,9 @@ public class UserService {
         // 데이터베이스에서 사용자를 찾습니다.
         UserEntity user = userRepository.findByuId(uId);
 
+        if (user == null) {
+            throw new RuntimeException("No social information found for the given email: " + uId);
+        }
         user.setUId(userDTO.getUId());
         user.setUName(userDTO.getUName());
         user.setUPhone(userDTO.getUPhone());
@@ -80,25 +83,6 @@ public class UserService {
     }
 
 
-    public SocialEntity callSocialInfo(String email){
-        return socialRepository.findByEmail(email);
-    }
-
-    public SocialEntity updateSocialInfo(String email, SocialDTO socialDTO) {
-        // 데이터베이스에서 사용자를 찾습니다.
-        SocialEntity social = socialRepository.findByEmail(email);
-
-        social.setEmail(socialDTO.getEmail());
-        social.setPhone(socialDTO.getPhone());
-        social.setAddress(socialDTO.getAddress());
-        social.setAddrDetail(socialDTO.getAddrDetail());
-
-        // 변경된 사용자 정보를 데이터베이스에 저장합니다.
-        return socialRepository.save(social);
-    }
-
-
-    
 
 }
 
