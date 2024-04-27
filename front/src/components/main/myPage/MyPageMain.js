@@ -9,6 +9,7 @@ import MainPageDefault from './MainPageDefault';
 import MyPageUpdatePW from './MyPageUpdatePW';
 import MpSnsInfo from './MpSnsInfo';
 import styled from 'styled-components';
+import MyPageOrders from './MyPageOrders';
 
 const MyPageMainHead = styled.div`
 
@@ -62,6 +63,8 @@ const MyPage = () => {
         return <MyPageCheckPW setActiveComponent={setActiveComponent} />;
       case 'tickets':
         return <MyPageTicketList />;
+      case 'orders':
+        return <MyPageOrders />;
       case 'updatePassword':
         return <MyPageUpdatePW setActiveComponent={setActiveComponent} />;
       case 'googleInfo':

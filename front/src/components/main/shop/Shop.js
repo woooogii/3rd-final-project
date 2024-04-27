@@ -60,7 +60,6 @@ const Shop = () => {
     return (
         <>
             <div ref={startHereRef}>
-            {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
             </div>
                
@@ -77,9 +76,6 @@ const Shop = () => {
             <button onClick={() => { 
                 (loginUser && loginUser.uid && loginUser.uname) ? buyItem() : loginFirst();
             }}>구매</button>
-
-            <br/><br/><br/><br/><br/><br/>
-            <AddProduct/>
 
             <div className='main'>
                 <div className='visual'>
