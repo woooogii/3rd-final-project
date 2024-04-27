@@ -51,7 +51,7 @@ public class ProductService {
         try {
             String absolutePath = new File("").getAbsolutePath() + File.separator;
             // 실제 파일 저장 위치
-            String PATH =  "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
+            String PATH = "back"+File.separator+"src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
                     + File.separator + "images" + File.separator + "productImg"; // 절대 경로 사용
 
             File productImg = new File(absolutePath + PATH);
