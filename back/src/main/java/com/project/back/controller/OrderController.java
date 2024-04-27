@@ -85,6 +85,7 @@ public class OrderController {
             Long productId = order.getProductId().longValue();
             Integer amount = order.getAmount();
             String date = order.getOBuyDate();
+            Long orderNum = order.getONum();
             ProductEntity product = productService.findBypId(productId);
             
             if(product != null){
@@ -94,6 +95,7 @@ public class OrderController {
                 orderDTO.setPPrice(product.getPPrice());
                 orderDTO.setAmount(amount.longValue());
                 orderDTO.setOrderDate(date);
+                orderDTO.setONum(orderNum);
                 orderinfo.add(orderDTO);
             }
         }

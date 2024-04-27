@@ -3,11 +3,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Post from './post'; 
 import './MyPageCss.css'
-import { Navigate } from 'react-router-dom';
 
 const MyPageInfo = memo(({ setActiveComponent, tokenType }) => {
-
-  const navigate = Navigate('');
 
   const loginUser = useSelector(state => state.loginUser);
   const uid = loginUser.uid;
@@ -27,7 +24,11 @@ const MyPageInfo = memo(({ setActiveComponent, tokenType }) => {
         return;
       }
       try {
-        const response = await axios.get(`http://localhost:4000/pedal/${uid}`);
+        const response = await axios.get(`http://localhost:4000/pedal/normal`, {
+          params: {
+            uId: uid // 서버에 전달할 사용자 ID를 파라미터로 설정합니다.
+          }
+        });
         setUserInfo(prevState => ({ ...prevState, ...response.data })); 
       } catch (error) {
         console.error('사용자 정보를 불러오는데 실패했습니다.', error);
@@ -59,7 +60,7 @@ const MyPageInfo = memo(({ setActiveComponent, tokenType }) => {
       return;
     }
     try {
-      await axios.put(`http://localhost:4000/pedal/${uid}`, userInfo);
+      await axios.put(`http://localhost:4000/pedal/normal`, userInfo);
       alert('사용자 정보가 업데이트 되었습니다.');
     } catch (error) {
       console.error('사용자 정보 업데이트 실패', error);

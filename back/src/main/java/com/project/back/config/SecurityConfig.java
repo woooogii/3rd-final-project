@@ -59,7 +59,6 @@ public class SecurityConfig{
         .and()
         .authorizeRequests() //요청에 대한 사용 권한 체크
         .antMatchers("/admin/**").hasRole("ADMIN") // admin으로 들어올 경우 admin롤만 가능
-        .antMatchers("/pedal/post/**").authenticated() //post 작성시 인증된 사용자만 가능
         .anyRequest().permitAll(); //그외 나머지 요청은 누구나 접근 가능
 
 
