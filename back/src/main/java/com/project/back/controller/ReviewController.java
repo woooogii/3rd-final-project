@@ -1,6 +1,7 @@
 package com.project.back.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.back.entity.ReviewEntity;
 import com.project.back.service.ReviewService;
+
 
 @RestController
 @RequestMapping("/pedal")
@@ -38,6 +40,18 @@ public class ReviewController {
     public List<ReviewEntity> getReviewById(@PathVariable Long pId) {
         return reviewService.findBypId(pId);
     }
+
+
+    //리뷰수 저장 + 카운트
+    @GetMapping("/reviewCount")
+    public ResponseEntity<Integer> getReviewCount() {
+        
+        int count = reviewService.getReviewCount();
+
+        return ResponseEntity.ok(count);
+    }
+    
+
 
   
 }

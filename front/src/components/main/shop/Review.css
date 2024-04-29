@@ -1,5 +1,6 @@
 .modal-body {
     padding: 20px;
+    caret-color: transparent;
 }
 
 textarea {
@@ -63,7 +64,7 @@ button[type="submit"]:hover {
 }
 
 .content{
-    width: 500px;
+    width: 450px;
     height: 110px;
 }
 
@@ -73,5 +74,28 @@ button[type="submit"]:hover {
     margin-top: 25px;
 }
 
+.review_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FAF9F9;
+    width: 600px;
+    height: 150px;
+    text-align: center;
+  }
 
+.review_box_center{
+    display: flex;
+    justify-content: center;
+}
+
+.review_text{
+    font-size: 14px;
+    color: #5e6472;
+}
+
+  .line_review{
+    width: 50vw;
+    margin-left: 100px;
+  }
 

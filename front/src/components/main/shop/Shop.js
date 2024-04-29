@@ -55,20 +55,6 @@ const Shop = () => {
             <div ref={startHereRef}>
             <ShopHead id="head"/>
             </div>
-               
-              {/* {(loginUser && loginUser.uid && loginUser.uname) ? (
-                    <div>
-                        <p>{loginUser.uname}님 안녕하세요</p>
-                        <p>접속 아이디: {loginUser.uid}</p>
-                    </div>
-                    
-                ) : (
-                    <div>로그인 안돼있음</div>
-              )}
-
-            <button onClick={() => { 
-                (loginUser && loginUser.uid && loginUser.uname) ? buyItem() : loginFirst();
-            }}>구매</button> */}
 
             <div className='main'>
                 <div className='main-banner'>

@@ -135,13 +135,14 @@ const Navibar = () => {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/pedal/station">대여소</a>
             </li>
-            <span style={{ marginTop: '8px', fontSize: '20px' }}>ㅣ</span>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/pedal/ticket">이용권</a>
             </li>
-            <span style={{ marginTop: '8px', fontSize: '20px' }}>ㅣ</span>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/pedal/shop">쇼핑몰</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/pedal/shop">F A Q</a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -152,16 +153,16 @@ const Navibar = () => {
                
                 <div style={{fontSize:'18px', paddingTop:'16px',color:'#1675F2'}}><b>{uname}</b>님&nbsp;</div>
                 <div style={{color:'#1675F2'}}>
-                  <PiUserCirclePlusThin style={{ fontSize: '45px', marginTop:'5px'}} onClick={() => navigate('/pedal/myPage')} />
+                  <PiUserCirclePlusThin style={{ fontSize: '43px', marginTop:'5px', cursor:'pointer'}} onClick={() => navigate('/pedal/myPage')} />
                 </div>
 
                 <button type="button" id='btn' class="btn btn-outline-primary" onClick={() => navigate('/pedal/myPage')}  style={{borderRadius:'20px', fontSize:'15px'}} >&nbsp;마이페이지&nbsp;</button> 
 
                 {
                   cookies.jwtToken ? (
-                    <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleLogout() }}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;로그아웃&nbsp;</button>
+                    <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleLogout() }}  style={{borderRadius:'20px', fontSize:'15px'}} >&nbsp;로그아웃&nbsp;</button>
                   ) : (
-                    <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleGoogleLogout() }}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;로그아웃&nbsp;</button>
+                    <button type="button" id='btn'  class="btn btn-primary" onClick={() => { handleGoogleLogout() }}  style={{borderRadius:'20px', fontSize:'15px'}} >&nbsp;로그아웃&nbsp;</button>
                   )
                 }
                
@@ -170,11 +171,11 @@ const Navibar = () => {
 
               <div class='header_right2'>
                
-                <PiUserCirclePlusThin style={{ fontSize: '45px', marginTop:'5px',marginRight:'-9px'}} onClick={() => navigate('/pedal/login')} />
+                <PiUserCirclePlusThin style={{ fontSize: '43px', marginTop:'5px',marginRight:'-9px', cursor:'pointer'}} onClick={() => navigate('/pedal/login')} />
                
                 <div>
-                  <button type="button" id='btn' class="btn btn-outline-primary" onClick={() => navigate('/pedal/login')}  style={{borderRadius:'20px', fontSize:'17px',}} >&nbsp;&nbsp; 로그인 &nbsp;&nbsp;</button>
-                  <button type="button" id='btn'  class="btn btn-primary"onClick={() => navigate('/pedal/join')}  style={{borderRadius:'20px', fontSize:'17px'}} >&nbsp;회원가입&nbsp;</button>
+                  <button type="button" id='btn' class="btn btn-outline-primary" onClick={() => navigate('/pedal/login')} style={{borderRadius:'20px', fontSize:'16px',}} >&nbsp;&nbsp; 로그인 &nbsp;&nbsp;</button>
+                  <button type="button" id='btn'  class="btn btn-primary"onClick={() => navigate('/pedal/join')} style={{borderRadius:'20px', fontSize:'16px'}} >&nbsp;회원가입&nbsp;</button>
                 </div>
 
               </div>

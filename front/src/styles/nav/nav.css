@@ -55,12 +55,6 @@
   padding-right: 120px;
   gap:7px;
   color: #1675F2;
-  width: 620px;
-  display: flex;
-  padding-right: 120px;
-  gap:7px;
-  color: #1675F2;
-  display: flex;
 }
 
 /*
@@ -75,10 +69,8 @@
 */
 
 .nav-item {
-  font-size: 19px;
+  font-size: 18px;
   font-family: noto-sans; 
-  font-weight: bold;
-  color: #eee; 
   background-color: transparent;
   border-bottom: 3px solid transparent; /* 초기에는 투명한 선으로 설정 */
   transition: border-bottom 0.3s ease; /* 변화에 대한 애니메이션 효과 추가 */
@@ -91,17 +83,10 @@
 
 
 .navbar-nav{
-  width: 390px;
+  width: 380px;
   margin-right: initial;
   display: flex;
   justify-content: space-between;
-  color: #A4A4A4;
-  margin-top: 20px;
-  width: 390px;
-  margin-right: initial;
-  display: flex;
-  justify-content: space-between;
-  color: #A4A4A4;
   margin-top: 20px;
 }
 
@@ -112,7 +97,6 @@
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
   font-family: noto-sans; 
-  /* color:#959595;  */
   color:#A4A4A4; 
   height: initial;
 }
@@ -122,14 +106,6 @@
       margin-top: 10px;
 }
 
-@media (min-width: 992px) {
-  .navbar-expand-lg .navbar-collapse {
-    margin-left: 50px;
-  }
-  /* color:#959595;  */
-  color: #A4A4A4;
-  height: initial;
-}
 
 .btn{
       margin-left: 20px;
