@@ -1,41 +1,295 @@
-index.css
-
-.visual{
-    width:500px;
-    align-items: center;
-    padding-bottom:40px
-}
-
-.visual img{
+.main{
+    position: relative;
+    z-index: 1;
     width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    background: none transparent;
 }
-.product{
-    width:100%;
-    max-width: 1200px;
-    margin: 0 auto;
+.main-banner{
+    align-self: center;
+    z-index: 2;
+    height: max-content;
+    flex-grow: 0; /*부모 컨테이너 내에서 공간이 남아 있더라도 아이템이 확장되지 않고 원래 크기를 유지 */
+    flex-shrink: 0; /*부모 컨테이너 내에서 공간이 남아 있더라도 아이템이 확장되지 않고 원래 크기를 유지 */
+    width: 100%;
+    margin: 0px;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
-.product h2{
+
+.main-banner img{
+    width: 100%;
+    height: 700px;
+}
+
+.main-banner .carousel-btn{
+    margin: 0 10px;
+    position: relative;
+    background-color: #494949;
+    top: calc(50% - 20px);
+    color: white;
+    font-size: 30px;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+/*/////////////////////////*/
+/*배너 버튼*/
+.swiper-button-next {
+    width: 40px;
+    height: 76px;
+    left: 100px;
+}
+
+.swiper-button-prev {
+    width: 40px;
+    height: 76px;
+    right: 100px;
+}
+
+/*/////////////////////////*/
+.inner {
+    background: #f5f5f5;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.inner h3 {
     text-align: center;
-    padding-top:50px;
-    padding-bottom:40px;
+    margin-top: 80px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    font-size: 50px;
+    color: #898989;
+    background: url('https://www.samchuly.co.kr/resource/ko/images/main/title_bg.png') no-repeat center 90px;
 }
-.product ul {
+/* list_category */
+.lst_bicycle {
+    width: 100%;
+    min-width: 1280px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    margin-bottom:20px;
+    text-align: center;
 }
-.product ul li{
-    list-style: none;
-    width:25%;
-    border: 3px solid #fff;
-    padding-bottom: 20px;
+
+.lst_bicycle li.lst_category {
+    width: 320px;
+    height: 400px;
+    margin: 0 20px 80px;
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
 }
-.product ul li img{
+
+.lst_bicycle li.lst_category img {
     width: 100%;
+    height: max-content;
 }
-.product ul li h3{
-    padding: 10px;
+
+.lst_category_title {
+    width: 100%;
+    height: 55px;
+    position: absolute;
+    bottom: 0;
+    z-index: 4;
+    text-align: left;
 }
-.product ul li p {
-    padding: 0 10px;
+
+.lst_category_title strong {
+    position: absolute;
+    top: 12px;
+    left: 25px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: normal;
+    z-index: 1;
 }
+
+.lst_category_title p,
+.lst_category_title a {
+    display: none;
+}
+
+.lst_bicycle li.lst_category::before {
+    content: "";
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 3;
+    box-shadow: 0px 0px 30px #555;
+    transition: background-color 0.5s ease-out;
+}
+
+.lst_bicycle li.lst_category:hover::before {
+    width: 100%;
+    background-color: #1675F2;
+    opacity: 0.8;
+}
+
+.lst_bicycle li.lst_category:hover .lst_category_title {
+    height: 100%;
+}
+
+.lst_bicycle li.lst_category:hover .lst_icon_hovr {
+    display: block;
+    position: absolute;
+    top: 180px;
+    left: 30px;
+}
+
+.lst_icon_hovr {
+    display: none;
+    font-size: 60px;
+    color: #fff;
+}
+
+.lst_bicycle li.lst_category:hover .lst_category_title strong {
+    position: absolute;
+    top: 260px;
+    left: 30px;
+}
+
+.lst_bicycle li.lst_category:hover .lst_category_title p {
+    width: 83%;
+    position: absolute;
+    top: 300px;
+    left: 30px;
+    display: block;
+    z-index: 5;
+    white-space: pre-line;
+    text-align: left;
+    color: #fff;
+}
+
+.lst_bicycle li.lst_category:hover .bg_box {
+    display: none;
+}
+
+.lst_bicycle li.lst_category:hover .lst_category_title a {
+    width: 115px;
+    height: 40px;
+    position: absolute;
+    top: 330px;
+    left: 30px;
+    display: block;
+    z-index: 5;
+    line-height: 44px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.bg_box {
+    width: 100%;
+    height: 55px;
+    background: #000;
+    opacity: 0.5;
+}
+
+
+.lst_bicycle li.lst_search {
+    width: 340px;
+    height: 453px;
+    display: inline-block;
+    margin: 0 30px 80px 30px;
+    float: left;
+    position: relative;
+    z-index: 3;
+    background: #ede8e4;
+}
+
+.lst_bicycle li.lst_search img {
+    margin-top: 87px;
+}
+
+.lst_bicycle li.lst_search strong {
+    width: 100%;
+    display: block;
+    margin-top: 40px;
+    font-size: 32px;
+    font-weight: normal;
+}
+
+.lst_bicycle li.lst_search p {
+    width: 255px;
+    margin: 20px auto 40px;
+    line-height: 24px;
+    color: #666;
+}
+
+.lst_bicycle li.lst_search input {
+    height: 55px;
+    padding: 18px 10px 18px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #898989;
+    background: #f5f5f5;
+    border: 1px solid #f5f5f5;
+}
+
+.lst_bicycle li.lst_search button {
+    width: 55px;
+    height: 55px;
+    margin-left: -4px;
+    text-indent: -10000px;
+}
+
+
+.btn_Top {/*위로가기*/
+    width: 67px;
+    height: 67px;
+    position: fixed;
+    right: 10px;
+    bottom: 470px;
+    text-indent: -10000px;
+}
+/*
+@media all and (max-width: 1633px) {
+    .lst_bicycle {
+        width: 1110px;
+        min-width: 1000px;
+        text-align: center;
+    }
+
+    .lst_bicycle li.lst_category, .lst_bicycle li.lst_search {
+        margin: 0 15px 80px 15px;
+    }
+
+    .inner h3 {
+        text-align: center;
+        padding-bottom: 80px;
+        font-size: 34px;
+        color: #898989;
+    }
+}*/
+/*
+@media all and (max-width: 1330px) {
+    .lst_bicycle {
+        width: 1110px;
+        min-width: 1000px;
+        text-align: center;
+    }
+
+    .lst_bicycle li.lst_category, .lst_bicycle li.lst_search {
+        margin: 0 15px 80px 15px;
+    }
+
+    .inner h3 {
+        text-align: center;
+        padding-bottom: 80px;
+        font-size: 34px;
+        color: #898989;
+    }
+}*/

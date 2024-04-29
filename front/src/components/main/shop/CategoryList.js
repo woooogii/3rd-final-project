@@ -4,13 +4,11 @@ import axios from 'axios';
 import './style/productList.css';
 import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
-import Pagination from '@mui/material/Pagination';
-//import Pagination from "react-js-pagination";
+import Pagination from 'react-js-pagination';
 
 const CategoryList = () => {
     const [cateData, setCateData] = useState([]);
     const { category } = useParams();
-    const [reloadProducts, setReloadProducts] = useState(false);
     
     const startHereRef = useRef(null);
     useEffect(() => {
@@ -23,7 +21,6 @@ const CategoryList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(category);
                 const response = await axios.get(`http://localhost:4000/pedal/shop/list/${category}`);
                 setCateData(response.data);
             } catch (error) {
@@ -31,65 +28,89 @@ const CategoryList = () => {
             }
         };
         fetchData();
-    }, [category, reloadProducts]);
+    }, [category]);
 
-    //select 순서 정렬
-    const [sortOrder, setSortOrder] = useState("noFilter");
+     // 페이징
+     const [page, setPage] = useState(1);
+     const postPerPage = 8; // 페이지당 상품 갯수
+     const indexOfLastPost = page * postPerPage;
+     const indexOfFirstPost = indexOfLastPost - postPerPage;
+     const [currentPost, setCurrentPost] = useState([]);
+ 
+     const sortData = (data, order) => {
+         if (!data) return [];
+         const selectData = [...data];
+         if (order === "newProduct") {
+             return selectData.sort((a, b) => new Date(b.pregdate) - new Date(a.pregdate));
+         } else if (order === "highPrice") {
+             return selectData.sort((a, b) => b.pprice - a.pprice);
+         } else if (order === "lowPrice") {
+             return selectData.sort((a, b) => a.pprice - b.pprice);
+         } else {
+             return selectData;
+         }
+     };
+ 
+     const handleSort = (sortOption) => {
+         const sortedData = sortData(cateData, sortOption);
+         setCurrentPost(sortedData.slice(indexOfFirstPost, indexOfLastPost));
+     };
+ 
+     useEffect(() => {
+         const sortedData = sortData(cateData, "noFilter");
+         setCurrentPost(sortedData.slice(indexOfFirstPost, indexOfLastPost));
+     }, [cateData, page, indexOfFirstPost, indexOfLastPost]);
+ 
+     const handlePageChange = (page) => {
+         setPage(page);
+     };
     
-    const sortData = (data, order) => {
-        if (!data) return [];
-        const selectData = [...data];
-        if (order === "newProduct") {
-            return selectData.sort((a, b) => new Date(b.pregdate) - new Date(a.pregdate));
-        } else if (order === "highPrice") {
-            return selectData.sort((a, b) => b.pprice - a.pprice);
-        } else if (order === "lowPrice") {
-            return selectData.sort((a, b) => a.pprice - b.pprice);
-        } else {
-            return selectData;
-        }
-    };
-    const handleChangeSelect=(e)=>{
-        const selectedValue = e.target.value;
-        setSortOrder(selectedValue);
-    }
-    const sortedData = sortData(cateData, sortOrder);
-    //페이징
-    const [page, setPage] = useState(1); //페이지
-    const limit = 4; // posts가 보일 최대한의 갯수
-    const offset = (page-1)*limit; // 시작점과 끝점을 구하는 offset
-
-    const [currPage, setCurrPage] = useState(page)
-    let firstNum = currPage - (currPage % 5) + 1
-    let lastNum = currPage - (currPage % 5) + 5
-    
-
-
     return (
         <>
-            <div ref={startHereRef}>
-            {/* <ShopHeader id="#custom-shopHead"/> */}
-            <ShopHead id="head"/>
+        <div ref={startHereRef}>
+            <div>
+                <ShopHead id="head"/>
             </div>
-            <div className='main'>
-                <br/>
-                <div className='product'>
-                    {category==='bicycle'?
-                    (<h2>자전거</h2>):(<h2>안전용품</h2>)}
-                    <select onChange={handleChangeSelect}>
-                            <option value={'noFilter'}>정렬방법</option>
-                            <option value={"newProduct"}>신상품순</option>
-                            <option value={"highPrice"}>높은가격순</option>
-                            <option value={"lowPrice"}>낮은가격순</option>
-                    </select>
-                    <ul>
-                        {sortedData && sortedData.map(item =>
-                            <ProductItem key={item.pid} item={item}/>
-                        )}
+            
+            <div className='sub_conts'>
+                <h3>
+                    {category==='bicycle'?(<h2>자전거</h2>):(<h2>안전용품</h2>)}
+                </h3>
+                <div className='prodt_area'>
+                    <ul className='cost_order'>
+                    <li>
+                        <a href="#" onClick={(e) => { e.preventDefault(); handleSort('newProduct'); }}>신상품순</a>
+                    </li>
+                    <li>
+                        <a href="#" onClick={(e) => { e.preventDefault(); handleSort('highPrice'); }}>높은가격순</a>
+                    </li>
+                    <li>
+                        <a href="#" onClick={(e) => { e.preventDefault(); handleSort('lowPrice'); }}>낮은가격순</a>
+                    </li>
                     </ul>
                 </div>
-
             </div>
+
+            <div>
+                <ul className='prodt_lst'>
+                    {currentPost && currentPost.map(item =>
+                        <ProductItem key={item.pid} item={item}/>
+                    )}
+                </ul>
+            </div>
+
+            <div className='sub'></div>
+        </div>
+
+            <Pagination
+            activePage={page}
+            itemsCountPerPage={postPerPage}
+            totalItemsCount={cateData.length}
+            pageRangeDisplayed={5}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+            />
         </>
     );
 };
