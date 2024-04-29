@@ -21,6 +21,7 @@ import AddProduct from './shop/AddProduct.js';
 import SearchList from './shop/SearchList.js';
 import InsertData from './InsertComponent/InsertData.js';
 import BicycleData from './map/BicycleData.js';
+import Ffooter from './footer/Ffooter.js';
 
 
 

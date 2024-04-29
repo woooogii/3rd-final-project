@@ -33,17 +33,6 @@ const Shop = () => {
         navigate('/pedal/login')
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:4000/pedal/shop');
-                setEntities(response.data);
-            } catch (error) {
-                console.error('error_fetch', error);   
-            }
-        };
-        fetchData();
-    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -83,7 +72,7 @@ const Shop = () => {
                 </div>
                 <div className='product'>
                     <h2>상품</h2>
-                    <Search/>
+           
                     <ul>
                         {entities && entities.map(item => 
                             <ProductItem key={item.pid} item={item}/>
@@ -91,11 +80,7 @@ const Shop = () => {
                     </ul>
                 </div>
             </div>
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                        
-                        
+  
         </>
     );
 };

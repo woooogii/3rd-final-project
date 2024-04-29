@@ -64,6 +64,11 @@ const Join = () => {
         // 비밀번호 일치 여부 검사
         const pwdMismatch = form.upwd !== form.upwd2;
 
+        if (!isEmailVerified) {
+            alert("인증 먼저 해주세요")
+            return;
+        }
+
         // 유효성 검사 통과 여부 확인
         if (!validateEmail(form.uid) || !validatePasswordLength() || pwdMismatch || !isEmailVerified) {
             return;
@@ -83,7 +88,8 @@ const Join = () => {
         }
     };
 
-    const handleEmailVerification = async () => {
+    const handleEmailVerification = async (e) => {
+        e.preventDefault();
         try {
             const response = await axios.post('http://localhost:4000/pedal/email-certification', { email: form.uid });
             if (response.data.code === "SU") {
@@ -96,7 +102,8 @@ const Join = () => {
         }
     };
 
-    const handleCertificationConfirmation = async () => {
+    const handleCertificationConfirmation = async (e) => {
+        e.preventDefault();
         try {
             const response = await axios.post('http://localhost:4000/pedal/check-certification', {
                 email: form.uid,
@@ -224,19 +231,19 @@ const Join = () => {
                         />
                     </div>
                     <div className="join-form-group">
-    <label htmlFor="uaddress"></label>
-    <input
-        className="join-input"
-        type="text"
-        id="uaddress"
-        value={form.uaddress}
-        onChange={handleChange}
-        placeholder="주소를 입력하세요"
-        readOnly
-    />
-    <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
-    {popup && <Post setCompany={handleAddress} />}
-</div>
+                        <label htmlFor="uaddress"></label>
+                        <input
+                            className="join-input"
+                            type="text"
+                            id="uaddress"
+                            value={form.uaddress}
+                            onChange={handleChange}
+                            placeholder="주소를 입력하세요"
+                            readOnly
+                        />
+                        <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
+                        {popup && <Post setCompany={handleAddress} />}
+                    </div>
                     <div className="join-form-group">
                         <input
                             className="join-input"
