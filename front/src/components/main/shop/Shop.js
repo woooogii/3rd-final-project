@@ -13,7 +13,6 @@ import { FaHelmetSafety } from "react-icons/fa6";
 import { IoShirtOutline } from "react-icons/io5";
 import Carousel from 'react-material-ui-carousel';
 import { Paper,Button } from '@mui/material';
-import { ReactComponent as Helmet } from "../../../assets/free-icon-helmet-1061271.svg";
 
 
 const Shop = () => {

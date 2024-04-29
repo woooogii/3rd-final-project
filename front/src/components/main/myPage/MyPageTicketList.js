@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Numeral from 'react-numeral';
 import Numeral from 'numeral';
 
 const MyTicketList = styled.div`
