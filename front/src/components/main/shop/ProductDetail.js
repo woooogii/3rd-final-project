@@ -23,9 +23,7 @@ const StyledContent = styled.div`
     .image_container {
         display: flex;
         margin-left: 300px;
-        margin-left: 300px;
         overflow: hidden;
-        caret-color: transparent;   /* 커서 깜빡임 없애기 */
         caret-color: transparent;   /* 커서 깜빡임 없애기 */
     }
 
@@ -48,9 +46,6 @@ const StyledContent = styled.div`
         width: 550px;
         height: 370px;
         object-fit: cover; /* 부모에게 맞추거나, 비율유지하면서 잘라내기도 함 */
-        width: 550px;
-        height: 370px;
-        object-fit: cover; /* 부모에게 맞추거나, 비율유지하면서 잘라내기도 함 */
     }
 
     .product_info {
@@ -67,18 +62,8 @@ const StyledContent = styled.div`
     top: -70px;
     left: 50px;
 }
-    .btns {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 500px;
-    margin-bottom: 20px;
-    position: relative;
-    top: -70px;
-    left: 50px;
-}
 
     .btn_cart {
-    width: 260px;
     width: 260px;
     height: 50px;
     background-color: #fff;
@@ -89,9 +74,7 @@ const StyledContent = styled.div`
     cursor: pointer;
     transition: background-color 0.3s;
     }
-    }
 
-    .btn_cart:hover {
     .btn_cart:hover {
     background-color: #1675F2;
     color: #fff;
@@ -101,8 +84,6 @@ const StyledContent = styled.div`
     //상품설명,리뷰,교환반품 밑줄 - 파란색 하이라이트
     .clickElement {
         -webkit-user-select: none;
-        font-size: 14px;
-        cursor: pointer;
         font-size: 14px;
         cursor: pointer;
     }
@@ -166,7 +147,6 @@ const StyledContent = styled.div`
         display: flex;
         justify-content: flex-end;
         padding-right: 390px;
-        padding-right: 390px;
         font-size: 13px;
     }
     
@@ -174,14 +154,8 @@ const StyledContent = styled.div`
         font-size: 35px;
         font-weight: bold;
         margin-bottom: -200px;
-        margin-bottom: -200px;
         margin-top: -25px;
         color: #1675F2;
-    }
-
-    .line_productDetail{
-        width: 47%;
-        margin-left: -10px; 
     }
 
     .line_productDetail{
@@ -193,10 +167,6 @@ const StyledContent = styled.div`
 const ProductDetail = () => {
 
     const navigate = useNavigate();
-    const { pId } = useParams();//상품 ID
-    const [quantity, setQuantity] = useState(1); //구매수량
-    const [reviewCount, setReviewCount] = useState(0);//리뷰 총 수
-    const [product, setProduct] = useState({ //상품 상태 저장
     const { pId } = useParams();//상품 ID
     const [quantity, setQuantity] = useState(1); //구매수량
     const [reviewCount, setReviewCount] = useState(0);//리뷰 총 수
@@ -213,11 +183,9 @@ const ProductDetail = () => {
     });
 
     //pId가 변경될 때마다 실행되어야함 -> 의존성배열 [pId] 필요
-    //pId가 변경될 때마다 실행되어야함 -> 의존성배열 [pId] 필요
     useEffect(() => {
         fetchProductById(pId);
         console.log(' Id가져오고있냐~~~:',pId);
-        window.scrollTo(0, 0);
         window.scrollTo(0, 0);
     }, [pId]);
 
@@ -232,7 +200,6 @@ const ProductDetail = () => {
             console.error('데이터를 가져오지 못했습니다:', error);
         }
     };
-
 
 
     //로그인 여부에 따른 장바구니
@@ -312,52 +279,17 @@ const ProductDetail = () => {
     //---------------------------------------------------------------------------------------
     // 상품설명,리뷰,교환환불 메뉴바
     const [selectMenu,setSelectMenu] = useState('productInfo'); //기본값 = 상품설명
-    //---------------------------------------------------------------------------------------
-
-    
-    useEffect(() => {
-        //리뷰 count
-        const reviewIncrement = async () => {
-            try {
-                const response = await axios.get('http://localhost:4000/pedal/reviewCount');
-                console.log("reviewCount",reviewCount);
-                console.log('count체크:', response.data);
-                setReviewCount(response.data);
-            } catch (error) {
-                console.error('리뷰 수를 불러오는 중 오류 발생:', error);
-                return null;
-            }
-        };
-        reviewIncrement();
-
-    }, []);
-  
-    
-        //리뷰 count
-        // const reviewIncrement = () => {
-
-        //     setReviewCount(prevCount => prevCount + 1); 
-        // };
-        
-    
-    
-    //---------------------------------------------------------------------------------------
-    // 상품설명,리뷰,교환환불 메뉴바
-    const [selectMenu,setSelectMenu] = useState('productInfo'); //기본값 = 상품설명
     const [selectPick,setSelectPick] = useState(false); //기본값 = 상품설명
 
     const showProductInfo = () => {
-        setSelectMenu('productInfo');
         setSelectMenu('productInfo');
     }
 
     const showReview = () => {
         setSelectMenu('review');
-        setSelectMenu('review');
     }
 
     const showPolicy = () => {
-        setSelectMenu('policy');
         setSelectMenu('policy');
     }
 
@@ -450,83 +382,13 @@ const ProductDetail = () => {
                     <p className="clickElement">
                         수량 &nbsp;
                         <FiMinus style={{ marginLeft: '180px' }} onClick={decrement} />
-            <div className="image_container">
-                <div className="sub_images">
-                    <ul className="image_sub">
-                        <li>
-                            <img
-                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-1(1).jpg"
-                                alt=""
-                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-1(1).jpg')}
-                                onMouseOut={removeImage}
-                            />
-                        </li>
-                        <li>
-                            <img
-                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-2(1).jpg"
-                                alt=""
-                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-2(1).jpg')}
-                                onMouseOut={removeImage}
-                            />
-                        </li>
-                        <li>
-                            <img
-                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-216(1).jpg"
-                                alt=""
-                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-216(1).jpg')}
-                                onMouseOut={removeImage}
-                            />
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul className="image_main">
-                        <li>
-                            <img src={showImage} alt="" />
-                        </li>
-                    </ul>
-                </div>
-                <div className="product_info">
-                    <nav
-                        style={{
-                            '--bs-breadcrumb-divider':
-                                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E\")",
-                        }}
-                        aria-label="breadcrumb"
-                    >
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item">
-                                <a href="/pedal/home" style={{ textDecoration: 'none' }}>
-                                    Home
-                                </a>
-                            </li>
-                            <li className="breadcrumb-item active" aria-current="page">
-                                {product.pcategory}
-                            </li>
-                        </ol>
-                    </nav>
-                    <h1>{product.pname}</h1>
-                    <br />
-                    <p style={{ fontSize: '14px' }}>
-                        가격 <span style={{ marginLeft: '220px' }}>&nbsp;{Numeral(product.pprice).format(0.0)}&nbsp;원</span>
-                    </p>
-                    <hr className="line_productDetail" />
-                    <p className="clickElement">
-                        수량 &nbsp;
-                        <FiMinus style={{ marginLeft: '180px' }} onClick={decrement} />
                         &nbsp;
-                        <input type="text" value={quantity} readOnly style={{ textAlign: 'center', marginTop: '-10px', width: '50px', borderColor: '#0000' }} />
                         <input type="text" value={quantity} readOnly style={{ textAlign: 'center', marginTop: '-10px', width: '50px', borderColor: '#0000' }} />
                         &nbsp;
                         <IoIosAdd onClick={increment} />
                     </p>
                     <hr className="line_productDetail" />
-                    <hr className="line_productDetail" />
                     <br />
-                    <div className="tot">
-                        총 상품금액 &nbsp;&nbsp;
-                        <span className="tot_amount">{Numeral(product.pprice * quantity).format(0.0)}</span>
-                        &nbsp;<p style={{ fontWeight: 'bold', marginTop: '5px' }}>원</p>
                     <div className="tot">
                         총 상품금액 &nbsp;&nbsp;
                         <span className="tot_amount">{Numeral(product.pprice * quantity).format(0.0)}</span>
@@ -535,8 +397,6 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            <div className="btns">
-                <div className="btns_group">
             <div className="btns">
                 <div className="btns_group">
                     <div>
@@ -551,8 +411,6 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            {/* 
-            <div className="image_container"> </div> */}
             {/* 
             <div className="image_container"> </div> */}
 
@@ -579,17 +437,14 @@ const ProductDetail = () => {
 
             <div className="centerLineGroup_2">
                 {selectMenu === 'productInfo' && (
-                {selectMenu === 'productInfo' && (
                     <>
                         {/* <p>설명: {product.pdescription}</p> */}
                         <p>
-                            <img src="/image/20240419_180244.png" alt="[ 상세설명 ]" />
                             <img src="/image/20240419_180244.png" alt="[ 상세설명 ]" />
                         </p>
                     </>
                 )}
 
-                {selectMenu === 'review' && (
                 {selectMenu === 'review' && (
                     <>
                         <Review product={product} loginUser={loginUser} reviewCount={reviewCount} setReviewCount={setReviewCount} />
@@ -597,10 +452,8 @@ const ProductDetail = () => {
                 )}
 
                 {selectMenu === 'policy' && (
-                {selectMenu === 'policy' && (
                     <>
                         <p className="policy">
-                            <img src="/image/refund.jpg" alt="" />
                             <img src="/image/refund.jpg" alt="" />
                         </p>
                     </>

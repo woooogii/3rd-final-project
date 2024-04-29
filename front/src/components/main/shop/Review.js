@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-
 import { MdModeEditOutline } from "react-icons/md";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { Modal, Button } from 'react-bootstrap';
@@ -41,10 +40,7 @@ const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
     useEffect(() => {
         if (product.pid) {
             fetchData(product.pid);
-        if (product.pid) {
-            fetchData(product.pid);
         }
-    }, [product.pid]);
     }, [product.pid]);
 
     const fetchData = async () => {
@@ -65,7 +61,6 @@ const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
 
         const data = {
             pid: product.pid,
-            pid: product.pid,
             rcontent: content,
             rdate: rdate,
             rstar: null,
@@ -75,7 +70,6 @@ const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
         try {
             const response = await axios.post('http://localhost:4000/pedal/review', data);
             console.log('데이터 전달 성공: ', response.data);
-            fetchData(product.pid);
             fetchData(product.pid);
             setContent('');
             
