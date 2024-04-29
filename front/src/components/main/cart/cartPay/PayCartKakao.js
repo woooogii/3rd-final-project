@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
+import '../cart.css'
 
 
 const PayCartKakao = ({setPaymentSuccess, totalPrice, productName, cartItems, itemQuantities}) => {
@@ -188,8 +189,8 @@ const PayCartKakao = ({setPaymentSuccess, totalPrice, productName, cartItems, it
 
 
     return (
-        <div>
-        <button onClick={requestPay} className="btn btn-primary">구매</button>
+        <div className="pay-buy-button">
+        <button onClick={requestPay}>구매하기</button>
         </div>
     );
 };

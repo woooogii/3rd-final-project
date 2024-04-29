@@ -62,7 +62,7 @@ export const CartBox = styled.div`
 
 export const CartPayContainer = styled.div`
   width: 30%;
-  margin-left: 100px;
-  margin-top: 10%;
+  margin-left: -80px;
+  margin-top: 50px;
 `;
 

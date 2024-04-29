@@ -1,0 +1,74 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul.pagination li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
+
+  ul.pagination li:first-child{
+    border-radius: 5px 0 0 5px;
+  }
+
+  ul.pagination li:last-child{
+    border-radius: 0 5px 5px 0;
+  }
+  
+  ul.pagination li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1rem;
+  }
+  
+  ul.pagination li.active a {
+    color: #007bff;
+  }
+
+  ul.pagination li.active {
+    
+    border-radius: 20px;
+    border: 1px solid #007bff
+  }
+  
+  ul.pagination li a {
+    /* 기본 스타일 */
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: all 0.4s ease; /* 트랜지션 추가 */
+}
+
+ul.pagination li a:hover,
+ul.pagination li a.active {
+    /* 마우스를 올렸을 때 및 활성 상태의 스타일 변경 */
+    color: white;
+    background-color: #007bff;
+}
+  
+  .page-selection {
+    width: 48px;
+    height: 30px;
+    color: #337ab7;
+  }
+
+  

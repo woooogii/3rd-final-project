@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IoIosSearch } from "react-icons/io";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './join.css';
@@ -172,7 +173,7 @@ const Join = () => {
                                 placeholder="인증번호를 입력해주세요"
                                 required
                             />
-                            <button className="join-certification-button" onClick={handleCertificationConfirmation}>
+                            <button className="join-email-button" onClick={handleCertificationConfirmation}>
                                 확인
                             </button>
                         </div>
@@ -224,19 +225,19 @@ const Join = () => {
                         />
                     </div>
                     <div className="join-form-group">
-    <label htmlFor="uaddress"></label>
-    <input
-        className="join-input"
-        type="text"
-        id="uaddress"
-        value={form.uaddress}
-        onChange={handleChange}
-        placeholder="주소를 입력하세요"
-        readOnly
-    />
-    <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
-    {popup && <Post setCompany={handleAddress} />}
-</div>
+                        <label htmlFor="uaddress"></label>
+                        <input
+                            className="join-input"
+                            type="text"
+                            id="uaddress"
+                            value={form.uaddress}
+                            onChange={handleChange}
+                            placeholder="주소를 입력하세요"
+                            readOnly
+                        />
+                        <button className="join-email-button" onClick={togglePopup}><IoIosSearch /></button>
+                        {popup && <Post setCompany={handleAddress} />}
+                    </div>
                     <div className="join-form-group">
                         <input
                             className="join-input"
@@ -252,12 +253,12 @@ const Join = () => {
                         <button
                             type="button"
                             id="btn"
-                            className="btn btn-outline-primary"
+                            className="cancel-button"
                             onClick={() => navigate('/pedal/login')}
                         >
                             취소하기
                         </button>
-                        <button type="submit" id="btn" className="btn btn-primary">
+                        <button type="submit" id="btn" className="joinbutton">
                             가입하기
                         </button>
                     </div>

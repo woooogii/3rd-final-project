@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import CartPay from "./CartPay";
 import axios from 'axios';
 import { useSelector } from "react-redux";
-import { IoTrashBinOutline } from "react-icons/io5";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
 import { Image, QuantityBox, CartPayContainer } from './CartStyle';
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Tabs, Switch } from 'antd';
+import { VscClose } from "react-icons/vsc";
 import styled from 'styled-components';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { IoIosAdd } from "react-icons/io";
+import { FiMinus } from "react-icons/fi";
+import Numeral from 'numeral';
 
 const MyTicketList = styled.div`
   margin: 50px;
   font-family: 'noto-sans';
-  width: 75%;
+  width: 80%;
   margin: auto;
   
   .myTicket_title{
@@ -28,7 +30,7 @@ const MyTicketList = styled.div`
     width: 85%;
     display: flex;
     list-style-type: none;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     font-size: 14px;
     color: #9E9FA5;
     text-align: center;
@@ -43,7 +45,12 @@ const MyTicketList = styled.div`
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center;
-    height: 150px;
+    height: 120px;
+    align-items: center; /* 세로 방향으로 가운데 정렬 */
+  }
+
+  hr{
+    width: 87%
   }
 `;
 
@@ -56,6 +63,20 @@ const Cart = () => {
   const [cartEmpty, setCartEmpty] = useState(false);
 
   const navigate = useNavigate();
+
+  const items = [
+    {
+        key: '1',
+        label: '장바구니',
+    },
+  ];
+
+    const onChange = (key) => {
+      console.log(key);
+  };
+
+  
+
 
   useEffect(() => {
     setUser(loginUser.uid);
@@ -124,18 +145,19 @@ const Cart = () => {
 
   return (
     <>
-      <div style={{ display: 'flex', marginLeft: '100px'}}>
+      <div className="cart-list" style={{ display: 'flex', marginLeft: '100px', marginTop: '50px'}}>
       <MyTicketList>
-        <h4 className="myTicket_title">  장바구니</h4>
+        
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} style={{width:'950px'}} />
         <br />
         <b>
           <ul className="myTicket_head">
-            <li style={{ width: '15%' }}>상품</li>
-            <li style={{ width: '25%' }}>상품명</li>
-            <li style={{ width: '20%' }}>상품 가격</li>
-            <li style={{ width: '15%' }}>수량</li>
-            <li style={{ width: '20%' }}>총 가격</li>
-            <li style={{ width: '5%' }}>수정</li>
+            <li style={{ width: '20%', paddingLeft: '50px' }}>상품</li>
+            <li style={{ width: '40%', marginLeft: '20px'}}>상품명</li>
+            <li style={{ width: '20%', paddingLeft: '20px'}}>상품 가격(원)</li>
+            <li style={{ width: '20%', paddingLeft: '20px' }}>수량</li>
+            <li style={{ width: '20%' }}>총 가격(원)</li>
+            <li style={{ width: '5%' }}></li>
           </ul>
         </b>
         <hr />
@@ -151,25 +173,25 @@ const Cart = () => {
             cartItems.map((item) => (
               <div key={item.pid}>
                 <div className="myTicket_list">
-                  <div style={{ width: '15%', paddingLeft: '10px' }}><Image src={item.pimage1} /></div>
-                  <div style={{ width: '25%' }}>{item.pname}</div>
-                  <div style={{ width: '20%' }}>{item.pprice}원</div>
+                  <div style={{ width: '20%', paddingLeft: '50px' }}><Image src={item.pimage1} /></div>
+                  <div style={{ width: '40%', marginLeft: '20px' }}><b>{item.pname}</b></div>
+                  <div style={{ width: '20%' }}>{Numeral(item.pprice).format(0.0)}</div>
                   <div style={{ width: '15%', paddingLeft: '30px'}}>
                     <QuantityBox>
-                      <CiSquareMinus size={30} onClick={() => handleDecrement(item.pid, item.pprice)} />
-                      <div>{itemQuantities[item.pid] || 0}</div>
-                      <CiSquarePlus size={30} onClick={() => handleIncrement(item.pid, item.pprice)} />
+                      <FiMinus size={17} onClick={() => handleDecrement(item.pid, item.pprice)} />
+                      <div>&nbsp;&nbsp;{itemQuantities[item.pid] || 0}&nbsp;&nbsp;</div>
+                      <IoIosAdd size={20} onClick={() => handleIncrement(item.pid, item.pprice)} />
                     </QuantityBox>
                   </div>
-                  <div style={{ width: '20%' }}> {(item.pprice) * (itemQuantities[item.pid] || 0)}원</div>
-                  <div style={{ width: '5%' }}> <FaRegCircleXmark onClick={() => removeItem(item.pid, item.pprice)} /></div>
+                  <div style={{ width: '20%', paddingLeft: '20px' }}> <b>{Numeral((item.pprice) * (itemQuantities[item.pid] || 0)).format(0.0)}</b></div>
+                  <div style={{ width: '5%' }}> <VscClose  onClick={() => removeItem(item.pid, item.pprice)} style={{color:'#ced4da', fontSize: '25px'}}/></div>
                 </div>
                 <hr />
               </div>
             ))
           )}
         </div>
-        <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
+        <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px', marginBottom:'50px'}}>
           &nbsp;메인으로&nbsp;
         </button>
       </MyTicketList>
