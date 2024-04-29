@@ -21,7 +21,6 @@ import AddProduct from './shop/AddProduct.js';
 import SearchList from './shop/SearchList.js';
 import InsertData from './InsertComponent/InsertData.js';
 import BicycleData from './map/BicycleData.js';
-import Ffooter from './footer/Ffooter.js';
 
 
 
@@ -53,6 +52,7 @@ const Main = () => {
                         <Route path="/pedal/shop/list/:category" element={<CategoryList />}/>
                         <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
                     </Routes>
+           
             </Router>
         </Provider>
         </div>

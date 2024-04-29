@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { HiOutlineTicket, HiTicket } from 'react-icons/hi2';
-import { Button } from 'antd';
-import styled from 'styled-components';
-
-
+import Numeral from 'numeral';
+import PayCartKakao from './cartPay/PayCartKakao';
 
 import './cart.css'
-import PayCartKakao from './cartPay/PayCartKakao';
+
 
 const CartPay = ({totalPrice, cartItems,itemQuantities}) => {
     const [productName, setProductName] = useState('');
@@ -37,8 +32,13 @@ const CartPay = ({totalPrice, cartItems,itemQuantities}) => {
 
     return (
         <div className='pay-card'>
-            <div>결제 금액</div>
-            <hr/>
+            <h4>결제 정보</h4>
+
+            
+            <div className='pay-product'>
+                <p>선택 상품</p>
+
+            <b>
             {
                 cartItems.length === 1 ? (
                 <div>{productName}</div>
@@ -50,12 +50,27 @@ const CartPay = ({totalPrice, cartItems,itemQuantities}) => {
                 
                 )
             }
+            </b>
+            </div>
             
-            <div>총 결제 금액: {totalPrice}원</div>
+            <div className='pay-method'>
+                <p>결제 방법</p>
+                <div className='each-method'>
+                <input type="radio" name="payment" value="kakaopay" onChange={handleModule} checked="true"/>
+                <img src="/image/kakaopay-black.png" alt="kakaopay" style={{ width: '50px', height: 'auto', position: 'relative', top: '2px', marginLeft:'5px' }} />
+                </div>
+            </div>
+
+
             <hr/>
+            <div className='pay-total'>
+                <p>총 결제 금액</p>
+                
+                <span>{Numeral(totalPrice).format(0.0)}원</span>
+            </div>
+        
          
-            <input type="radio" name="payment" value="kakaopay" onChange={handleModule} checked="true"/>
-            <img src="/image/kakaopay.png" alt="kakaopay" style={{ width: '50px', height: 'auto', position: 'relative', top: '2px' }} />
+           
             <br />
             {payment === 'kakaopay' && <PayCartKakao setPaymentSuccess={setPaymentSuccess} totalPrice={totalPrice} productName={productName} cartItems={cartItems} itemQuantities={itemQuantities}/>}
         </div>

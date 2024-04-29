@@ -3,9 +3,11 @@ import React, { useState, useEffect} from 'react';
 import { Tabs, Switch } from 'antd';
 import styled from 'styled-components';
 import { Image } from '../cart/CartStyle';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Numeral from 'numeral';
+import Pagination from "react-js-pagination";
+import './myOrder.css'
 
 const MyTicketList = styled.div`
   margin: 50px;
@@ -48,12 +50,34 @@ const MyTicketList = styled.div`
 
 `
 
+  const items = [
+    {
+        key: '1',
+        label: '구매 내역',
+    },
+  ];
+
+    const onChange = (key) => {
+      console.log(key);
+  };
+
+
+
 const MyPageOrders = () => {
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
     const [user, setUser] = useState('');
     let loginUser = useSelector((state) => { return state.loginUser });
 
+    //페이징 처리
+    const [page, setPage] = useState(1);
+    const postPerPage = 5;
+    const indexOfLastPost = page * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+ 
+    const handlePageChange = (page) => {
+      setPage(page);
+    };
 
 
     
@@ -87,15 +111,17 @@ const sortedOrders = [...orders].sort((a, b) => {
 
 return (
   <MyTicketList>
-      <h4 className="myTicket_title"> - 물품 구매 내역</h4>
+
+      <h4 className="myTicket_title"> - 쇼핑몰 이용 내역</h4>
+      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
       <br />
       <b>
           <ul className="myTicket_head">
               <li style={{ width: '10%' }}>상품</li>
               <li style={{ width: '20%' }}>상품명</li>
-              <li style={{ width: '10%' }}>상품가격</li>
+              <li style={{ width: '10%' }}>상품가격(원)</li>
               <li style={{ width: '20%' }}>구매수량</li>
-              <li style={{ width: '20%' }}>결제금액</li>
+              <li style={{ width: '20%' }}>결제금액(원)</li>
               <li style={{ width: '20%' }}>구매일시</li>
           </ul>
       </b>
@@ -107,25 +133,33 @@ return (
                   <p style={{ textAlign: 'center', marginTop: '10px' }}>데이터가 없습니다.</p>
                   <br />
                   <hr />
-              </div>
+              </div> 
           ) : (
-              sortedOrders.map((order) => (
+            sortedOrders.slice(indexOfFirstPost, indexOfLastPost).map((order) => (
                   <div key={order.onum}>
                       <div className="myTicket_list" style={{ width: '1300px' }}>
                           <div style={{ width: '10%', paddingLeft: '30px' }}><Image src={order.pimage}   /></div>
                           <div style={{ width: '20%' }}>{order.pname}</div>
-                          <div style={{ width: '10%' }}>{order.pprice}</div>
+                          <div style={{ width: '10%' }}>{Numeral(order.pprice).format(0.0)}</div>
                           <div style={{ width: '20%' }}>{order.amount}</div>
-                          <div style={{ width: '20%' }}>{order.pprice * order.amount}</div>
+                          <div style={{ width: '20%' }}>{Numeral(order.pprice * order.amount).format(0.0)}</div>
                           <div style={{ width: '20%' }}>{order.orderDate}</div>
                       </div>
                       <hr />{' '}
                   </div>
               ))
           )}
+             <Pagination
+             activePage={page}
+             itemsCountPerPage={postPerPage}
+             totalItemsCount={orders.length}
+             pageRangeDisplayed={5}
+             prevPageText={"‹"}
+             nextPageText={"›"}
+             onChange={handlePageChange}/>
       </div>
       <>
-          <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
+          <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px', marginBottom: '20px' }}>
               &nbsp;메인으로&nbsp;
           </button>
       </>

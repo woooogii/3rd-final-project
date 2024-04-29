@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IoIosSearch } from "react-icons/io";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './join.css';
@@ -64,11 +65,6 @@ const Join = () => {
         // 비밀번호 일치 여부 검사
         const pwdMismatch = form.upwd !== form.upwd2;
 
-        if (!isEmailVerified) {
-            alert("인증 먼저 해주세요")
-            return;
-        }
-
         // 유효성 검사 통과 여부 확인
         if (!validateEmail(form.uid) || !validatePasswordLength() || pwdMismatch || !isEmailVerified) {
             return;
@@ -88,8 +84,7 @@ const Join = () => {
         }
     };
 
-    const handleEmailVerification = async (e) => {
-        e.preventDefault();
+    const handleEmailVerification = async () => {
         try {
             const response = await axios.post('http://localhost:4000/pedal/email-certification', { email: form.uid });
             if (response.data.code === "SU") {
@@ -102,8 +97,7 @@ const Join = () => {
         }
     };
 
-    const handleCertificationConfirmation = async (e) => {
-        e.preventDefault();
+    const handleCertificationConfirmation = async () => {
         try {
             const response = await axios.post('http://localhost:4000/pedal/check-certification', {
                 email: form.uid,
@@ -179,7 +173,7 @@ const Join = () => {
                                 placeholder="인증번호를 입력해주세요"
                                 required
                             />
-                            <button className="join-certification-button" onClick={handleCertificationConfirmation}>
+                            <button className="join-email-button" onClick={handleCertificationConfirmation}>
                                 확인
                             </button>
                         </div>
@@ -241,7 +235,7 @@ const Join = () => {
                             placeholder="주소를 입력하세요"
                             readOnly
                         />
-                        <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
+                        <button className="join-email-button" onClick={togglePopup}><IoIosSearch /></button>
                         {popup && <Post setCompany={handleAddress} />}
                     </div>
                     <div className="join-form-group">
@@ -259,12 +253,12 @@ const Join = () => {
                         <button
                             type="button"
                             id="btn"
-                            className="btn btn-outline-primary"
+                            className="cancel-button"
                             onClick={() => navigate('/pedal/login')}
                         >
                             취소하기
                         </button>
-                        <button type="submit" id="btn" className="btn btn-primary">
+                        <button type="submit" id="btn" className="joinbutton">
                             가입하기
                         </button>
                     </div>

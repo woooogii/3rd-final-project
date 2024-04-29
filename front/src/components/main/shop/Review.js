@@ -66,6 +66,7 @@ const Review = ({ product, loginUser }) => {
             console.log('데이터 전달 성공: ', response.data);
             fetchData(product.pid);
             setContent('');
+
         } catch (error) {
             console.error('데이터 전달 에러:', error);
         }
@@ -78,7 +79,9 @@ const Review = ({ product, loginUser }) => {
                 <div class="uname">{loginUser.uname}</div>
                 <div class="pname">{product.pName} </div>
                 <textarea class="content" placeholder="리뷰를 달아주세요 :)" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-                <button className='btn' type="submit" style={{ width:'80px', height:'40px', borderRadius: '20px', borderTopRightRadius:'0', borderBottomRightRadius: '20px', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px', backgroundColor:'#1675F2'}}>등록</button>
+                <button className='btn' type="submit" style={{ width:'80px', height:'40px', borderRadius: '20px', borderTopRightRadius:'0', borderBottomRightRadius: '20px', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px', backgroundColor:'#1675F2'}}>
+                    등록
+                </button>
                 </div>
             </form>
 

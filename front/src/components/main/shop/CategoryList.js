@@ -4,7 +4,6 @@ import axios from 'axios';
 import './style/productList.css';
 import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
-import Pagination from '@mui/material/Pagination';
 //import Pagination from "react-js-pagination";
 
 const CategoryList = () => {

@@ -5,7 +5,6 @@ import './style/productList.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ShopHeader from './ShopHeader';
 
-
 const ProductList = () => {
     const [allData, setAllData] = useState(null);
     const startHereRef = useRef(null);

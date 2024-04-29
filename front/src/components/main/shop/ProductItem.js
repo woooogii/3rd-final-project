@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './style/productList.css';
-import Numeral from 'numeral';
 
 const ProductItem = ({item}) => {
     // const [imageURLs, setImageURLs] = useState([]);
@@ -40,7 +39,7 @@ const ProductItem = ({item}) => {
             <img src={item.pimage4}alt='pimage4'/>
             </Link>
                 <h3>{item.pname}</h3>
-                <p>{Numeral(item.pprice).format(0.0)}원</p>
+                <p>{item.pprice}원</p>
                 <p>간단한 설명입니다.</p>
         </li>
     );

@@ -1,24 +1,20 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    overflow-y: hidden; /* 세로 스크롤만 허용 */
-    overflow-y: scroll; /* 세로 스크롤만 허용 */
-    height: 100vh; /* 뷰포트의 높이 만큼 컨테이너 높이 설정 */
-    scroll-snap-type: y mandatory; /* 세로 스크롤만 허용하여 강제로 스크롤링 */
+    overflow-y: scroll; /* 세로 스크롤 허용 */
+    height: 100vh; /* 뷰포트 높이 설정 */
+    scroll-snap-type: y mandatory; /* 스크롤 스냅 유형 설정 */
 
-    .scroll-container {
-        height: auto; /* 자식 요소의 크기에 따라 늘어나도록 설정 */
-        overflow-y: initial; /* 스크롤 숨김 */
+    /* 모든 스크롤바를 숨김 */
+    ::-webkit-scrollbar, 
+    .scroll-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari 등에 적용 */
     }
 
-    body::-webkit-scrollbar {
-        display: none; /* Chrome, Safari 등에서 스크롤바 숨김 */
-    }
+    scrollbar-width: none; 
 
-        .scroll-container::-webkit-scrollbar {
-        display: none;
-    }
-
+    
+    /* 이하 생략 */
     section {
         position: relative;
         scroll-snap-align: start;
@@ -43,6 +39,7 @@ export const Container = styled.div`
             hr {
                 border: 2px solid #1675f2;
                 top: 10px;
+
             }
         }
 
@@ -61,29 +58,32 @@ export const Container = styled.div`
             margin-bottom: 20px;
         }
     }
-    
     .line1 {
-        border: 1.5px solid #bdbdbd;
+        width: 75vw;
+        border: 1.2px solid #a4a4a4;
+        margin-left: 190px
     }
 
     #pedal {
         display: flex;
         flex-direction: column;
         position: relative;
+        margin-left: 870px;
+
+
         
         div {
             font-size: 90px;
-            margin-left: 800px;
             color: #ffda5e;
             margin-bottom: -50px;
             margin-top: -20px;
+            margin-left: 30px;
         }
 
         span {
             position: absolute;
             font-size: 50px;
             font-weight: bold;
-            margin-left: 770px;
             padding-top: 70px;
             color: #1675f2;
         }
@@ -230,7 +230,7 @@ export const Container = styled.div`
 
     .three_class {
         position: relative;
-        top:200px; 
+        top:150px; 
         /* 노트북상황에 맞춰 조절하기 */
 
 
@@ -327,25 +327,24 @@ export const Container = styled.div`
 `;
 
 export const InfoBox = styled.div`
-    height: 100px;
+    height: 110px;
     background-color: #1675F2;
     display: flex;
     justify-content: center; 
     align-items: center; 
-    margin-bottom: 100px;
+    margin-bottom: 120px;
 
     ul {
         display: flex;
         justify-content: space-between;
-        width: 1200px;
-        font-size: 23px;
+        width: 800px;
+        font-size: 20px;
     }
 
     li {
         flex: 1; //자식 요소 간의 공간을 동일하게 배분
         text-align: center;
-        font-weight: bold;
-        margin-top: 8px;
+        /* font-weight: bold; */
 
         a{
             text-decoration: none;

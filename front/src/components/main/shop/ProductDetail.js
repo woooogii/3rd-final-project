@@ -7,6 +7,7 @@ import { FiMinus } from "react-icons/fi";
 import { PiHeart, PiHeartFill  } from "react-icons/pi";
 import { useSelector } from 'react-redux';
 import Review from './Review';
+import Numeral from 'numeral';
 
 
 const StyledContent = styled.div`
@@ -21,8 +22,9 @@ const StyledContent = styled.div`
 
     .image_container {
         display: flex;
-        margin-left: 320px;
+        margin-left: 300px;
         overflow: hidden;
+        caret-color: transparent;   /* 커서 깜빡임 없애기 */
     }
 
     .image_sub,
@@ -41,9 +43,9 @@ const StyledContent = styled.div`
     }
 
     .image_main img {
-        max-width: 550px;
-        max-height: 370px;
-        object-fit: cover;
+        width: 550px;
+        height: 370px;
+        object-fit: cover; /* 부모에게 맞추거나, 비율유지하면서 잘라내기도 함 */
     }
 
     .product_info {
@@ -51,20 +53,18 @@ const StyledContent = styled.div`
         width: 800px;
     }
 
-    /* .btn_buy {
-        width: 150px;
-        height: 50px;
-        background-color: #273440;
-        color: #fff;
-        font-size: 17px;
-        border: none;
-        border-radius: 10px;
-        margin-top: 550px;
-        margin-top: -400px; 
-    } */
+    .btns {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 500px;
+    margin-bottom: 20px;
+    position: relative;
+    top: -70px;
+    left: 50px;
+}
 
     .btn_cart {
-    width: 265px;
+    width: 260px;
     height: 50px;
     background-color: #fff;
     border: 1px solid #343a40;
@@ -73,33 +73,19 @@ const StyledContent = styled.div`
     margin-left: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
+    }
 
-.btn_cart:hover {
+    .btn_cart:hover {
     background-color: #1675F2;
     color: #fff;
     border: none;
 }
 
-    /* .btn_others {
-        width: 150px;
-        height: 50px;
-        background-color: #fff;
-        border: 1px solid #343a40;
-        font-size: 17px;
-    } */
-
-    .btns {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 400px;
-    padding-bottom: 80px;
-
-}
-
     //상품설명,리뷰,교환반품 밑줄 - 파란색 하이라이트
     .clickElement {
         -webkit-user-select: none;
+        font-size: 14px;
+        cursor: pointer;
     }
 
     .policy {
@@ -114,6 +100,7 @@ const StyledContent = styled.div`
         display: flex;
         margin: auto;
         justify-content:center;
+        margin-top: 200px;
 
         ul {
             display: flex;
@@ -154,35 +141,35 @@ const StyledContent = styled.div`
         justify-content:center;
     }
 
-    hr {
-    width: 51%;
-    margin-left: -15px; 
-    }
 
     .tot{
         display: flex;
         justify-content: flex-end;
-        padding-right: 370px;
+        padding-right: 390px;
         font-size: 13px;
     }
     
     .tot_amount{
         font-size: 35px;
         font-weight: bold;
-        margin-bottom: 100px;
-        display: inline-block;
-        vertical-align: top;
+        margin-bottom: -200px;
         margin-top: -25px;
         color: #1675F2;
+    }
+
+    .line_productDetail{
+        width: 47%;
+        margin-left: -10px; 
     }
 `;
 
 const ProductDetail = () => {
 
     const navigate = useNavigate();
-    const { pId } = useParams();
-    const [quantity, setQuantity] = useState(1);
-    const [product, setProduct] = useState({
+    const { pId } = useParams();//상품 ID
+    const [quantity, setQuantity] = useState(1); //구매수량
+    const [reviewCount, setReviewCount] = useState(0);//리뷰 총 수
+    const [product, setProduct] = useState({ //상품 상태 저장
         pId: '',
         pCategory: '',
         pName: '',
@@ -194,9 +181,11 @@ const ProductDetail = () => {
         pDescription: '',
     });
 
+    //pId가 변경될 때마다 실행되어야함 -> 의존성배열 [pId] 필요
     useEffect(() => {
         fetchProductById(pId);
         console.log(' Id가져오고있냐~~~:',pId);
+        window.scrollTo(0, 0);
     }, [pId]);
 
     const fetchProductById = async (pId) => {
@@ -210,6 +199,7 @@ const ProductDetail = () => {
             console.error('데이터를 가져오지 못했습니다:', error);
         }
     };
+
 
     //로그인 여부에 따른 장바구니
     const loginUser = useSelector((state) => state.loginUser);
@@ -242,12 +232,6 @@ const ProductDetail = () => {
         }
     };
 
-    /*
-    const onBuy = () => {
-        navigate('/pedal/myBuy');
-    };
-    */
-
     const increment = (e) => {
         e.preventDefault();
         setQuantity(quantity + 1);
@@ -262,107 +246,156 @@ const ProductDetail = () => {
         }
     }
 
+    //---------------------------------------------------------------------------------------
 
+    
+    useEffect(() => {
+        //리뷰 count
+        const reviewIncrement = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pedal/reviewCount');
+                console.log("reviewCount",reviewCount);
+                console.log('count체크:', response.data);
+                setReviewCount(response.data);
+            } catch (error) {
+                console.error('리뷰 수를 불러오는 중 오류 발생:', error);
+                return null;
+            }
+        };
+        reviewIncrement();
 
+    }, []);
+  
+    
+        //리뷰 count
+        // const reviewIncrement = () => {
 
-    const [selectBox,setSelectBox] = useState('productInfo'); //기본값 = 상품설명
+        //     setReviewCount(prevCount => prevCount + 1); 
+        // };
+        
+    
+    
+    //---------------------------------------------------------------------------------------
+    // 상품설명,리뷰,교환환불 메뉴바
+    const [selectMenu,setSelectMenu] = useState('productInfo'); //기본값 = 상품설명
     const [selectPick,setSelectPick] = useState(false); //기본값 = 상품설명
 
     const showProductInfo = () => {
-        setSelectBox('productInfo');
+        setSelectMenu('productInfo');
     }
 
     const showReview = () => {
-        setSelectBox('review');
+        setSelectMenu('review');
     }
 
     const showPolicy = () => {
-        setSelectBox('policy');
+        setSelectMenu('policy');
     }
 
     const clickPick = () => {
         setSelectPick(!selectPick)
     }
 
+    //---------------------------------------------------------------------------------------
+    // 이미지 change
+    const [showImage,setShowImage] = useState('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier(3).jpg');
+
+
+    //마우스올렸을 때 해당 이미지 보여주기
+    const changeImage = (image) => {
+        setShowImage(image);
+    }
+
+    //마우스 떼면 기본 이미지로 돌아가기
+    const removeImage = () => {
+        setShowImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier(3).jpg');
+    }
+
     return (
         <StyledContent>
-
-<div className="image_container">
-    <div className="sub_images">
-        <ul className="image_sub">
-            <li>
-                <img src="/image/02.jpg" alt="" />
-            </li>
-            <li>
-                <img src="/image/03.jpg" alt="" />
-            </li>
-            <li>
-                <img src="/image/04.jpg" alt="" />
-            </li>
-        </ul>
-    </div>
-    <div >
-        <ul className="image_main">
-            <li>
-                <img src="/image/01.jpg" alt="" />
-            </li>
-        </ul>
-    </div>
-    <div className="product_info">
-                <nav
-                    style={{
-                        '--bs-breadcrumb-divider':
-                            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E\")",
-                    }}
-                    aria-label="breadcrumb"
-                >
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                            <a href="/pedal/home" style={{textDecoration:'none'}}>Home</a>
+            <div className="image_container">
+                <div className="sub_images">
+                    <ul className="image_sub">
+                        <li>
+                            <img
+                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-1(1).jpg"
+                                alt=""
+                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-1(1).jpg')}
+                                onMouseOut={removeImage}
+                            />
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">
-                            {product.pcategory}
+                        <li>
+                            <img
+                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-2(1).jpg"
+                                alt=""
+                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-2(1).jpg')}
+                                onMouseOut={removeImage}
+                            />
                         </li>
-                    </ol>
-                </nav>
-                <h1>{product.pname}</h1>
-                <br />
-                <p style={{fontSize:'14px'}}>
-                    가격 <span style={{ marginLeft: '220px', placeItems: 'right'}}>&nbsp;{product.pprice}&nbsp;원</span>
-                </p>
-                <hr/>
-                <br />
-                    <p className="clickElement" style={{fontSize:'14px'}}>
-                    수량 &nbsp;
-                        <FiMinus style={{ marginLeft: '200px' }} onClick={decrement} />
+                        <li>
+                            <img
+                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-216(1).jpg"
+                                alt=""
+                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-216(1).jpg')}
+                                onMouseOut={removeImage}
+                            />
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul className="image_main">
+                        <li>
+                            <img src={showImage} alt="" />
+                        </li>
+                    </ul>
+                </div>
+                <div className="product_info">
+                    <nav
+                        style={{
+                            '--bs-breadcrumb-divider':
+                                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E\")",
+                        }}
+                        aria-label="breadcrumb"
+                    >
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
+                                <a href="/pedal/home" style={{ textDecoration: 'none' }}>
+                                    Home
+                                </a>
+                            </li>
+                            <li className="breadcrumb-item active" aria-current="page">
+                                {product.pcategory}
+                            </li>
+                        </ol>
+                    </nav>
+                    <h1>{product.pname}</h1>
+                    <br />
+                    <p style={{ fontSize: '14px' }}>
+                        가격 <span style={{ marginLeft: '220px' }}>&nbsp;{Numeral(product.pprice).format(0.0)}&nbsp;원</span>
+                    </p>
+                    <hr className="line_productDetail" />
+                    <p className="clickElement">
+                        수량 &nbsp;
+                        <FiMinus style={{ marginLeft: '180px' }} onClick={decrement} />
                         &nbsp;
-                        <input type="text" value={quantity} readOnly style={{ textAlign: 'center', width: '50px', borderColor: '#0000' }} />
+                        <input type="text" value={quantity} readOnly style={{ textAlign: 'center', marginTop: '-10px', width: '50px', borderColor: '#0000' }} />
                         &nbsp;
                         <IoIosAdd onClick={increment} />
                     </p>
-                    <hr />
+                    <hr className="line_productDetail" />
                     <br />
-                    <div className='tot'>
-                        총 상품금액&nbsp;&nbsp;&nbsp;
-                        <span className='tot_amount'>
-                        {(product.pprice)*quantity}
-                        </span>
-                        &nbsp;<p style={{fontWeight:'bold'}}>원</p>
+                    <div className="tot">
+                        총 상품금액 &nbsp;&nbsp;
+                        <span className="tot_amount">{Numeral(product.pprice * quantity).format(0.0)}</span>
+                        &nbsp;<p style={{ fontWeight: 'bold', marginTop: '5px' }}>원</p>
                     </div>
                 </div>
             </div>
 
-
-
-            <div className='btns'>
-                <div className='btns_group'>
+            <div className="btns">
+                <div className="btns_group">
                     <div>
-                        <button
-                            type="button"
-                            className="btn_cart"
-                            onClick={clickPick}
-                            style={{ width: '60px', backgroundColor: '#F2CE16' }}
-                        >
+                        <button type="button" className="btn_cart" onClick={clickPick} style={{ width: '60px', backgroundColor: '#F2CE16' }}>
                             {/* selectPick 상태에 따라 아이콘을 변경 */}
                             {selectPick ? <PiHeartFill value={selectPick} style={{ fontSize: '23px' }} /> : <PiHeart style={{ fontSize: '23px' }} />}
                         </button>
@@ -373,19 +406,8 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            <br />
-            <br />
-            <br />
-
-
-            <div className="image_container">
-              
-            </div>
-
-           
-            <br />
-            <br />
-            <br />
+            {/* 
+            <div className="image_container"> </div> */}
 
             <div className="centerLineGroup_1">
                 <ul>
@@ -393,7 +415,7 @@ const ProductDetail = () => {
                         상품 설명
                     </li>
                     <li className="centerLine" onClick={showReview}>
-                        리뷰(50+)
+                        리뷰{reviewCount}
                     </li>
                     <li className="centerLine" onClick={showPolicy}>
                         교환/반품
@@ -402,30 +424,29 @@ const ProductDetail = () => {
             </div>
 
             <div className="centerLineGroup_2">
-                {selectBox === 'productInfo' && (
+                {selectMenu === 'productInfo' && (
                     <>
                         {/* <p>설명: {product.pdescription}</p> */}
                         <p>
-                            <img src="/image/05.jpg" alt="[ 상세설명 ]" />
+                            <img src="/image/20240419_180244.png" alt="[ 상세설명 ]" />
                         </p>
                     </>
                 )}
 
-                {selectBox === 'review' && (
+                {selectMenu === 'review' && (
                     <>
-                        <Review product={product} loginUser={loginUser}/>
+                       <Review product={product} loginUser={loginUser} />
                     </>
                 )}
 
-                {selectBox === 'policy' && (
+                {selectMenu === 'policy' && (
                     <>
                         <p className="policy">
-                            <img src='/image/refund.jpg' alt=''/>
+                            <img src="/image/refund.jpg" alt="" />
                         </p>
                     </>
                 )}
             </div>
-
         </StyledContent>
     );
 };

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Numeral from 'numeral';
 
 const MyTicketList = styled.div`
     margin: 50px;
@@ -42,6 +43,7 @@ const MyTicketList = styled.div`
     padding-bottom: 5px;
     text-align: center;
   }
+  
 
 `
 
@@ -161,7 +163,10 @@ function MyPageTicketList() {
                           <div className="myTicket_list" style={{ width: '1300px' }}>
                               <div style={{ width: '10%', paddingLeft: '30px' }}>{ticket.mtMerchantUid}</div>
                               <div style={{ width: '17%' }}>{ticket.mtName}</div>
-                              <div style={{ width: '8%' }}>{ticket.mtAmount}</div>
+                              <div style={{ width: '8%' }}>{Numeral(ticket.mtAmount).format(0.0)}</div>
+
+                              
+
                               <div style={{ width: '19%' }}>{ticket.mtPayTime}</div>
                               <div style={{ width: '12%' }}>{moment(ticket.startTime).format('YYYY.MM.DD HH:mm:ss')}</div>
                               <div style={{ width: '20%' }}>{ticket.mtPayTime}</div>

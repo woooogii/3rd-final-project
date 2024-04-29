@@ -7,9 +7,7 @@ import ShopHead from './ShopHead';
 
 import '../../../styles/nav/nav.css'
 import './style/mainList.css';
-import AddProduct from './AddProduct';
 import ProductItem from './ProductItem';
-import Search from './Search';
 
 
 const Shop = () => {
@@ -32,7 +30,6 @@ const Shop = () => {
     const loginFirst = () => {
         navigate('/pedal/login')
     }
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,7 +69,6 @@ const Shop = () => {
                 </div>
                 <div className='product'>
                     <h2>상품</h2>
-           
                     <ul>
                         {entities && entities.map(item => 
                             <ProductItem key={item.pid} item={item}/>
@@ -81,6 +77,7 @@ const Shop = () => {
                 </div>
             </div>
   
+                        
         </>
     );
 };
