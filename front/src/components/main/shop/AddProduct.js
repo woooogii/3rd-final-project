@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
-const AddProduct = ({ addProduct }) => {
+const AddProduct = ({ onProductAdded }) => {
+
     const [form, setForm] = useState({
         pName: '',
         pCategory: '',
@@ -37,6 +38,7 @@ const AddProduct = ({ addProduct }) => {
             console.log('전송데이터: ', form);
             console.log('전송파일: ', images);
             console.log('전송 성공:', response.data);
+            onProductAdded();
 
         } catch (error) {
             console.error('전송 에러:', error);

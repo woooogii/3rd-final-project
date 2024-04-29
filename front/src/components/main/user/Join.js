@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './join.css';
-
-
+import Post from '../myPage/post';
 
 const Join = () => {
     const navigate = useNavigate();
@@ -15,9 +14,25 @@ const Join = () => {
         uphone: '',
         uaddress: '',
         uaddrdetail: '',
+        certification: ''
     });
     const [pwdLengthError, setPwdLengthError] = useState(false);
     const [emailFormatError, setEmailFormatError] = useState(false);
+    const [isEmailVerified, setIsEmailVerified] = useState(false);
+    const [showCertificationInput, setShowCertificationInput] = useState(false);
+    const [isCertified, setIsCertified] = useState(false); // 추가: 인증 완료 여부
+
+    //주소 API부분-----------------------------------------------------------
+    const [popup, setPopup] = useState(false); // 팝업 표시 여부
+    const handleAddress = (newAddress) => {
+    setForm({ ...form, uaddress: newAddress }); // 새 주소를 폼 상태에 저장
+    setPopup(false); // 팝업 닫기
+    };
+
+    const togglePopup = () => {
+        setPopup(!popup);
+    };
+    ////////////////////////////////////////////////////
 
     // 이메일 형식 검사
     const validateEmail = (email) => {
@@ -29,6 +44,13 @@ const Join = () => {
     const validatePasswordLength = () => {
         return form.upwd.length >= 8;
     };
+
+    useEffect(() => {
+        // 인증 완료 후 버튼 상태 변경
+        if (isCertified) {
+            setEmailFormatError(false); // 인증 완료 시 이메일 형식 오류 해제
+        }
+    }, [isCertified]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -43,14 +65,14 @@ const Join = () => {
         const pwdMismatch = form.upwd !== form.upwd2;
 
         // 유효성 검사 통과 여부 확인
-        if (!validateEmail(form.uid) || !validatePasswordLength() || pwdMismatch) {
+        if (!validateEmail(form.uid) || !validatePasswordLength() || pwdMismatch || !isEmailVerified) {
             return;
         }
 
         try {
             const response = await axios.post('http://localhost:4000/pedal/join', form);
             if (response.data === true) {
-                console.log(form)
+                console.log(form);
                 alert('가입이 완료되었습니다.');
                 navigate('/pedal/login');
             } else {
@@ -61,21 +83,49 @@ const Join = () => {
         }
     };
 
-    const handleEmailVerification = () => {
-        // 여기에 이메일 인증 처리 로직 추가
-        console.log('이메일 인증 시작');
+    const handleEmailVerification = async () => {
+        try {
+            const response = await axios.post('http://localhost:4000/pedal/email-certification', { email: form.uid });
+            if (response.data.code === "SU") {
+                setIsEmailVerified(true);
+                setIsCertified(true); // 추가: 인증 완료 상태 설정
+                setShowCertificationInput(true);
+            }
+        } catch (error) {
+            console.error('이메일 인증 오류:', error);
+        }
+    };
+
+    const handleCertificationConfirmation = async () => {
+        try {
+            const response = await axios.post('http://localhost:4000/pedal/check-certification', {
+                email: form.uid,
+                certificationNumber: form.certification
+            });
+
+            if (response.data.code === "SU") {
+                alert('인증완료');
+                setIsEmailVerified(true);
+                setShowCertificationInput(false);
+            } else {
+                alert('인증번호가 틀렸습니다');
+            }
+
+        } catch (error) {
+            alert('인증번호가 틀렸습니다');
+            console.error('이메일 인증 오류:', error);
+        }
     };
 
     const handleChange = (e) => {
         const { id, value } = e.target;
         setForm({ ...form, [id]: value });
-    
-        // 이메일 형식 검사
+
         if (id === 'uid') {
             setEmailFormatError(!validateEmail(value));
+            setIsCertified(false); // 이메일 변경 시 인증 완료 상태 초기화
         }
-    
-        // 비밀번호 길이 검사
+
         if (id === 'upwd') {
             setPwdLengthError(value.length < 8);
         }
@@ -87,35 +137,129 @@ const Join = () => {
                 <h2 className="join-title">회원가입</h2>
                 <form onSubmit={onSubmit}>
                     <div className="join-form-group email-form">
-                        <input className="join-input" type="text" id="uid" value={form.uid} onChange={handleChange} placeholder="이메일" required />
-                        <button className="join-email-button" type="button" onClick={handleEmailVerification}>인증</button>
+                        <input
+                            className="join-input"
+                            type="text"
+                            id="uid"
+                            value={form.uid}
+                            onChange={handleChange}
+                            placeholder="이메일"
+                            required
+                        />
+                        <button
+                            className={`join-email-button ${!validateEmail(form.uid) && 'disabled'}`}
+                            type="button"
+                            onClick={isCertified ? undefined : handleEmailVerification}
+                            disabled={!validateEmail(form.uid) || isCertified} // 인증 완료 시 버튼 비활성화
+                            style={{
+                                backgroundColor: !validateEmail(form.uid) ? 'grey' : isCertified ? 'grey' : 'blue',
+                                cursor: isCertified ? 'default' : 'pointer'
+                            }}
+                        >
+                            {showCertificationInput ? "인증" : (isEmailVerified ? "완료" : "인증")}
+                        </button>
                     </div>
                     {emailFormatError && <p className="join-error-message">올바른 이메일 형식이 아닙니다.</p>}
+                    {!isEmailVerified && !showCertificationInput && <p className="join-error-message">이메일을 인증해주세요.</p>}
+                    {showCertificationInput && (
+                        <div className="join-form-group">
+                            <input
+                                className="join-input"
+                                type="text"
+                                id="certification"
+                                value={form.certification}
+                                onChange={handleChange}
+                                placeholder="인증번호를 입력해주세요"
+                                required
+                            />
+                            <button className="join-certification-button" onClick={handleCertificationConfirmation}>
+                                확인
+                            </button>
+                        </div>
+                    )}
                     <div className="join-form-group">
-                        <input className="join-input" type="password" id="upwd" value={form.upwd} onChange={handleChange} placeholder="비밀번호" required />
+                        <input
+                            className="join-input"
+                            type="password"
+                            id="upwd"
+                            value={form.upwd}
+                            onChange={handleChange}
+                            placeholder="비밀번호"
+                            required
+                        />
                     </div>
                     {pwdLengthError && <p className="join-error-message red">비밀번호는 8자 이상이어야 합니다.</p>}
                     <div className="join-form-group">
-                        <input className="join-input" type="password" id="upwd2" value={form.upwd2} onChange={handleChange} placeholder="비밀번호 확인" required />
+                        <input
+                            className="join-input"
+                            type="password"
+                            id="upwd2"
+                            value={form.upwd2}
+                            onChange={handleChange}
+                            placeholder="비밀번호 확인"
+                            required
+                        />
                     </div>
-                    <div>
-                        {form.upwd !== form.upwd2 && <p className="join-error-message red">비밀번호가 일치하지 않습니다.</p>}
+                    {form.upwd !== form.upwd2 && <p className="join-error-message red">비밀번호가 일치하지 않습니다.</p>}
+                    <div className="join-form-group">
+                        <input
+                            className="join-input"
+                            type="text"
+                            id="uname"
+                            value={form.uname}
+                            onChange={handleChange}
+                            placeholder="이름"
+                            required
+                        />
                     </div>
                     <div className="join-form-group">
-                        <input className="join-input" type="text" id="uname" value={form.uname} onChange={handleChange} placeholder="이름" required />
+                        <input
+                            className="join-input"
+                            type="text"
+                            id="uphone"
+                            value={form.uphone}
+                            onChange={handleChange}
+                            placeholder="전화번호"
+                            required
+                        />
                     </div>
                     <div className="join-form-group">
-                        <input className="join-input" type="text" id="uphone" value={form.uphone} onChange={handleChange} placeholder="전화번호" required />
-                    </div>
+    <label htmlFor="uaddress"></label>
+    <input
+        className="join-input"
+        type="text"
+        id="uaddress"
+        value={form.uaddress}
+        onChange={handleChange}
+        placeholder="주소를 입력하세요"
+        readOnly
+    />
+    <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
+    {popup && <Post setCompany={handleAddress} />}
+</div>
                     <div className="join-form-group">
-                        <input className="join-input" type="text" id="uaddress" value={form.uaddress} onChange={handleChange} placeholder="주소" required />
+                        <input
+                            className="join-input"
+                            type="text"
+                            id="uaddrdetail"
+                            value={form.uaddrdetail}
+                            onChange={handleChange}
+                            placeholder="상세주소"
+                            required
+                        />
                     </div>
-                    <div className="join-form-group">
-                        <input className="join-input" type="text" id="uaddrdetail" value={form.uaddrdetail} onChange={handleChange} placeholder="상세주소" required />
-                    </div>
-                    <div className="join-form-group">
-                        <button className='join-button' type="submit">가입하기</button>
-                        <button className='join-button' type="button" onClick={() => navigate('/pedal/login')}>취소</button>
+                    <div className="join-form-group join-buttons">
+                        <button
+                            type="button"
+                            id="btn"
+                            className="btn btn-outline-primary"
+                            onClick={() => navigate('/pedal/login')}
+                        >
+                            취소하기
+                        </button>
+                        <button type="submit" id="btn" className="btn btn-primary">
+                            가입하기
+                        </button>
                     </div>
                 </form>
             </div>

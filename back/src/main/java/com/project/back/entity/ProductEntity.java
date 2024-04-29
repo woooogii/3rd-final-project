@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,13 +49,25 @@ public class ProductEntity {
    @Column(name = "p_image4")
     private String pImage4;
 
-    @ElementCollection
-    @Column(name = "p_image_urls")
-    private List<String> pImageUrls; //이미지파일 경로
-
     @Column(name = "u_id")
     private String uId;
     // User 참조, 댓글 쓴 user_id
+
+    // 이미지 파일 넣기
+    public void setProductImages(List<String> imageUrls) {
+        if (imageUrls.size() >= 1) {
+            this.pImage1 = imageUrls.get(0);
+        }
+        if (imageUrls.size() >= 2) {
+            this.pImage2 = imageUrls.get(1);
+        }
+        if (imageUrls.size() >= 3) {
+            this.pImage3 = imageUrls.get(2);
+        }
+        if (imageUrls.size() >= 4) {
+            this.pImage4 = imageUrls.get(3);
+        }
+    }
 
 }
 

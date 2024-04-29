@@ -7,10 +7,7 @@ import ShopHead from './ShopHead';
 
 import '../../../styles/nav/nav.css'
 import './style/mainList.css';
-import AddProduct from './AddProduct';
 import ProductItem from './ProductItem';
-import Search from './Search';
-import ShopHeader from './ShopHeader';
 
 
 const Shop = () => {
@@ -49,7 +46,6 @@ const Shop = () => {
     return (
         <>
             <div ref={startHereRef}>
-            {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
             </div>
                
@@ -67,16 +63,12 @@ const Shop = () => {
                 (loginUser && loginUser.uid && loginUser.uname) ? buyItem() : loginFirst();
             }}>구매</button>
 
-            <br/><br/><br/><br/><br/><br/>
-            <AddProduct/>
-
             <div className='main'>
                 <div className='visual'>
                     <img src ="/bennerImage/main11.jpg" alt="배너이미지1"/> 
                 </div>
                 <div className='product'>
                     <h2>상품</h2>
-                    <Search/>
                     <ul>
                         {entities && entities.map(item => 
                             <ProductItem key={item.pid} item={item}/>
@@ -84,9 +76,7 @@ const Shop = () => {
                     </ul>
                 </div>
             </div>
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  
                         
         </>
     );

@@ -16,7 +16,7 @@ public class ReviewEntity {
     @Id
     @Column(name = "r_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rId; //리뷰 번호
+    private Integer rId; //리뷰 번호
 
     @Column(name = "r_content", length=300)
     private String rContent; // 댓글 내용

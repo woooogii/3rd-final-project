@@ -54,7 +54,7 @@ public class AuthService {
         
         // JWT 토큰 생성
         String jwtToken = jwtTokenProvider.createToken(userEntity.getUId(), userEntity.getUName(), userEntity.getUIdRole());
-        // JWT 토큰을 쿠키에 설정
+        // JWT 토큰을 쿠키에 설정0
         Cookie cookie = new Cookie("jwtToken", jwtToken);
         cookie.setDomain("localhost");
         cookie.setPath("/");

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
@@ -9,8 +8,8 @@ import '../shop/ShopHead.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsCart2 } from "react-icons/bs";
-import { IoCaretDown } from "react-icons/io5";
 import { PiList } from "react-icons/pi";
+import { BsExclamationLg } from "react-icons/bs";
 
 
 
@@ -114,8 +113,8 @@ useEffect(()=>{
                   </button>
 
                   <div class="collapse navbar-collapse" id="navbarText">
-                      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '240px', display: 'flex', justifyContent: 'space-between', marginLeft: '-15px' }}>
-                          <li class="nav-item">
+                      <ul className='shop_navbar' class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '240px', display: 'flex', justifyContent: 'space-between', marginLeft: '-15px' }}>
+                          <li className='shop_item'  class="nav-item">
                               <a class="nav-link active" aria-current="page" href="/pedal/shop/list/bicycle" style={{ color: '#fff', marginBottom: '15px' }}>
                                   자전거
                               </a>
@@ -153,7 +152,10 @@ useEffect(()=>{
                                               검색
                                           </button>
                                       </form>
-                                      <BsCart2 onClick={onBuy} style={{ color: '#fff', fontSize: '37px', marginRight: '30px'}} />
+                                    <BsCart2 onClick={onBuy} style={{ color: '#fff', fontSize: '37px' }} />
+                                    <div onClick={() => navigate('/pedal/shop/created')}>
+                                      <BsExclamationLg style={{ color: '#fff', fontSize: '30px' }} />
+                                    </div>
                                   </div>
                               </div>
                       </span>

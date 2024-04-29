@@ -5,31 +5,30 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Numeral from 'numeral';
 
 const MyTicketList = styled.div`
-  margin: 50px;
-  font-family: 'noto-sans';
+    margin: 50px;
+    font-family: 'noto-sans';
     width: 75vw;
     margin: auto;
-/* 
-  hr{
-    width: 75vw;
-    margin: auto;
-  } */
 
   .myTicket_title{
-    margin-top: 60px;
     padding-bottom: 40px;
     color: #585858;
     font-weight: bold;
   }
 
+  .myTicket_info{
+    padding-bottom: 5px;
+   
+    
+  }
   
   .myTicket_head{
     width: 1300px;
     display: flex;
     list-style-type: none;
-    padding-bottom: 20px;
     font-size: 14px;
     color: #9E9FA5;
     text-align: center;
@@ -44,6 +43,7 @@ const MyTicketList = styled.div`
     padding-bottom: 5px;
     text-align: center;
   }
+  
 
 `
 
@@ -135,17 +135,18 @@ function MyPageTicketList() {
           <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
           <br />
 
-          <b>
-              <ul className="myTicket_head">
-                  <li style={{ width: '10%' }}>티켓 번호</li>
-                  <li style={{ width: '20%' }}>상품명</li>
-                  <li style={{ width: '10%' }}>상품가격</li>
-                  <li style={{ width: '20%' }}>구매시간</li>
-                  <li style={{ width: '20%' }}>이용시작시간</li>
-                  <li style={{ width: '20%' }}>이용반납시간</li>
-                  <li style={{ width: '10%' }}>이용 여부</li>
-              </ul>
-          </b>
+          <div className='myTicket_info'>
+            <ul className="myTicket_head">
+              <li style={{ width: '17%' }}>티켓 번호</li>
+              <li style={{ width: '20%' }}>상품명</li>
+              <li style={{ width: '25%' }}>상품가격</li>
+              <li style={{ width: '17%' }}>구매시간</li>
+              <li style={{ width: '35%' }}>이용시작시간</li>
+              <li style={{ width: '20%' }}>이용반납시간</li>
+              <li style={{ width: '30%' }}>이용 여부</li>
+            </ul>
+          </div>
+
           <hr />
 
           <div>
@@ -161,11 +162,14 @@ function MyPageTicketList() {
                       <div key={ticket.mtId}>
                           <div className="myTicket_list" style={{ width: '1300px' }}>
                               <div style={{ width: '10%', paddingLeft: '30px' }}>{ticket.mtMerchantUid}</div>
-                              <div style={{ width: '24%' }}>{ticket.mtName}</div>
-                              <div style={{ width: '7%' }}>{ticket.mtAmount}</div>
-                              <div style={{ width: '23%' }}>{ticket.mtPayTime}</div>
-                              <div style={{ width: '23%' }}>{moment(ticket.startTime).format('YYYY.MM.DD HH:mm:ss')}</div>
-                              <div style={{ width: '21%' }}>{ticket.mtPayTime}</div>
+                              <div style={{ width: '17%' }}>{ticket.mtName}</div>
+                              <div style={{ width: '8%' }}>{Numeral(ticket.mtAmount).format(0.0)}</div>
+
+                              
+
+                              <div style={{ width: '19%' }}>{ticket.mtPayTime}</div>
+                              <div style={{ width: '12%' }}>{moment(ticket.startTime).format('YYYY.MM.DD HH:mm:ss')}</div>
+                              <div style={{ width: '20%' }}>{ticket.mtPayTime}</div>
                               <div style={{ width: '10%' }}>
                                   {ticket.myStatus ? '사용완료' : '미사용'}&nbsp;
                                   <Switch checked={ticket.myStatus} onChange={() => toggleTicketStatus(ticket.mtMerchantUid)}  disabled={ticket.myStatus} />

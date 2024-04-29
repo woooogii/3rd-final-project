@@ -3,6 +3,7 @@ import { FiCheckCircle } from 'react-icons/fi';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import Numeral from 'numeral';
 
 const StyledContent = styled.div`
     display: flex;
@@ -18,27 +19,27 @@ const StyledContent = styled.div`
         height: 100px;
     }
 
-    .info {
+    .info_ticket {
         display: flex;
         justify-content: space-between;
         margin: 20px;
        
     }
 
-    .info1 {
+    .info1_ticket {
         font-weight: bold;
         padding-left: 60px;
         color: #A4A4A4; 
     }
    
-    .info2 {
+    .info2_ticket {
         width: 45%;
         color: #333; 
         font-family: '새굴림';
         font-weight: bold;
     }
 
-    .info_name {
+    .info_name_ticket {
         margin-top: 65px;
         background-color: #f8f9fa;
         border-radius: 10px;
@@ -47,13 +48,13 @@ const StyledContent = styled.div`
         padding: 10px;
     }
  
-    .info ul {
+    .info_ticket ul {
         list-style-type: none;
         margin: 0;
         
     }
 
-    .info ul li {
+    .info_ticket ul li {
         font-size: 16px;
         margin-bottom: 12px;
         text-align: left; 
@@ -112,20 +113,21 @@ const PayResult = () => {
             <p style={{color:'#A4A4A4', fontFamily:'새굴림'}}><b>[주문번호: {buyerInfo.merchant_uid}]</b></p>
 
             {buyerInfo ? (
-                <div className='info_name'>
-                    <div className='info'>
-                        <ul className='info1'>
+                <div className='info_name_ticket'>
+                    <div className='info_ticket'>
+                        <ul className='info1_ticket'>
                             <li>상품명</li>
                             <li>주문일자</li>
                             <li>결제수단</li>
                             <li>결제금액</li>
                         </ul>
                         <div className="vertical-line"></div>
-                        <ul className='info2'>
+                        <ul className='info2_ticket'>
                             <li>{buyerInfo.name}</li>
                             <li>{payTime}</li>
                             <li>카드({buyerInfo.pay_method})</li>
-                            <li style={{color:'#DD5746'}}>{buyerInfo.amount}원</li>
+                            <li style={{color:'#DD5746'}}>{Numeral(buyerInfo.amount).format(0.0)}원</li>
+                            
                         </ul>
                     </div>
                 </div>

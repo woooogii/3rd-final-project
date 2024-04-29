@@ -11,7 +11,7 @@ const Credit = styled.div`
     margin-top: -385px;
     margin-left: 240px;
 
-    .box {
+    .box_credit {
         width: 250px;
         height: 600px;
         border-radius: 20px;
@@ -19,19 +19,20 @@ const Credit = styled.div`
         padding: 10px;
     }
 
-    .box b {
+    .box_credit b {
         align-self: flex-start;
         margin-left: 10px;
     }
 
-    .price {
+    .price_credit {
+        margin-top: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 30vh;
     }
 
-    .price_amount {
+    .price_amount_credit {
         font-size: 35px;
         font-weight: bold;
         display: inline-block;
@@ -147,6 +148,7 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                     pay_time: moment().format('YYYY-MM-DD HH:mm:ss')
                                 });
                      
+                     
 
                                 //MyTicket(나의티켓구매내역)으로 보냄
                                 fetch('http://localhost:4000/pedal/saveMyTicketList', {
@@ -179,6 +181,8 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                                         }));
                                         console.log(data.amount);
                                         console.log(data.name);
+                                        console.log(data.amount);
+                                        console.log(data.name);
                                     })
                                     .catch((error) => {
                                         console.error('결제 정보 저장 중 오류 발생:', error);
@@ -190,6 +194,8 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
                             
                             setPaymentSuccess(true);
                             navigate('/pedal/payment', { state: { buyerInfo: buyerInfo } });
+                                       
+                         
                                        
                          
                     } else {
@@ -205,13 +211,13 @@ const PayCredit = ({ setPaymentSuccess, tPrice, tName}) => {
 
     return (
         <Credit>
-            <div className="box">
-                <div className="price">
+            <div className="box_credit">
+                <div className="price_credit">
                     총 금액 ㅣ &nbsp;&nbsp;
-                    <span className="price_amount">{tPrice && <span>{tPrice}</span>}</span>
+                    <span className="price_amount_credit">{tPrice && <span>{tPrice}</span>}</span>
                     &nbsp;<span style={{ fontWeight: 'bold' }}>원</span>
                 </div>
-                <Button type="primary" onClick={requestPay} style={{ backgroundColor: '#1675f2', marginTop:'-50px', marginRight:'15px' }}>결제하기</Button>
+                <Button className="btn_credit" type="primary" onClick={requestPay} style={{ backgroundColor: '#1675f2', marginTop:'-50px', marginRight:'15px' }}>결제하기</Button>
             </div>
         </Credit>
     );

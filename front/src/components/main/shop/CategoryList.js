@@ -4,13 +4,12 @@ import axios from 'axios';
 import './style/productList.css';
 import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
-import ShopHeader from './ShopHeader';
-import Pagination from '@mui/material/Pagination';
 //import Pagination from "react-js-pagination";
 
 const CategoryList = () => {
     const [cateData, setCateData] = useState([]);
     const { category } = useParams();
+    const [reloadProducts, setReloadProducts] = useState(false);
     
     const startHereRef = useRef(null);
     useEffect(() => {
@@ -31,7 +30,7 @@ const CategoryList = () => {
             }
         };
         fetchData();
-    }, [category]);
+    }, [category, reloadProducts]);
 
     //select 순서 정렬
     const [sortOrder, setSortOrder] = useState("noFilter");
@@ -63,12 +62,6 @@ const CategoryList = () => {
     let firstNum = currPage - (currPage % 5) + 1
     let lastNum = currPage - (currPage % 5) + 5
     
-    const postsData = (posts) => {
-      if(posts){
-        let result = posts.slice(offset, offset + limit);
-        return result;
-      }
-    }
 
 
     return (
@@ -76,7 +69,6 @@ const CategoryList = () => {
             <div ref={startHereRef}>
             {/* <ShopHeader id="#custom-shopHead"/> */}
             <ShopHead id="head"/>
-            <ShopHeader/>
             </div>
             <div className='main'>
                 <br/>
@@ -89,15 +81,13 @@ const CategoryList = () => {
                             <option value={"highPrice"}>높은가격순</option>
                             <option value={"lowPrice"}>낮은가격순</option>
                     </select>
-                    <ul info ={postsData(sortedData)}>
+                    <ul>
                         {sortedData && sortedData.map(item =>
                             <ProductItem key={item.pid} item={item}/>
                         )}
                     </ul>
                 </div>
 
-                <Pagination shape="rounded" style={{marginLeft:'45%'}}
-                limit={limit} page={page} totalPosts={sortedData.length} setPage={setPage}/>
             </div>
         </>
     );
