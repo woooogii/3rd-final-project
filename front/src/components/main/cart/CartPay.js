@@ -32,25 +32,26 @@ const CartPay = ({totalPrice, cartItems,itemQuantities}) => {
 
     return (
         <div className='pay-card'>
-            <h4>결제 정보</h4>
+            <h4 style={{color:'#6c757d'}}><b>결제 정보</b></h4>
 
             
             <div className='pay-product'>
                 <p>선택 상품</p>
 
-            <b>
+           
             {
                 cartItems.length === 1 ? (
-                <div>{productName}</div>
+                <div><b>{productName}</b></div>
                 ):(
                 cartItems.length === 0 ? (
                     <div>빈 장바구니</div>
                      ):(
-                    <div>{productName}외 {cartItems.length - 1}개 상품</div>)
+                    <div><b>{productName}</b><br/>
+                    외 {cartItems.length - 1}개 상품</div>)
                 
                 )
             }
-            </b>
+          
             </div>
             
             <div className='pay-method'>

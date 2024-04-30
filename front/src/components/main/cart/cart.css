@@ -1,6 +1,6 @@
 .pay-card{
-    width: 380px;
-    min-height: 600px;
+    width: 340px;
+    min-height: 480px;
     background-color:  #f3f3f7ea;
     text-align: left;
     line-height: 2;
@@ -21,7 +21,7 @@
 
 .pay-method{
     margin-top: 30px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 .pay-method p{
@@ -55,10 +55,47 @@
 .pay-buy-button button{
     margin-top: 10px;
     margin-left: -10px;
-    width: 300px;
+    margin-bottom: -5px;
+    width: 260px;
     height: 50px;
     border-radius: 10px;
     border: none;
     background-color: #007bff;
     color: white;
 }
+
+.cart-button {
+    margin-top: 20px;
+    margin-left: 30px; /* 버튼 사이의 간격 조정 */
+    width: 150px; /* 필요에 따라 너비 조정 */
+    height: 40px; /* 필요에 따라 높이 조정 */
+    border-radius: 25px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cart-button:hover {
+    background-color: #0056b3; /* 호버 시 색상 변경 */
+  }
+
+  .shop-button {
+    margin-top: 20px;
+    margin-left: 30px; /* 버튼 사이의 간격 조정 */
+    width: 150px; /* 필요에 따라 너비 조정 */
+    height: 40px; /* 필요에 따라 높이 조정 */
+    border-radius: 25px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .shop-button:hover {
+    background-color: #007bff; /* 호버 시 색상 변경 */
+    color:white;
+
+  }
