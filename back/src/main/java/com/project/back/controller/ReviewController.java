@@ -43,10 +43,10 @@ public class ReviewController {
 
 
     //리뷰수 저장 + 카운트
-    @GetMapping("/reviewCount")
-    public ResponseEntity<Integer> getReviewCount() {
+    @GetMapping("/reviewCount/{pId}")
+    public ResponseEntity<Integer> getReviewCount(@PathVariable Long pId)  {
         
-        int count = reviewService.getReviewCount();
+        int count = reviewService.getReviewCount(pId);
 
         return ResponseEntity.ok(count);
     }

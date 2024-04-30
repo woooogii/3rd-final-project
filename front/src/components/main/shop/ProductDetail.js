@@ -11,7 +11,6 @@ import Numeral from 'numeral';
 import { Avatar, Badge, Space } from 'antd';
 
 const StyledContent = styled.div`
-
     width: 100%;
     margin-top: 100px;
 
@@ -24,7 +23,6 @@ const StyledContent = styled.div`
         display: flex;
         margin-left: 300px;
         overflow: hidden;
-        caret-color: transparent;   /* 커서 깜빡임 없애기 */
     }
 
     .image_sub,
@@ -43,24 +41,24 @@ const StyledContent = styled.div`
     }
 
     .image_main img {
-        width: 550px;
-        height: 370px;
+        width: 600px;
+        height: 400px;
         object-fit: cover; /* 부모에게 맞추거나, 비율유지하면서 잘라내기도 함 */
     }
 
     .product_info {
-        padding-left: 100px;
+        padding-left: 180px;
         width: 800px;
     }
 
     .btns {
     display: flex;
     justify-content: flex-end;
-    padding-right: 500px;
+    padding-right: 460px;
     margin-bottom: 20px;
     position: relative;
     top: -70px;
-    left: 50px;
+    left: 140px;
 }
 
     .btn_cart {
@@ -100,8 +98,12 @@ const StyledContent = styled.div`
         display: flex;
         margin: auto;
         justify-content:center;
-        margin-top: 200px;
+        margin-top: 90px;
         margin-bottom: 50px;
+        padding-top: 23px;
+        height: 80px;
+        background-color: #f4f4f4;
+        color: #3a3a3a;
 
         ul {
             display: flex;
@@ -133,7 +135,7 @@ const StyledContent = styled.div`
         }
 
         .centerLine:hover::after {
-            transform: scaleX(1);
+            transform: scaleX(1.5);
         }
     }
 
@@ -146,7 +148,8 @@ const StyledContent = styled.div`
     .tot{
         display: flex;
         justify-content: flex-end;
-        padding-right: 390px;
+        padding-top: 30px;
+        padding-right: 300px;
         font-size: 13px;
     }
     
@@ -159,7 +162,8 @@ const StyledContent = styled.div`
     }
 
     .line_productDetail{
-        width: 47%;
+        width: 55%;
+        margin-bottom: 20px;
         margin-left: -10px; 
     }
 `;
@@ -182,12 +186,38 @@ const ProductDetail = () => {
         pDescription: '',
     });
 
+
     //pId가 변경될 때마다 실행되어야함 -> 의존성배열 [pId] 필요
     useEffect(() => {
         fetchProductById(pId);
         console.log(' Id가져오고있냐~~~:',pId);
         window.scrollTo(0, 0);
     }, [pId]);
+
+    //이미지 로딩됐을 때 기본 image1으로 보여주기
+    useEffect(() => {
+        setShowImage(product.pimage1);
+    }, [product]);
+
+    //---------------------------------------------------------------------------------------
+    
+    useEffect(() => {
+        //리뷰 count
+        const reviewIncrement = async () => {
+            try {
+                const reviewResponse = await axios.get(`http://localhost:4000/pedal/reviewCount/${pId}`);
+                console.log('리뷰 수:', reviewResponse.data);
+                setReviewCount(reviewResponse.data);
+            } catch (error) {
+                console.error('리뷰 수를 불러오는 중 오류 발생:', error);
+                return null;
+            }
+        };
+        reviewIncrement();
+    
+    }, [pId]);
+
+    
 
     const fetchProductById = async (pId) => {
         try {
@@ -248,35 +278,6 @@ const ProductDetail = () => {
     }
 
     //---------------------------------------------------------------------------------------
-
-    
-    useEffect(() => {
-        //리뷰 count
-        const reviewIncrement = async () => {
-            try {
-                const response = await axios.get('http://localhost:4000/pedal/reviewCount');
-                console.log("reviewCount",reviewCount);
-                console.log('count체크:', response.data);
-                setReviewCount(response.data);
-            } catch (error) {
-                console.error('리뷰 수를 불러오는 중 오류 발생:', error);
-                return null;
-            }
-        };
-        reviewIncrement();
-
-    }, []);
-  
-    
-        //리뷰 count
-        // const reviewIncrement = () => {
-
-        //     setReviewCount(prevCount => prevCount + 1); 
-        // };
-        
-    
-    
-    //---------------------------------------------------------------------------------------
     // 상품설명,리뷰,교환환불 메뉴바
     const [selectMenu,setSelectMenu] = useState('productInfo'); //기본값 = 상품설명
     const [selectPick,setSelectPick] = useState(false); //기본값 = 상품설명
@@ -299,8 +300,7 @@ const ProductDetail = () => {
 
     //---------------------------------------------------------------------------------------
     // 이미지 change
-    const [showImage,setShowImage] = useState('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier(3).jpg');
-
+    const [showImage,setShowImage] = useState(product.pimage1);
 
     //마우스올렸을 때 해당 이미지 보여주기
     const changeImage = (image) => {
@@ -309,12 +309,8 @@ const ProductDetail = () => {
 
     //마우스 떼면 기본 이미지로 돌아가기
     const removeImage = () => {
-        setShowImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier(3).jpg');
+        setShowImage(product.pimage1);
     }
-
-
-
-    const [show, setShow] = useState(true);
 
     return (
         <StyledContent>
@@ -323,25 +319,25 @@ const ProductDetail = () => {
                     <ul className="image_sub">
                         <li>
                             <img
-                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-1(1).jpg"
+                                src={product.pimage2}
                                 alt=""
-                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-1(1).jpg')}
+                                onMouseOver={() => changeImage(product.pimage2)}
                                 onMouseOut={removeImage}
                             />
                         </li>
                         <li>
                             <img
-                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-2(1).jpg"
+                                src={product.pimage3}
                                 alt=""
-                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-2(1).jpg')}
+                                onMouseOver={() => changeImage(product.pimage3)}
                                 onMouseOut={removeImage}
                             />
                         </li>
                         <li>
                             <img
-                                src="/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-216(1).jpg"
+                                src={product.pimage4}
                                 alt=""
-                                onMouseOver={() => changeImage('/image/MY23TCRAdvancedPro0Disc-AR_ColorACarbon_Messier_D-1-216(1).jpg')}
+                                onMouseOver={() => changeImage(product.pimage4)}
                                 onMouseOut={removeImage}
                             />
                         </li>
@@ -350,7 +346,7 @@ const ProductDetail = () => {
                 <div>
                     <ul className="image_main">
                         <li>
-                            <img src={showImage} alt="" />
+                         <img src={showImage} alt="" loading="eager" />  
                         </li>
                     </ul>
                 </div>
@@ -419,16 +415,16 @@ const ProductDetail = () => {
                     <li className="centerLine" onClick={showProductInfo}>
                         상품 설명
                     </li>
-
+                    <p style={{marginTop:'-2px', marginRight:'5px'}}>ㅣ</p>
                     {/* 리뷰숫자 */}
                     <li className="centerLine" onClick={showReview}>
                         <Space size="large">
-                            <Badge count={reviewCount} overflowCount={10} style={{backgroundColor:'#1675F2'}}>
-                                <span style={{ fontSize: '20px', marginRight: '20px'}}>리뷰</span>
-                            </Badge>
+                        <Badge count={reviewCount} showZero={true} overflowCount={10} style={{ backgroundColor:'#1675F2' }}>
+                <span style={{ fontSize: '20px', marginRight: '20px' }}>리뷰</span>
+            </Badge>
                         </Space>
                     </li>
-
+                    <p style={{marginTop:'-2px'}}>ㅣ</p>
                     <li className="centerLine" onClick={showPolicy}>
                         교환/반품
                     </li>
