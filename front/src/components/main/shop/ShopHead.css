@@ -10,7 +10,7 @@
     color:#fff;
     font-size: 30px;
     font-weight: bold;
-    padding-left: 265px;
+    padding-left: 250px;
     padding-top: 15px;
     margin-bottom: 15px;
   }
@@ -55,23 +55,25 @@
     font-size: 17px;
   }
   */
+
   
-  .nav-item {
-    font-size: 19px;
+  
+  /* .shop_item {
+    font-size: 1px;
     font-family: noto-sans; 
     font-weight: bold;
     color: #eee; 
     background-color: transparent;
-    border-bottom: 3px solid transparent; /* 초기에는 투명한 선으로 설정 */
-    transition: border-bottom 0.3s ease; /* 변화에 대한 애니메이션 효과 추가 */
+    border-bottom: 3px solid transparent; 
+    transition: border-bottom 0.3s ease;
   }
-  
-  .nav-item:hover {
+   */
+  .shop_item:hover {
     border-bottom: 3px solid #1675F2;
   }
   
 
-  .navbar-nav{
+  .shop_navbar{
     width: 390px;
     margin-right: initial;
     display: flex;
@@ -79,12 +81,9 @@
     color: #A4A4A4;
     margin-top: 20px;
   }
+
   
-  .navbar-collapse {
-    padding-right: 130px;
-  }
-  
-  .navbar-nav .nav-link.active,
+  .shop_navbar .nav-link.active,
   .navbar-nav .nav-link.show {
     font-family: noto-sans; 
     color:#A4A4A4;

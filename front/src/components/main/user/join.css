@@ -4,11 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh; /* height를 조금 낮춤 */
+    height: 90vh;
 }
 
 .join-box {
-    width: 450px; /* width를 넓힘 */
+    width: 450px;
     padding: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -22,36 +22,12 @@
 }
 
 .join-form-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative; /* 인증 버튼 위치 조정을 위해 relative 추가 */
     margin-bottom: 20px;
 }
 
-.email-form{
-    position: relative;
-}
-
-.join-email-button{
-    position: absolute;
-    width: 50px;
-    height: 30px;
-    top: 0;
-    bottom: 0;
-    right: 28px;
-    margin: auto 0;
-    border-radius: 3px;
-    background-color: #1675F2;
-    background-color: #1675F2;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-}
-
-
-
 .join-input {
-    width: calc(100% - 20px);
+    width: calc(105% - 20px);
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -63,28 +39,99 @@
     box-shadow: 0 0 5px rgba(30, 150, 252, 0.5);
 }
 
-.join-duplicate-button {
-    width: 100px; /* 중복확인 버튼 넓힘 */
-    padding: 8px;
-    margin: 10px 0; /* 이메일 인풋과 높이 맞춤 */
-    background-color: #1675F2;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-}   
-
 .join-button {
-    width: calc(50% - 20px);
-    padding: 8px;
-    margin: 10px 5px;
+    width: 100%;
+    padding: 12px;
     background-color: #1675F2;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px; /* 버튼을 더 동그랗게 만듦 */
     color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s; /* 호버 효과를 위한 전환 효과 */
 }
 
-.join-error-message{
+.join-button:hover {
+    background-color: #125ac7; /* 호버 시 색상 변경 */
+}
+
+.join-error-message {
     color: red;
+    margin-top: 5px; /* 오류 메시지 간격 조정 */
+}
+
+.join-email-button {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: #1675F2;
+    border: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s; /* 호버 효과를 위한 전환 효과 */
+}
+
+.join-email-button:hover {
+    background-color: #125ac7; /* 호버 시 색상 변경 */
+}
+
+
+
+.popupButton {
+    width: 150px;
+    padding: 12px;
+    margin-left: 10px; /* 우편번호 찾기 버튼 간격 조정 */
+    background-color: #1675F2;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s; /* 호버 효과를 위한 전환 효과 */
+    position: relative; /* 부모 요소를 기준으로 위치 지정 */
+    z-index: 50; /* 다른 요소들보다 위에 뜨도록 설정 */
+}
+
+.popupButton:hover {
+    background-color: #125ac7; /* 호버 시 색상 변경 */
+}
+
+.popupContainer {
+    position: fixed; /* 뷰포트를 기준으로 위치 지정 */
+    top: 0; /* 화면의 맨 위에 위치 */
+    left: 0; /* 화면의 왼쪽에 위치 */
+    width: 100%; /* 화면 전체 너비 */
+    height: 100%; /* 화면 전체 높이 */
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경 */
+    z-index: 999; /* 가장 위에 뜨도록 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popupContent {
+    width: 80%; /* 모달 내용의 너비 */
+    max-width: 400px; /* 모달 내용의 최대 너비 */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+}
+
+/* 모달창 스타일 수정 */
+.post-container {
+    position: absolute; /* 절대 위치로 설정 */
+    top: 50%; /* 화면 세로 중앙으로 이동 */
+    left: 50%; /* 화면 가로 중앙으로 이동 */
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    z-index: 9999; /* 다른 요소보다 위에 올라오도록 z-index 값 조정 */
+}
+
+/* 기존 스타일에 새로운 스타일 추가 */
+.join-form-group {
+    position: relative; /* 인풋칸 위치 조정을 위해 relative 추가 */
+    margin-bottom: 20px;
+    z-index: 1; /* 모달창보다는 아래에 위치하도록 z-index 설정 */
 }

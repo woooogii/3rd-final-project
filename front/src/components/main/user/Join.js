@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IoIosSearch } from "react-icons/io";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './join.css';
@@ -131,140 +132,133 @@ const Join = () => {
         }
     };
 
-    return (
-        <div className='join-container'>
-            <div className='join-box'>
-                <h2 className="join-title">회원가입</h2>
-                <form onSubmit={onSubmit}>
-                    <div className="join-form-group email-form">
-                        <input
-                            className="join-input"
-                            type="text"
-                            id="uid"
-                            value={form.uid}
-                            onChange={handleChange}
-                            placeholder="이메일"
-                            required
-                        />
-                        <button
-                            className={`join-email-button ${!validateEmail(form.uid) && 'disabled'}`}
-                            type="button"
-                            onClick={isCertified ? undefined : handleEmailVerification}
-                            disabled={!validateEmail(form.uid) || isCertified} // 인증 완료 시 버튼 비활성화
-                            style={{
-                                backgroundColor: !validateEmail(form.uid) ? 'grey' : isCertified ? 'grey' : 'blue',
-                                cursor: isCertified ? 'default' : 'pointer'
-                            }}
-                        >
-                            {showCertificationInput ? "인증" : (isEmailVerified ? "완료" : "인증")}
-                        </button>
-                    </div>
-                    {emailFormatError && <p className="join-error-message">올바른 이메일 형식이 아닙니다.</p>}
-                    {!isEmailVerified && !showCertificationInput && <p className="join-error-message">이메일을 인증해주세요.</p>}
-                    {showCertificationInput && (
+        return (
+            <div className='join-container'>
+                <div className='join-box'>
+                    <h2 className="join-title">회원가입</h2>
+                    <form onSubmit={onSubmit}>
+                        <div className="join-form-group email-form">
+                            <input
+                                className="join-input"
+                                type="text"
+                                id="uid"
+                                value={form.uid}
+                                onChange={handleChange}
+                                placeholder="이메일"
+                                required
+                            />
+                            <button
+                                className={`join-email-button ${!validateEmail(form.uid) && 'disabled'}`}
+                                type="button"
+                                onClick={isCertified ? undefined : handleEmailVerification}
+                                disabled={!validateEmail(form.uid) || isCertified} // 인증 완료 시 버튼 비활성화
+                                style={{
+                                    backgroundColor: !validateEmail(form.uid) ? 'grey' : isCertified ? 'grey' : 'blue',
+                                    cursor: isCertified ? 'default' : 'pointer'
+                                }}
+                            >
+                                {showCertificationInput ? "인증" : (isEmailVerified ? "완료" : "인증")}
+                            </button>
+                        </div>
+                        {emailFormatError && <p className="join-error-message">올바른 이메일 형식이 아닙니다.</p>}
+                        {!isEmailVerified && !showCertificationInput && <p className="join-error-message">이메일을 인증해주세요.</p>}
+                        {showCertificationInput && (
+                            <div className="join-form-group">
+                                <input
+                                    className="join-input"
+                                    type="text"
+                                    id="certification"
+                                    value={form.certification}
+                                    onChange={handleChange}
+                                    placeholder="인증번호를 입력해주세요"
+                                    required
+                                />
+                                <button className="join-email-button" onClick={handleCertificationConfirmation}>
+                                    확인
+                                </button>
+                            </div>
+                        )}
+                        <div className="join-form-group">
+                            <input
+                                className="join-input"
+                                type="password"
+                                id="upwd"
+                                value={form.upwd}
+                                onChange={handleChange}
+                                placeholder="비밀번호"
+                                required
+                            />
+                        </div>
+                        {pwdLengthError && <p className="join-error-message red">비밀번호는 8자 이상이어야 합니다.</p>}
+                        <div className="join-form-group">
+                            <input
+                                className="join-input"
+                                type="password"
+                                id="upwd2"
+                                value={form.upwd2}
+                                onChange={handleChange}
+                                placeholder="비밀번호 확인"
+                                required
+                            />
+                        </div>
+                        {form.upwd !== form.upwd2 && <p className="join-error-message red">비밀번호가 일치하지 않습니다.</p>}
                         <div className="join-form-group">
                             <input
                                 className="join-input"
                                 type="text"
-                                id="certification"
-                                value={form.certification}
+                                id="uname"
+                                value={form.uname}
                                 onChange={handleChange}
-                                placeholder="인증번호를 입력해주세요"
+                                placeholder="이름"
                                 required
                             />
-                            <button className="join-certification-button" onClick={handleCertificationConfirmation}>
-                                확인
-                            </button>
                         </div>
-                    )}
-                    <div className="join-form-group">
-                        <input
-                            className="join-input"
-                            type="password"
-                            id="upwd"
-                            value={form.upwd}
-                            onChange={handleChange}
-                            placeholder="비밀번호"
-                            required
-                        />
+                        <div className="join-form-group">
+                            <input
+                                className="join-input"
+                                type="text"
+                                id="uphone"
+                                value={form.uphone}
+                                onChange={handleChange}
+                                placeholder="전화번호"
+                                required
+                            />
+                        </div>
+                        <div className="join-form-group">
+                            <label htmlFor="uaddress"></label>
+                            <input
+                                className="join-input"
+                                type="text"
+                                id="uaddress"
+                                value={form.uaddress}
+                                onChange={handleChange}
+                                placeholder="주소를 입력하세요"
+                                readOnly
+                            />
+                            <button className="join-email-button" onClick={togglePopup}><IoIosSearch /></button>
+                            {popup && <Post setCompany={handleAddress} />}
+                        </div>
+                        <div className="join-form-group">
+                            <input
+                                className="join-input"
+                                type="text"
+                                id="uaddrdetail"
+                                value={form.uaddrdetail}
+                                onChange={handleChange}
+                                placeholder="상세주소"
+                                required
+                            />
+                        </div>
+                        <div className="join-form-group join-buttons">
+                 
+                            <button type="submit" id="btn" className="join-button">
+                                가입하기
+                            </button>
+                            </div>
+                        </form>
                     </div>
-                    {pwdLengthError && <p className="join-error-message red">비밀번호는 8자 이상이어야 합니다.</p>}
-                    <div className="join-form-group">
-                        <input
-                            className="join-input"
-                            type="password"
-                            id="upwd2"
-                            value={form.upwd2}
-                            onChange={handleChange}
-                            placeholder="비밀번호 확인"
-                            required
-                        />
-                    </div>
-                    {form.upwd !== form.upwd2 && <p className="join-error-message red">비밀번호가 일치하지 않습니다.</p>}
-                    <div className="join-form-group">
-                        <input
-                            className="join-input"
-                            type="text"
-                            id="uname"
-                            value={form.uname}
-                            onChange={handleChange}
-                            placeholder="이름"
-                            required
-                        />
-                    </div>
-                    <div className="join-form-group">
-                        <input
-                            className="join-input"
-                            type="text"
-                            id="uphone"
-                            value={form.uphone}
-                            onChange={handleChange}
-                            placeholder="전화번호"
-                            required
-                        />
-                    </div>
-                    <div className="join-form-group">
-    <label htmlFor="uaddress"></label>
-    <input
-        className="join-input"
-        type="text"
-        id="uaddress"
-        value={form.uaddress}
-        onChange={handleChange}
-        placeholder="주소를 입력하세요"
-        readOnly
-    />
-    <button className="popupButton" onClick={togglePopup}>우편번호 찾기</button>
-    {popup && <Post setCompany={handleAddress} />}
-</div>
-                    <div className="join-form-group">
-                        <input
-                            className="join-input"
-                            type="text"
-                            id="uaddrdetail"
-                            value={form.uaddrdetail}
-                            onChange={handleChange}
-                            placeholder="상세주소"
-                            required
-                        />
-                    </div>
-                    <div className="join-form-group join-buttons">
-                        <button
-                            type="button"
-                            id="btn"
-                            className="btn btn-outline-primary"
-                            onClick={() => navigate('/pedal/login')}
-                        >
-                            취소하기
-                        </button>
-                        <button type="submit" id="btn" className="btn btn-primary">
-                            가입하기
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
-};
+                </div>
+            );
+        };
 
 export default Join;

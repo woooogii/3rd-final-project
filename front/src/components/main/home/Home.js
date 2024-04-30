@@ -30,7 +30,6 @@ const Home = () => {
 
     return (
         <Container>
-            {/* <MainButton/> */}
             <main className="scroll-container">
                 <section className={currentSection === 0 ? 'is-visible' : ''}>
                     {/* <Modal show={modalIsOpen} onHide={closeModal}  style={{ width: '100%', height:'100%', maxWidth: '1000px' }} >
@@ -40,11 +39,15 @@ const Home = () => {
                 <img src='/image/popup.png' alt='' style={{ maxWidth: '100%', height: 'auto' }}/>
                 </Modal.Body>
             </Modal> */}
-                    <hr className="line1" style={{ width: '75vw', marginLeft: '190px'}} />
+                    <hr className="line1"/>
                     <br />
                     <br />
                     <div className="main1">
                         <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
+                        <div className='mainButton'>
+                            이용권
+                            <MainButton/>
+                        </div>
                     </div>
 
                     <InfoBox>
@@ -52,21 +55,21 @@ const Home = () => {
                             <ul>
                                 <li>
                                     <a href="http://localhost:3000/pedal/station">
-                                        <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
+                                        <FaLocationDot style={{ fontSize: '23px', marginBottom: '5px' }} />
                                         &nbsp; 대 여 방 법
-                                    </a>
+                                      </a>
                                 </li>
                                 <span style={{ color: '#fff' }}>ㅣ</span>
                                 <li>
                                     <a href="http://localhost:3000/pedal/station">
-                                        <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
+                                        <FaLocationDot style={{ fontSize: '23px', marginBottom: '5px' }} />
                                         &nbsp; 대 여 소
                                     </a>
                                 </li>
                                 <span style={{ color: '#fff' }}>ㅣ</span>
                                 <li>
                                     <a href="http://localhost:3000/pedal/ticket">
-                                        <FaLocationDot style={{ fontSize: '25px', marginBottom: '5px' }} />
+                                        <FaLocationDot style={{ fontSize: '23px', marginBottom: '5px' }} />
                                         &nbsp; 이 용 권 안 내
                                     </a>
                                 </li>

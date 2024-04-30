@@ -8,55 +8,6 @@ import styled from 'styled-components';
 import { GrMapLocation } from "react-icons/gr";
 import { MdOutlinePlaylistAddCheck } from "react-icons/md";
 
-
-
-const TicketBuy = () => {
-    const { ticketType } = useParams();
-    const [tName, setTname] = useState('');
-    const [tCategory, setTCategory] = useState(ticketType === 'dailyTicket' ? '일일권' : '정기권');
-    const [tPrice, setTprice] = useState('');
-    const [ticketData, setTicketData] = useState([]);
-    const [payment, setPayment] = useState('');
-    const [paymentSuccess, setPaymentSuccess] = useState('');
-
-    useEffect(() => {
-        const fetchTicketData = async () => {
-            try {
-                const response = await axios.get('http://localhost:4000/pedal/purchase');
-                setTicketData(response.data);
-            } catch (error) {
-                console.error('데이터를 가져오지 못했습니다:', error);
-            }
-        };
-        fetchTicketData();
-    }, []);
-
-    const onChange = (category) => {
-        if(category === '일일권' || category === '정기권') {
-            setTCategory(category);
-            setTprice('');
-            setTname('');
-        }
-    };
-
-    const handleOptionChange = (e) => {
-        const selectedOption = e.target.value;
-        const selectedTicket = ticketData.find(ticket => ticket.tname === selectedOption);
-        if (selectedTicket) {
-            setTname(selectedOption);
-            setTprice(selectedTicket.tprice);
-        } else {
-            setTname('');
-            setTprice('');
-        }
-    };
-
-    const handleModule = (e) => {
-        const selectedPayment = e.target.value;
-        setPayment(selectedPayment);
-        setPaymentSuccess(false); // 새로운 결제 시도 시 결제 성공 상태 초기화
-    };
-
     const StyledTickets = styled.div`
         margin-top: 130px;
         display: flex;
@@ -64,8 +15,12 @@ const TicketBuy = () => {
         margin-right: 300px;
         caret-color: transparent;
 
-        .card-container {
+        .card-container-ticket {
             width: 400px;
+        }
+
+        .card {
+            --bs-card-border-width: none;
         }
 
         b {
@@ -133,21 +88,96 @@ const TicketBuy = () => {
             outline: none;
         }
 
-
         .box3 h4 {
             font-weight: bold;
             margin-left: 10px;
         }
-        
-        .pay{
+
+        .pay {
             position: absolute;
             margin-top: 45px;
         }
 
+        .cards-ticket-credit,
+        .cards-ticket-kakao {
+            cursor: pointer;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .cards-ticket-credit:hover,
+        .cards-ticket-kakao:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            background-color: #1675f2;
+            color: #fff;
+            border: none;
+        }
+
+        .cards-ticket-credit {
+            display: flex;
+            justify-content: center;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 8px;
+        }
+
+        .cards-ticket-kakao {
+            display: flex;
+            justify-content: center;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            height: 85px;
+        }
     `;
 
 
 
+const TicketBuy = () => {
+    const { ticketType } = useParams();
+    const [tName, setTname] = useState('');
+    const [tCategory, setTCategory] = useState(ticketType === 'dailyTicket' ? '일일권' : '정기권');
+    const [tPrice, setTprice] = useState('');
+    const [ticketData, setTicketData] = useState([]);
+    const [payment, setPayment] = useState('');
+    const [paymentSuccess, setPaymentSuccess] = useState('');
+
+    useEffect(() => {
+        const fetchTicketData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pedal/purchase');
+                setTicketData(response.data);
+            } catch (error) {
+                console.error('데이터를 가져오지 못했습니다:', error);
+            }
+        };
+        fetchTicketData();
+    }, []);
+
+    const onChange = (category) => {
+        if(category === '일일권' || category === '정기권') {
+            setTCategory(category);
+            setTprice('');
+            setTname('');
+        }
+    };
+
+    const handleOptionChange = (e) => {
+        const selectedOption = e.target.value;
+        const selectedTicket = ticketData.find(ticket => ticket.tname === selectedOption);
+        if (selectedTicket) {
+            setTname(selectedOption);
+            setTprice(selectedTicket.tprice);
+        } else {
+            setTname('');
+            setTprice('');
+        }
+    };
+
+    const handleModule = (e) => {
+        const selectedPayment = e.target.value;
+        setPayment(selectedPayment);
+        setPaymentSuccess(false); // 새로운 결제 시도 시 결제 성공 상태 초기화
+    };
 
 
     return (
@@ -251,13 +281,13 @@ const TicketBuy = () => {
                             <br />
                             {tCategory && (
                                 <div>
-                                      <div className="card-container">
-                                      <div className="card text-end" id="credit" style={{ width: '200px', height: '90px', right: '85px'}}>
+                                      <div className="card-container-ticket">
+                                      <div className="card text-end" id="credit" style={{ width: '200px', height: '100px', right: '85px', marginTop:'5px'}}>
                                             {payment === '신용/체크카드' && <PayCredit setPaymentSuccess={setPaymentSuccess} tPrice={tPrice} tName={tName} />}
                                                 {/* label을 쓰면 이미지 클릭해도 함수를 실행시켜줌 (radio버튼 대신 사용) */}
                                                 {/* htmlFor는 id값을 찾아감, input-id가 없으니까 위에 있는 div의 id를 찾아가서 연결되는 원리 */}        
                                                 <label htmlFor="credit" onClick={() => handleModule({ target: { value: '신용/체크카드' } })}>
-                                                <div className="cards" style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                                                <div className="cards-ticket-credit">
                                                     <img src="/image/visa.png" style={{ width: '70px' }} alt="" />
                                                     <img src="/image/mastercard.png" style={{ width: '70px' }} alt="" />
                                                 </div>
@@ -265,14 +295,15 @@ const TicketBuy = () => {
                                             </div>
                                         </div>
                                     <div className="box4">
-                                        <div className="card-container">
-                                            <div className="card text-end" id="kakao" style={{ width: '200px', height: '90px', right: '85px', top: '15px' }}>
+                                        <div className="card-container-ticket">
+                                            <div className="card text-end" id="kakao" style={{ width: '200px', right: '85px', marginTop:'-10px', top: '15px' }}>
                                                 {payment === 'kakaopay' && <PayKakao setPaymentSuccess={setPaymentSuccess} tPrice={tPrice} tName={tName} />}
                                                 {/* label을 쓰면 이미지 클릭해도 함수를 실행시켜줌 (radio버튼 대신 사용) */}
                                                 {/* htmlFor는 id값을 찾아감, input-id가 없으니까 위에 있는 div의 id를 찾아가서 연결되는 원리 */}        
                                                 <label htmlFor="kakao" onClick={() => handleModule({ target: { value: 'kakaopay' } })}>
-                                                    <img src="/image/kakaopay.png" alt="kakaopay" style={{ width: '65px', height: '25px', marginBottom: '-55px', marginRight: '65px' }} />
-                                                    <div className="cards" style={{ display: 'flex', justifyContent: 'center' }}></div>
+                                                    <div className="cards-ticket-kakao">
+                                                        <img src="/image/kakaopay.png" alt="kakaopay" style={{ width: '65px', height: '25px', marginTop:'30px'}} />
+                                                    </div>
                                                 </label>
                                             </div>
                                         </div>

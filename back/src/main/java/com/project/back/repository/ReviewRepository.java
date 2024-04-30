@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.project.back.entity.ReviewEntity;
 
-public interface ReviewRepository extends JpaRepository<ReviewEntity,Long>{
+public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer>{
      List<ReviewEntity> findBypId(Long pId);
+     long countBypId(Long pId);
 }

@@ -113,8 +113,8 @@ useEffect(()=>{
                   </button>
 
                   <div class="collapse navbar-collapse" id="navbarText">
-                      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '240px', display: 'flex', justifyContent: 'space-between', marginLeft: '-15px' }}>
-                          <li class="nav-item">
+                      <ul className='shop_navbar' class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '240px', display: 'flex', justifyContent: 'space-between', marginLeft: '-15px' }}>
+                          <li className='shop_item'  class="nav-item">
                               <a class="nav-link active" aria-current="page" href="/pedal/shop/list/bicycle" style={{ color: '#fff', marginBottom: '15px' }}>
                                   자전거
                               </a>

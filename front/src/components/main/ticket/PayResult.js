@@ -3,6 +3,7 @@ import { FiCheckCircle } from 'react-icons/fi';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import Numeral from 'numeral';
 
 const StyledContent = styled.div`
     display: flex;
@@ -125,7 +126,8 @@ const PayResult = () => {
                             <li>{buyerInfo.name}</li>
                             <li>{payTime}</li>
                             <li>카드({buyerInfo.pay_method})</li>
-                            <li style={{color:'#DD5746'}}>{buyerInfo.amount}원</li>
+                            <li style={{color:'#DD5746'}}>{Numeral(buyerInfo.amount).format(0.0)}원</li>
+                            
                         </ul>
                     </div>
                 </div>
