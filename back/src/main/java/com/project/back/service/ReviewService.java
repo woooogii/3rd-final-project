@@ -36,8 +36,8 @@ public class ReviewService {
         // }
 
         //리뷰 총 카운트 - count : JPA기본메서드
-        public int getReviewCount(){
-            return (int) reviewRepository.count(); 
+        public int getReviewCount(Long pId){
+            return (int) reviewRepository.countBypId(pId); 
         }
 
 }
