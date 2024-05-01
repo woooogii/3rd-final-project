@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './style/productList.css';
 import Numeral from 'numeral';
+import ProductDetail from './ProductDetail';
 
 const ProductItem = ({item}) => {
     const navigate = useNavigate('');

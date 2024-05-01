@@ -30,10 +30,11 @@ const MyTicketList = styled.div`
     width: 85%;
     display: flex;
     list-style-type: none;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     font-size: 14px;
     color: #9E9FA5;
     text-align: center;
+    margin-bottom: -10px;
   }
 
   .myTicket_list{
@@ -191,9 +192,15 @@ const Cart = () => {
             ))
           )}
         </div>
-        <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px', marginBottom:'50px'}}>
+        
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '10px', marginBottom: '20px', marginLeft:'-150px' }}>
+        <button className="shop-button" type="button" onClick={() => navigate('/pedal/shop')}>
+          &nbsp;쇼핑 계속하기&nbsp;
+        </button>
+        <button className="cart-button" type="button" onClick={() => navigate('/pedal/home')}>
           &nbsp;메인으로&nbsp;
         </button>
+        </div>
       </MyTicketList>
         <CartPayContainer>
           <CartPay totalPrice={totalPrice} cartItems={cartItems} itemQuantities={itemQuantities}/>

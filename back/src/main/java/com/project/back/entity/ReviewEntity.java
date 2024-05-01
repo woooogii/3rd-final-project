@@ -33,4 +33,7 @@ public class ReviewEntity {
     @Column(name = "u_id")
     private String uId;
     // User 참조, 댓글 쓴 user_id
+
+    @Column(name = "u_name")
+    private String uName;
 }

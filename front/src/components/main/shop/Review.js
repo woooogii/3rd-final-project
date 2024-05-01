@@ -2,37 +2,45 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-import { MdModeEditOutline } from "react-icons/md";
-import { FaDeleteLeft } from "react-icons/fa6";
 import { Modal, Button } from 'react-bootstrap';
 import '../shop/Review.css';
-import { Flex, Rate } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { IoPersonCircleOutline } from "react-icons/io5";
+import { Avatar, Flex, Rate, Space } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { VscClose } from 'react-icons/vsc';
+import { useSelector } from 'react-redux';
 
-const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 
-const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
+const Review = ({ product, reviewCount, setReviewCount}) => {
     
-//const { pId } = useParams();
-   console.log('product.pId:', product.pid);
-
+    console.log('product.pId:', product.pid);
+    
     const [content, setContent] = useState('');
     const [entities, setEntities] = useState([]);
-   
-    //수정, 삭제
-    //const [isEdit, setIsEdit] = useState(false);
+    const loginUser = useSelector((state) => state.loginUser);
+
+    //삭제
     const  [products, setProducts] = useState([]);
-    const [showEdit, setShowEdit] = useState(false);
-    const [value, setValue] = useState(3);
+    const [showRegister, setShowRegister] = useState(false);
 
-    // const onEdit = () => {
-    //     setIsEdit(true);
-    // }
+    //별점
+    const desc = ['1', '2', '3', '4', '5'];
+    const [value, setValue] = useState(null);
 
-    const handleClose = () => setShowEdit(false);
-    const handleShow = () => setShowEdit(true);
+    const handleStar = (value) => {
+        setValue(value);
+    }
 
+    //후기등록 - 모달 닫기
+    const handleClose = () => setShowRegister(false);
+
+     //후기등록 - 모달 열기
+    const handleShow = () => {
+        setShowRegister(true)
+        setValue(null);
+    }
+     
+
+    //삭제
     const onDel = (pId) => {
         setProducts(products.filter(product => product.pId!==pId))
     }
@@ -40,17 +48,29 @@ const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
     useEffect(() => {
         if (product.pid) {
             fetchData(product.pid);
+            fetchReviewCount(product.pid); //리뷰 수 가져오기
         }
     }, [product.pid]);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/pedal/reviewAll');
+            const response = await axios.get(`http://localhost:4000/pedal/review/${product.pid}`);
              // 데이터를 가져오고 배열 형태로 설정
         setEntities(Array.isArray(response.data) ? response.data : []);
             console.log("데이터받았니?", response.data);
         } catch (error) {
             console.error('데이터 불러오기 에러:', error);
+        }
+    };
+
+     // 리뷰 수 가져오는 함수
+     const fetchReviewCount = async (pId) => {
+        try {
+            const response = await axios.get(`http://localhost:4000/pedal/reviewCount/${pId}`);
+            console.log('리뷰 수:', response.data);
+            setReviewCount(response.data);
+        } catch (error) {
+            console.error('리뷰 수를 불러오는 중 오류 발생:', error);
         }
     };
 
@@ -63,8 +83,9 @@ const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
             pid: product.pid,
             rcontent: content,
             rdate: rdate,
-            rstar: null,
+            rstar: value,
             uid: loginUser.uid,
+            uname: loginUser.uname
         };
 
         try {
@@ -81,93 +102,128 @@ const Review = ({ product, loginUser,reviewCount,setReviewCount}) => {
         }
     };
 
-    const navigate = useNavigate();
-
     return (
         <div>
-            <form onSubmit={onSubmit}>
-                <hr className='line_review'/>
-                <div className='review_box_center'>
-                    <div className='review_box'>
-                        <span className='review_text'>후기를 올려주세요.<br/>내 후기가 다른 사람에게 도움이 됩니다.</span>
+            <div>
+                <Modal show={showRegister} onHide={handleClose} centered>
+                    <Modal.Body className="modal-body">
+                        {/* 아래버튼 onSubmit 이벤트가 호출된 후에 모달 창 닫기 */}
+                        <form>
+                            <div class="review_register_title">리뷰 등록</div>
+                            <div class="review_register_pname">{product.pname} </div>
+
+                            {/* 별점 */}
+                            <Flex gap="middle" vertical class="stars1">
+                            <Rate tooltips={value ? desc[value] : []} onChange={handleStar} value={value} />
+                            </Flex>
+
+                            <textarea class="content" placeholder="리뷰를 입력하세요" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                        </form>
+                    </Modal.Body>
+                    <div className="btns_review_footer">
                         <button
+                            id="btn"
+                            class="btn btn-outline-primary btn-review"
+                            onClick={handleClose}
+                            style={{ borderRadius: '20px', fontSize: '18px', paddingLeft: '40px', paddingRight: '40px', marginLeft: '160px' }}
+                        >
+                            취소
+                        </button>
+                        <button
+                            id="btn"
+                            class="btn btn-primary btn-review"
+                            onClick={(e) => {
+                                onSubmit(e);
+                                handleClose();
+                            }}
+                            style={{ borderRadius: '20px', fontSize: '18px', paddingLeft: '40px', paddingRight: '40px' }}
+                        >
+                            저장
+                        </button>
+                    </div>
+                </Modal>
+            </div>
+
+            <div>
+                <hr className="line_review" />
+                <br/>
+                <div className="review_box_center">
+                    <div className="review_box">
+                        <span className="review_text">
+                            후기를 올려주세요.
+                            <br />내 후기가 다른 사람에게 도움이 됩니다.
+                        </span>
+                        <Button
                             className="btn-review"
-                            type="submit"
                             style={{
                                 width: '170px',
-                                marginLeft:'20px',
-                                marginBottom:'5px',
+                                marginLeft: '20px',
+                                marginBottom: '5px',
                                 borderRadius: '35px',
                                 borderTopRightRadius: '20px',
                                 borderBottomRightRadius: '20px',
                                 borderBottomLeftRadius: '20px',
                                 borderTopLeftRadius: '0px',
                                 backgroundColor: '#1675F2',
-                                caretColor: 'transparent'
+                                caretColor: 'transparent',
                             }}
                             onClick={handleShow}
                         >
                             + 후기 등록하기
-                        </button>
+                        </Button>
                     </div>
                 </div>
-                    <hr/>
+            </div>
 
-                <div class="layout">
+            {/* <div class="layout">
                     <div class="uname">{loginUser.uname}</div>
                     <div class="pname">{product.pName} </div>
-                    <textarea class="content" placeholder="리뷰를 달아주세요 :)" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-                </div>
-            </form>
+                </div> */}
 
             <div>
                 <ul className="review">
                     {entities.map((entity) => (
                         <li key={entity.pid}>
-                            <hr class="line" style={{ width: '60vw' }} />
+                            <hr class="line" style={{ width: '50vw' }} />
                             <div className="review-item">
                                 <span>
-                                    {entity.pid} {entity.pname} / {entity.uid} / {entity.rcontent ? entity.rcontent.replace(/\//g, ' ') : ''} / {entity.rdate}
+
+
+                                    <div>
+                                        <div>
+
+                                            <div className='loginUser'>
+                                                <Space direction="vertical" size={16}>
+                                                    <Space wrap size={16}>
+                                                        <Avatar icon={<UserOutlined />} />
+                                                    </Space>
+                                                </Space>
+                                                <b>{entity.uname}</b>({entity.uid})
+                                            </div>
+
+                                           <div className='user_review'>
+                                           <Rate value={parseInt(entity.rstar)} disabled={true} />
+                                                    {'ㅣ'} {entity.rdate}
+                                            </div>
+                                           
+                                            
+                                        </div>
+                                        <div className='user_review_rcontent'>
+                                        {entity.rcontent ? entity.rcontent.replace(/\//g, ' ') : ''}
+                                        </div>
+                                    </div>
+                                    
+                                  
+                                   <div className='user_review_pname'>{product.pname}</div>
                                 </span>
                                 <span className="review-icons">
-                                    <FaDeleteLeft onClick={() => onDel(entity.pid)} />
+                                    <VscClose  onClick={() =>onDel(entity.pid)} style={{color:'#ced4da', fontSize: '25px'}}/>
                                 </span>
                             </div>
                         </li>
                     ))}
                 </ul>
             </div>
-
-       
-                <>
-                    <Modal show={showEdit} onHide={handleClose} centered>
-                        <Modal.Body>
-                            <form onSubmit={onSubmit}>
-                                <div>리뷰 수정</div>
-                                <div class="pname">{product.pname} </div>
-                                
-                                {/* 별점 */}
-                                <Flex gap="middle" vertical>
-                                    <Rate tooltips={value ? desc : []} onChange={setValue} value={value} />
-                                    {/* 툴팁이 화면에 표시되지 않도록 비어있는 배열([])을 넘겨줍니다. */}
-                                    {value ? null : <span>{desc[value - 1]}</span>}
-                                    {/* value 값이 있을 때는 null을 반환하여 툴팁이 화면에 표시되지 않도록 하고, 값이 없는 경우에는 desc 배열에서 값을 가져와 보여줍니다. */}
-                                </Flex>
-                                
-                                <textarea class="content" placeholder="리뷰를 입력하세요" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-                            </form>
-                        </Modal.Body>
-                        <div>
-                            <button type="button-reReview" id="btn" class="btn btn-outline-primary" onClick={navigate(`/pedal/productDetail/${product.pid}`)}
-                             style={{ borderRadius: '20px', fontSize: '16px' }}>
-                                &nbsp;&nbsp; 취소 &nbsp;&nbsp;
-                            </button>
-                            <button type="button-reReview" id="btn" class="btn btn-primary" onClick={navigate(`/pedal/productDetail/${product.pid}`)} style={{ borderRadius: '20px', fontSize: '16px' }}>
-                                &nbsp;저장&nbsp;
-                            </button>
-                        </div>
-                    </Modal>
-                </>
 
             <br />
             <br />

@@ -4,6 +4,7 @@ export const Container = styled.div`
     overflow-y: scroll; /* 세로 스크롤 허용 */
     height: 100vh; /* 뷰포트 높이 설정 */
     scroll-snap-type: y mandatory; /* 스크롤 스냅 유형 설정 */
+    display: flex;
 
     /* 모든 스크롤바를 숨김 */
     ::-webkit-scrollbar, 
@@ -322,6 +323,18 @@ export const Container = styled.div`
             top: 285px;
             right: 150px;
         }
+
+
+        /* 이용권 메인버튼 */
+        .mainButton {
+        width: 250px;
+        height: 300px;
+        border: 1px solid #1675f2;
+        position: absolute; /* 절대 위치 지정 */
+        top: 5%; /* 부모 요소의 상단에서 절반 위치 */
+        left: 4%; /* 부모 요소의 왼쪽에서 절반 위치 */
+        z-index: 1; /* 다른 요소들 위에 표시되도록 설정 */
+    }
 
 
 `;

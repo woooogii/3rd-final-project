@@ -30,7 +30,6 @@ const Home = () => {
 
     return (
         <Container>
-            {/* <MainButton/> */}
             <main className="scroll-container">
                 <section className={currentSection === 0 ? 'is-visible' : ''}>
                     {/* <Modal show={modalIsOpen} onHide={closeModal}  style={{ width: '100%', height:'100%', maxWidth: '1000px' }} >
@@ -45,6 +44,10 @@ const Home = () => {
                     <br />
                     <div className="main1">
                         <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
+                        <div className='mainButton'>
+                            이용권
+                            <MainButton/>
+                        </div>
                     </div>
 
                     <InfoBox>
