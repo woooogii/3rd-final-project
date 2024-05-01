@@ -32,7 +32,7 @@ const CategoryList = () => {
 
      // 페이징
      const [page, setPage] = useState(1);
-     const postPerPage = 8; // 페이지당 상품 갯수
+     const postPerPage = 6; // 페이지당 상품 갯수
      const indexOfLastPost = page * postPerPage;
      const indexOfFirstPost = indexOfLastPost - postPerPage;
      const [currentPost, setCurrentPost] = useState([]);
@@ -67,40 +67,33 @@ const CategoryList = () => {
     
     return (
         <>
-        <div ref={startHereRef}>
-            <div>
-                <ShopHead id="head"/>
-            </div>
-            
-            <div className='sub_conts'>
-                <h3>
-                    {category==='bicycle'?(<h2>자전거</h2>):(<h2>안전용품</h2>)}
-                </h3>
-                <div className='prodt_area'>
-                    <ul className='cost_order'>
-                    <li>
-                        <a href="#" onClick={(e) => { e.preventDefault(); handleSort('newProduct'); }}>신상품순</a>
-                    </li>
-                    <li>
-                        <a href="#" onClick={(e) => { e.preventDefault(); handleSort('highPrice'); }}>높은가격순</a>
-                    </li>
-                    <li>
-                        <a href="#" onClick={(e) => { e.preventDefault(); handleSort('lowPrice'); }}>낮은가격순</a>
-                    </li>
-                    </ul>
+            <div ref={startHereRef} className='prodt_container'>
+                <div>
+                    <ShopHead id="head"/>
+                </div>
+                
+                <div className='sub_conts'>
+                    {category==='bicycle'?(<h3>자전거</h3>):(<h3>안전용품</h3>)}
+                    <div className='prodt_area'>
+                        <ul className='cost_order'>
+                        <li>
+                            <a href="#" onClick={(e) => { e.preventDefault(); handleSort('newProduct'); }}>신상품순</a>
+                        </li>
+                        <li>
+                            <a href="#" onClick={(e) => { e.preventDefault(); handleSort('highPrice'); }}>높은가격순</a>
+                        </li>
+                        <li>
+                            <a href="#" onClick={(e) => { e.preventDefault(); handleSort('lowPrice'); }}>낮은가격순</a>
+                        </li>
+                        </ul>
+                        <ul className='prodt_lst'>
+                            {currentPost && currentPost.map(item =>
+                                <ProductItem key={item.pid} item={item}/>
+                            )}
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div>
-                <ul className='prodt_lst'>
-                    {currentPost && currentPost.map(item =>
-                        <ProductItem key={item.pid} item={item}/>
-                    )}
-                </ul>
-            </div>
-
-            <div className='sub'></div>
-        </div>
 
             <Pagination
             activePage={page}

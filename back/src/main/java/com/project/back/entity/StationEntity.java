@@ -18,37 +18,36 @@ public class StationEntity {
     private Long sId;//대여소 id
 
     @Column(name = "STA_LOC")
-    private String sta_loc;//대여소 번호
+    private String sta_loc;
 
     @Column(name = "RENT_ID")
-    private String rent_id;//대여소 이름
+    private String rent_id;
 
     @Column(name = "RENT_NO")
-    private String rent_no;//자치구(서초구 등)
+    private String rent_no;
     
     @Column(name = "RENT_ID_NM")
-    private String rent_id_nm;//자치구(서초구 등)
+    private String rent_id_nm;
 
     @Column(name = "RENT_NM")
-    private String rent_nm;//상세주소
+    private String rent_nm;
 
     @Column(name = "HOLD_NUM")
     private String hold_num;//경도
 
     @Column(name = "STA_ADD1")
-    private String sta_add1;//대여 가능 수
+    private String sta_add1;
 
     @Column(name = "STA_LAT")
-    private String sta_lat;//대여 가능 수
+    private String sta_lat;
 
     @Column(name = "STA_LONG")
-    private String sta_long;//대여 가능 수
+    private String sta_long;
 
     @Column(name = "START_INDEX")
-    private String start_index;//대여 가능 
+    private String start_index;
 
     public StationEntity(){
     }
-
 
 }

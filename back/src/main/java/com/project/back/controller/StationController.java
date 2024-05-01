@@ -47,9 +47,9 @@ public class StationController {
         }
         try {
             List<StationEntity> result = stationService.searchData(keyword);
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonString = objectMapper.writeValueAsString(result);
-            System.out.println("요청된 result 데이터: " + jsonString);
+            // ObjectMapper objectMapper = new ObjectMapper();
+            // String jsonString = objectMapper.writeValueAsString(result);
+            // System.out.println("요청된 result 데이터: " + jsonString);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             System.out.println(e.toString());

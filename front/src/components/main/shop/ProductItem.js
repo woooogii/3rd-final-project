@@ -11,13 +11,12 @@ const ProductItem = ({item}) => {
     }
     return (
         <li onClick={handleClick}>
-            <Link to={`/ProductDetail/${item.pid}`}>
+            <Link to={`/ProductDetail/${item.pid}`} className='prodt_Link'>
                 <div className='prodt_Img'>
                     <img src={item.pimage1} alt='pimage1'/>
                 </div>
                 <div className='prodt_Info'>
                     <strong>{item.pname}</strong>
-                    <p></p>
                     <em>{Numeral(item.pprice).format(0.0)}원</em>
                 </div>
             </Link>
