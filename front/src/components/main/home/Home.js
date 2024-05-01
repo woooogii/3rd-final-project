@@ -42,12 +42,11 @@ const Home = () => {
                     <hr className="line1"/>
                     <br />
                     <br />
-                    <div className="main1">
-                        <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
-                        <div className='mainButton'>
-                            이용권
+                        <div>
                             <MainButton/>
                         </div>
+                    <div className="main1">
+                        <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
                     </div>
 
                     <InfoBox>
@@ -82,7 +81,7 @@ const Home = () => {
                         <div>
                             <BsDashLg />
                         </div>
-                        <span>PEDAL</span>
+                        <span><img src='/image/logo03.png' alt='PEDAL'/></span>
                     </div>
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <div class="col">

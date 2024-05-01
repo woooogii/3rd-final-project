@@ -53,6 +53,11 @@ const MyTicketList = styled.div`
   hr{
     width: 87%
   }
+
+    //상품설명,리뷰,교환반품 밑줄 - 파란색 하이라이트
+    .clickElement {
+        -webkit-user-select: none;
+    }
 `;
 
 const Cart = () => {
@@ -149,7 +154,7 @@ const Cart = () => {
       <div className="cart-list" style={{ display: 'flex', marginLeft: '100px', marginTop: '50px'}}>
       <MyTicketList>
         
-        <Tabs defaultActiveKey="1" items={items} onChange={onChange} style={{width:'950px'}} />
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} style={{width:'63vw'}} />
         <br />
         <b>
           <ul className="myTicket_head">
@@ -178,7 +183,7 @@ const Cart = () => {
                   <div style={{ width: '40%', marginLeft: '20px' }}><b>{item.pname}</b></div>
                   <div style={{ width: '20%' }}>{Numeral(item.pprice).format(0.0)}</div>
                   <div style={{ width: '15%', paddingLeft: '30px'}}>
-                    <QuantityBox>
+                    <QuantityBox className="clickElement">
                       <FiMinus size={17} onClick={() => handleDecrement(item.pid, item.pprice)} />
                       <div>&nbsp;&nbsp;{itemQuantities[item.pid] || 0}&nbsp;&nbsp;</div>
                       <IoIosAdd size={20} onClick={() => handleIncrement(item.pid, item.pprice)} />

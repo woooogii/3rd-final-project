@@ -29,11 +29,11 @@ public class ReviewService {
             List<ReviewEntity> reviews = reviewRepository.findBypId(pId);
             return reviews;
         }
-        
-        // //삭제
-        // public void deleteReview(Long pId) {
-        //     reviewRepository.deleteById(pId);
-        // }
+       
+        // 삭제
+        public void deleteReview(Long rId) {
+            reviewRepository.deleteById(rId);
+        }
 
         //리뷰 총 카운트 - count : JPA기본메서드
         public int getReviewCount(Long pId){

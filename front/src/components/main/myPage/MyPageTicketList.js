@@ -6,6 +6,7 @@ import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Numeral from 'numeral';
+import Pagination from "react-js-pagination";
 
 const MyTicketList = styled.div`
     margin: 50px;
@@ -49,6 +50,18 @@ const MyTicketList = styled.div`
 
 function MyPageTicketList() {
 
+
+  //페이징 처리
+  const [page, setPage] = useState(1);
+  const postPerPage = 2;
+  const indexOfLastPost = page * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  //--------------------------------------------
   const [tickets, setTickets] = useState([]);
   
   const navigate = useNavigate();
@@ -128,8 +141,18 @@ function MyPageTicketList() {
     }
 };
 
+// 데이터를 받아온 후 정렬하는 부분, 최근 구매 날짜가 가장 위에 오게 
+const sortedTickets = [...tickets].sort((a, b) => {
+  return new Date(b.mtPayTime) - new Date(a.mtPayTime);
+});
+
+
   return (
       <MyTicketList>
+
+
+
+        
           <h4 className="myTicket_title"> - 이용권 내역</h4>
 
           <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
@@ -158,7 +181,10 @@ function MyPageTicketList() {
                       <hr />
                   </div>
               ) : (
-                  filteredTickets.map((ticket) => (
+                sortedTickets
+                .filter(ticket => ticket.uid === loginUser.uid)
+                .slice(indexOfFirstPost, indexOfLastPost)
+                .map((ticket) => (
                       <div key={ticket.mtId}>
                           <div className="myTicket_list" style={{ width: '1300px' }}>
                               <div style={{ width: '10%', paddingLeft: '30px' }}>{ticket.mtMerchantUid}</div>
@@ -181,6 +207,16 @@ function MyPageTicketList() {
               )}
           </div>
           <>
+          
+          <Pagination
+             activePage={page}
+             itemsCountPerPage={postPerPage}
+             totalItemsCount={tickets.length}
+             pageRangeDisplayed={5}
+             prevPageText={"‹"}
+             nextPageText={"›"}
+             onChange={handlePageChange}/>
+
             <button className="btn btn-primary" type="button" onClick={() => navigate('/pedal/home')} style={{ marginLeft: '35vw', marginTop: '20px' }}>
                   &nbsp;메인으로&nbsp;
               </button>
