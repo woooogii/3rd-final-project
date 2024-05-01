@@ -16,6 +16,7 @@ public class ProductService {
     @Autowired
     @Qualifier("ProductRepository")
     private ProductRepository productRepository;
+    
 
     //상품 저장
     public void saveProductEntity(ProductEntity productEntity){

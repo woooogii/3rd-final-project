@@ -49,6 +49,9 @@ public class ProductEntity {
    @Column(name = "p_image4")
     private String pImage4;
 
+   @Column(name = "p_image5")
+   private String pImage5;
+
     @Column(name = "u_id")
     private String uId;
     // User 참조, 댓글 쓴 user_id

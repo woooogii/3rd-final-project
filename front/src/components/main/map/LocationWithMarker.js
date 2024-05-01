@@ -1,16 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import './style/bicycleInfo.css';
 import SearchModal from './SearchModal';
+
 import { TbCurrentLocation } from "react-icons/tb";
 import { CgSearch } from "react-icons/cg";
-import { FaRegStar,FaStar } from "react-icons/fa";
-import { IoCloseSharp } from "react-icons/io5";
+import { FaRegStar } from "react-icons/fa";
+import ItemLocation from './ItemLocation';
+import Likesdata from './Likesdata';
+
 
 const LocationWithMarker = ({ entities}) => {
-  const [content, setContent] = useState({rent_id_nm:'',sta_add1:'',hold_num:''});
+  const [content, setContent] = useState({sid:'',rent_id_nm:'',sta_add1:'',hold_num:''});
   const [isOpen,setIsOpen] = useState(false);//마커 클릭
-  const [isShow,setIsShow] = useState(false);//검색 모달
-  const [like,setLike] = useState(false);
+
+  const loginUser = useSelector((state) => state.loginUser);
+  const navigate = useNavigate();
 
   const mapRef = useRef(null);
 
@@ -41,6 +48,7 @@ const LocationWithMarker = ({ entities}) => {
       window.kakao.maps.event.addListener(marker, 'click', function () {
         mapRef.current.panTo(marker.getPosition());
         setContent({
+          sid: item.sid,
           rent_id_nm: item.rent_id_nm,
           sta_add1: item.sta_add1,
           hold_num: item.hold_num,
@@ -48,10 +56,9 @@ const LocationWithMarker = ({ entities}) => {
         openResult();
       });
     });
-    return () => {
-      // 컴포넌트가 언마운트될 때 마커와 지도를 제거
+    if (mapRef.current) {
       mapRef.current.relayout();
-    };
+    }
   }, [entities]);
 
   const getLocation=()=>{
@@ -76,6 +83,7 @@ const LocationWithMarker = ({ entities}) => {
   };
   
   //검색 이벤트
+  const [isShow,setIsShow] = useState(false);//검색 모달
   const onOpenModal=()=>{
     setIsShow(true)
   }
@@ -88,52 +96,48 @@ const LocationWithMarker = ({ entities}) => {
       const placePosition = new window.kakao.maps.LatLng(data.sta_lat, data.sta_long);
       bounds.extend(placePosition);
       mapRef.current.setBounds(bounds);
+      onCloseModal();
   }
-  //즐겨찾기
-  const onLike=()=>{
-    setLike(true);
+
+  const [isLike,setIsLike] = useState(false);//즐겨찾기 모달
+  
+  const searchLikes=()=>{//즐겨찾기 목록
+    if (!loginUser.uid) {
+      alert('로그인 후 사용 가능합니다.');
+      navigate('/pedal/login');
+      return;
+    }else{
+      setIsLike(true);
+    }
+  }
+
+  const onCloseLike=()=>{
+    setIsLike(false)
   }
 
   return (
-    <>
     <div className='map-container'>
-      <div id='map' className='map-show' ref={mapRef}></div>
-      <div className='bi bi-location' onClick={getLocation}>
-        <TbCurrentLocation/>
+      <div className='map-header'>
+        <h3>대여소 안내</h3>
       </div>
-      {isOpen && 
-          <div className="map-info-container">
-          <div className="info" id='content'>
-              <div className="title">
-                <div className='title-text'>{content.rent_id_nm}</div>
-                <div className='title-like'>
-                  <i onClick={onLike}>
-                      {like ? <FaStar/>:<FaRegStar/>}
-                  </i>
-                  {/* {Numeral(like).format(0.0)} */}
-                </div>
-                <div className="close" onClick={closeResult}>
-                  <IoCloseSharp/>
-                </div>
-              </div>
-              <div className='box'>
-                <div className='name'>위치</div>
-                <div className='addr'>{content.sta_add1}</div>
-              </div>
-              <div className='box'>
-                <div className='name'>대여 가능 수</div>
-                <div className='num'>
-                  {content.hold_num>0?content.hold_num:0}
-                </div>
-              </div>
-            </div>
-            </div>
-        }
-        <CgSearch className="bi-search" onClick={onOpenModal}/>
-    </div>
+      <div id='map' className='map-show' ref={mapRef}></div>
+      <div className="bi-location" onClick={getLocation}>
+          <TbCurrentLocation className="bi-location-icon"/>
+      </div>
+      <div>
+        {isOpen && <ItemLocation content={content} closeResult={closeResult}/>}
+      </div>
+      <div className="bi-search" onClick={onOpenModal}>
+        <CgSearch className="bi-search-icon" />
+      </div>
+      <div className="bi-like" onClick={searchLikes}>
+        <FaRegStar className="bi-like-icon" />
+      </div>
       {isShow && <SearchModal onCloseModal={onCloseModal} handleClick={handleClick}/> }
-    </>
+      {isLike && <Likesdata onCloseLike={onCloseLike} uid = {loginUser.uid}/>}
+    </div>
   );
 };
 
 export default LocationWithMarker;
+

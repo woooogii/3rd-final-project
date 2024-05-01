@@ -10,7 +10,7 @@ import com.project.back.entity.StationEntity;
 
 @Repository("StationRepository")
 public interface StationRepository extends JpaRepository<StationEntity, Long> {
-    @Query("SELECT s FROM station s WHERE s.rent_nm LIKE :keyword%")
+    @Query("SELECT s FROM station s WHERE s.rent_id_nm LIKE %:keyword%")
     List<StationEntity> findStationByRentNmContaining(String keyword);
 }
 

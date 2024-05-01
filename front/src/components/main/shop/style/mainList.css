@@ -25,7 +25,7 @@
 
 .main-banner img{
     width: 100%;
-    height: 700px;
+    height: 100%;
 }
 
 .main-banner .carousel-btn{
@@ -81,8 +81,8 @@
 }
 
 .lst_bicycle li.lst_category {
-    width: 320px;
-    height: 400px;
+    width: 340px;
+    height: 453px;
     margin: 0 20px 80px;
     position: relative;
     z-index: 3;
@@ -116,6 +116,10 @@
 .lst_category_title p,
 .lst_category_title a {
     display: none;
+}
+.lst_category_title > a:link {
+    color: #0d0d0d;
+    text-decoration: none;
 }
 
 .lst_bicycle li.lst_category::before {
@@ -246,15 +250,6 @@
     text-indent: -10000px;
 }
 
-
-.btn_Top {/*위로가기*/
-    width: 67px;
-    height: 67px;
-    position: fixed;
-    right: 10px;
-    bottom: 470px;
-    text-indent: -10000px;
-}
 /*
 @media all and (max-width: 1633px) {
     .lst_bicycle {
