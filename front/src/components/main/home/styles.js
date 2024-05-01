@@ -329,7 +329,7 @@ export const Container = styled.div`
 `;
 
 export const InfoBox = styled.div`
-    height: 110px;
+    height: 100px;
     background-color: #1675F2;
     display: flex;
     justify-content: center; 
@@ -341,6 +341,8 @@ export const InfoBox = styled.div`
         justify-content: space-between;
         width: 800px;
         font-size: 20px;
+        margin-top: 15px;
+
     }
 
     li {
