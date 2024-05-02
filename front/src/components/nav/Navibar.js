@@ -142,7 +142,7 @@ const Navibar = () => {
               <a class="nav-link active" aria-current="page" href="/pedal/shop">쇼핑몰</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/pedal/shop">F A Q</a>
+              <a class="nav-link active" aria-current="page" href="/pedal/FAQ">F A Q</a>
             </li>
           </ul>
           <span class="navbar-text">

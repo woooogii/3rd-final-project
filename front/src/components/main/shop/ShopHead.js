@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
@@ -95,9 +95,33 @@ useEffect(()=>{
     onSearch();
 },[]);
 
+//후석추가 
 
-  return (
-      <div>
+const navRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+
+  const handleScroll = () => {
+    const headerTop = navRef.current.offsetTop;  // 헤더의 최상단 위치
+    const scrolled = window.scrollY;  // 현재 스크롤된 양
+
+    if (scrolled > headerTop) {
+      setIsSticky(true);  // 스크롤 위치가 헤더 위치보다 아래일 때
+    } else {
+      setIsSticky(false);  // 그 외의 경우
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+return (
+  <div ref={navRef} className={`sticky-container ${isSticky ? 'sticky' : ''}`}>
           {/* <div style={{ backgroundColor:'#1675F2', height:'20px', marginTop:'20px'}}> */}
           <br />
           <nav class="navbar navbar-expand-lg bg-body-tertiary">

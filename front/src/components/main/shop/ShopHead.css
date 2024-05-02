@@ -96,13 +96,37 @@
   }
 
 
-  .form-control{
-    width: 290px;
-    border-radius: 30px;
-    font-size: 13px;
-    padding-left: 30px;
-  }
+/* 폼 컨트롤 스타일 */
+.form-control {
+  width: 290px;
+  border-radius: 30px;
+  font-size: 13px;
+  padding-left: 30px;
+  border-top-right-radius: 0; /* 오른쪽 위 보더값 제거 */
+}
 
-  .form-control {
-    border-top-right-radius: 0; /* 오른쪽 위 보더값 제거 */
+/* 고정된 네비게이션 바 스타일 */
+.fixed-navbar {
+  transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  height: 90px;
+  width: 100%;
+  background-color: #1675F2;
+}
+
+/* 스티키 클래스가 추가될 때 스타일 */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
+  z-index: 1000;
+}
+
+.navbar {
+  padding: 0;
 }

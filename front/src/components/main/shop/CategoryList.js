@@ -9,14 +9,16 @@ import Pagination from 'react-js-pagination';
 const CategoryList = () => {
     const [cateData, setCateData] = useState([]);
     const { category } = useParams();
-    
+     
+    //ShopHead - 상태기억
     const startHereRef = useRef(null);
+
     useEffect(() => {
         // 렌더링 후 startHere 요소로 스크롤 이동
         if (startHereRef.current) {
             startHereRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    },[]);
+    },[cateData]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -64,14 +66,16 @@ const CategoryList = () => {
      const handlePageChange = (page) => {
          setPage(page);
      };
+
+
     
     return (
         <>
-            <div ref={startHereRef} className='prodt_container'>
-                <div>
+                <div ref={startHereRef} >
                     <ShopHead id="head"/>
                 </div>
                 
+            <div className='prodt_container'>
                 <div className='sub_conts'>
                     {category==='bicycle'?(<h3>자전거</h3>):(<h3>안전용품</h3>)}
                     <div className='prodt_area'>

@@ -1,0 +1,77 @@
+.faq-container {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 900px;
+    margin: auto;
+    padding-top: 80px; /* 상단 여백을 추가하여 카테고리 리스트와 분리 */
+  }
+  
+  .category-list {
+    
+    width: 1000px;
+    display: flex;
+    justify-content: space-around;
+    /* position: sticky; */
+    top: 160px;
+    background-color: #fff;
+    z-index: 10; /* 다른 콘텐츠보다 높은 레이어로 설정 */
+    padding: 10px 0;
+    padding-bottom: 20px; /* 카테고리 하단에 공간 추가 */
+    margin-bottom: 20px; /* 카테고리 아래로 추가 여백을 제공 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 하단에 그림자 효과 추가 */
+  }
+
+
+  .category-item {
+    padding: 10px 20px;
+    border: 1px solid #1675F2; /* 테두리 스타일 */
+    background-color: #fff; /* 배경색 */
+    color: #000000; /* 글자색 */
+    cursor: pointer; /* 커서 스타일 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    margin: 0 20px;
+  }
+
+  @media (max-width: 768px) {
+    .category-item {
+      margin: 0 5px; /* 좁은 화면에서는 간격을 조금 더 줄임 */
+    }
+    }
+  
+
+    .category-item.active {
+        border: 2px solid #1675F2; /* 활성화 상태에 테두리 추가 */
+        box-shadow: 0 0 5px rgba(0, 102, 204, 0.5); /* 선택된 항목에 그림자 추가 */
+    }
+  
+  
+  .question-list {
+    padding-top: 300px; 
+    padding: 0 20px; /* 양쪽 패딩 */
+  }
+  .question-list-container {
+    overflow-y: auto; /* 스크롤 가능하게 */
+    margin-top: 40px;
+    max-height: 2000px; /* 뷰포트 높이의 75%를 넘지 않도록 설정 */
+  }
+  
+  .question-answer-container {
+    border-top: 1px solid #e1e1e1; /* 각 질문 위에 경계선 */
+    padding-top: 20px; /* 질문과 답변 사이의 패딩 */
+  }
+  
+  .question-item {
+    padding: 10px 0; /* 상하 패딩 */
+    color: #000000b7; /* 글자색 */
+    cursor: pointer; /* 커서 스타일 */
+    text-align: left; /* 텍스트 정렬 */
+  }
+  
+  .question-item.active {
+    font-weight: bold; /* 활성화 질문 굵기 */
+  }
+  
+  .answer {
+    padding: 10px 0; /* 상하 패딩 */
+    background-color: #f4f4f4; /* 배경색 */
+  }

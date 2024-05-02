@@ -1,103 +1,56 @@
-
-.custom_Zone ul li:first-child p {
-    width: 178px;
-    padding-top: 0;
+.footer {
+    background-color: #fff;
     color: #898989;
-}
-.custom_Zone ul li p {
-    width: 217px;
     font-size: 14px;
-    font-weight: 300;
-    color: #898989;
-    line-height: 20px;
+    line-height: 40px;
+    margin-top: 0;
 }
 
-p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    unicode-bidi: isolate;
-    display: flex;
-}
-.custom_Zone ul li {
-    display: inline-block;
-    padding: 0 0;
-    text-align: left;
-}
-ul, li, ol {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-li {
-    text-align: -webkit-match-parent;
-}
-.custom_Zone ul {
-    width: 1260px;
-    display: block;
+.footerContainer {
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-}
-
-
-ul {
-    list-style-type: disc;
-}
-
-
-.first {
-    float: left;
-    box-sizing: border-box;
-}
-
-.aaa{
     display: flex;
-    float: left;
-    margin-left: 375px;
-    box-sizing: border-box;
-    text-decoration: none;
-    width: 45%;
-    
-}
-.bbb{
-    display: flex;
-    float: right;
-    margin-right:460px;
-    box-sizing: border-box;
-    text-decoration: none;
-    
+    flex-direction: column;
+    align-items: center;
 }
 
-.second >li >a{
+.footerRow {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.footerLinks {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* 마진 조정 */
+}
+
+.footerLinks li {
+    margin-right: 10px; /* 리스트 아이템 간 간격 */
+}
+
+.footerLinks .icon {
+    font-size: 24px; /* 아이콘 크기 조정 */
+    margin-left: 10px; /* 아이콘과 텍스트 사이 간격 조정 */
+}
+
+.addressInfo {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* 주소 정보와의 간격 조정 */
+}
+
+icon {
+    width: 10px;
+    height: 10px;
+}
+
+.links li a {
     font-weight: bold;
-    color: #3d3d3d;
-    text-decoration: none;
-}
-
-
-.information {
-    clear: both; 
-    margin-top: 20px;
-    background-color: #dddddd;
-    color:#4f4f4f;
-}
-.information >p {
-    clear: both; 
-    margin-top: 20px;
-    background-color: #dddddd;
-    color:#4f4f4f;
-    margin-left: 375px;
-}
-
-.image{
-     width: 11px;
-     height: 11px; 
-     flex-grow: 0;
-}
-
-.aaa >li >a{
-    text-decoration: none;
+    color: #898989; /* 회색 */
+    text-decoration-line: none;
 }
