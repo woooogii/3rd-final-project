@@ -17,6 +17,7 @@ const ProductItem = ({item}) => {
                     <img src={item.pimage1} alt='pimage1'/>
                 </div>
                 <div className='prodt_Info'>
+                    <p className='prodt_cate'>{item.pcategory}</p>
                     <strong>{item.pname}</strong>
                     <em>{Numeral(item.pprice).format(0.0)}원</em>
                 </div>

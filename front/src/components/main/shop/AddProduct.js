@@ -27,6 +27,7 @@ const AddProduct = () => {
             data.append("pdescription", pDescription);
 
             for (let i = 0; i < images.length; i++) {
+                console.log(images.length);
                 data.append("files", images[i]);
             }
         

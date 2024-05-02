@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Numeral from 'numeral';
+import Slider from "react-slick";
 
 import ShopHead from './ShopHead';
 
@@ -48,6 +49,22 @@ const Shop = () => {
         }
     };
 
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      };
+      const setting = {
+        arrows: false,
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        variableWidth: true,
+      }
+
     
     return (
         <>
@@ -58,11 +75,23 @@ const Shop = () => {
             <div className='main'>
                 <div className='main-banner'>
                     <Carousel animationDuration={2000} easing="linear" animation="slide">
-                        <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/bc7fedade3152601bdef9dde13ba0bef.jpg' alt=''/></Paper>
-                        <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/a2b9341e656104080ff9dc1fa52be6c2.jpg' alt=''/></Paper>
-                        <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/356b10ce637b174d04609f1781d0f8be.jpg' alt=''/></Paper>
+                        <div><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/bc7fedade3152601bdef9dde13ba0bef.jpg' alt=''/></div>
+                        <div><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/a2b9341e656104080ff9dc1fa52be6c2.jpg' alt=''/></div>
+                        <div><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/356b10ce637b174d04609f1781d0f8be.jpg' alt=''/></div>
                     </Carousel>
                 </div>
+
+                {/* <Slider {...settings}>
+                    <div>
+                        <h3>1</h3>
+                    </div>
+                    <div>
+                        <h3>2</h3>
+                    </div>
+                    <div>
+                        <h3>3</h3>
+                    </div>
+                </Slider> */}
 
                 <div className='container_wrap'>
                     <div className='inner'>
@@ -93,7 +122,7 @@ const Shop = () => {
                                     </div>
                                 </li>
                                 <li className='lst_category'>
-                                    <img src='http://localhost:4000/images/productImg/41714375875551.jpg' alt='product'/>
+                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/1cedada68c4046266f2264af77410dee.jpg' alt='product'/>
                                     <div className='lst_category_title'>
                                         <span className='lst_icon_hovr'><IoShirtOutline/></span>
                                         <strong>상의</strong>

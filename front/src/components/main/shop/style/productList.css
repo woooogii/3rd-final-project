@@ -103,7 +103,9 @@ ul.prodt_lst:last-child {
 
 /*상품 1개*/
 ul.prodt_lst > li {
+    position: relative;
     width: 340px;
+    height: 470px;
     display: inline-block;
     margin: 0 10px 40px 20px;
     transition: all 1.0s ease;
@@ -131,31 +133,48 @@ ul.prodt_lst > li > .prodt_Link:link {
     text-decoration: none;
 }
 .prodt_Img {
-    padding: 15px 0 0;
-}
-.prodt_Img img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    transition: all 0.3s ease;
-    vertical-align: middle;
-}
-ul.prodt_lst > li:hover .prodt_Img img {
-    width: 100%;
-}
-.prodt_Info {
-    margin-top: 0px;
+    margin: 0 auto;
     text-align: center;
 }
+.prodt_Img img {
+    width: 340px;
+    height: auto;
+    transition: all 0.3s ease;
+    vertical-align: middle;
+    margin: 0 auto;
+    
+}
+ul.prodt_lst > li:hover .prodt_Img img {
+    width: 340px;
+}
+.prodt_cate{
+    font-size: 20px;
+}
+.prodt_Info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ensures the info div spans the whole width of the container */
+    margin-top: 20px; /* Adjust this value according to your layout */
+    text-align: center;
+}
+
+.prodt_Info .prodt_cate{
+    margin: 15px 300px 0 0;
+    font-size: 16px;
+}
+
 .prodt_Info strong {
     display: block;
-    margin-top: 5px;
-    font-size: 37px;
+    font-size: 34px;
     font-weight: 500;
+    margin: 0 300px 5px 0;
 }
+
 .prodt_Info em {
     display: block;
     margin-top: -10px;
-    font-size: 20px;
+    margin-bottom: 5px;
+    font-size: 17px;
     font-style: normal;
 }

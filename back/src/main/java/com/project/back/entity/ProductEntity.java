@@ -70,6 +70,9 @@ public class ProductEntity {
         if (imageUrls.size() >= 4) {
             this.pImage4 = imageUrls.get(3);
         }
+        if (imageUrls.size() >= 5) {
+            this.pImage5 = imageUrls.get(4);
+        }
     }
 
 }
