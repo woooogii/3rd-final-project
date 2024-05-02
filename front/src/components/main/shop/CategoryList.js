@@ -10,13 +10,7 @@ const CategoryList = () => {
     const [cateData, setCateData] = useState([]);
     const { category } = useParams();
     
-    const startHereRef = useRef(null);
-    useEffect(() => {
-        // 렌더링 후 startHere 요소로 스크롤 이동
-        if (startHereRef.current) {
-            startHereRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    },[]);
+   
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,13 +59,21 @@ const CategoryList = () => {
          setPage(page);
      };
     
+     const startHereRef = useRef(null);
+     useEffect(() => {
+         // 렌더링 후 startHere 요소로 스크롤 이동
+         if (startHereRef.current) {
+             startHereRef.current.scrollIntoView({ behavior: 'smooth' });
+         }
+     },[cateData]);
+
     return (
         <>
-        <div ref={startHereRef}>
-            <div>
+        
+            <div ref={startHereRef}>
                 <ShopHead id="head"/>
             </div>
-            
+            <div >
             <div className='sub_conts'>
                 <h3>
                     {category==='bicycle'?(<h2>자전거</h2>):(<h2>안전용품</h2>)}

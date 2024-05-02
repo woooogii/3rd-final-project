@@ -10,7 +10,7 @@
 
 /* 리뷰버튼
 button[type="submit"] {
-    background-color: #007bff;
+    background-color: #1675F2;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -45,13 +45,13 @@ button[type="submit"]:hover {
 
 .review {
     list-style-type: none;
-    width: 900px;
-   margin-left: 100px;
 }
 
 .review-item {
     display: flex;
     justify-content: space-between;
+    padding: 15px;
+
 }
 
 .review-icons {
@@ -86,7 +86,9 @@ button[type="submit"]:hover {
     justify-content: center;
     align-items: center;
     background-color: #FAF9F9;
-    width: 600px;
+    width: 900px;
+    padding-left: 100px;
+    padding-right: 50px;
     height: 150px;
     text-align: center;
   }
@@ -102,8 +104,7 @@ button[type="submit"]:hover {
 }
 
   .line_review{
-    width: 70vw;
-    margin-left: 50px;
+    width: 50vw;
   }
 
 .review_register_title{
@@ -171,3 +172,125 @@ button[type="submit"]:hover {
     flex-direction: row;
     font-size: 15px;
 }
+
+
+.redirectLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 45vh; 
+    color: #585858;
+}
+
+.redirectLogin hr {
+    width: 60vw;
+    border: 1px solid #A4A4A4;
+}
+
+.line {
+    width: 50vw;
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+   }
+   
+   button.learn-more {
+    width: 12rem;
+    height: auto;
+    caret-color: transparent;
+    margin-left: 30px;
+   }
+   
+   button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #0F71F2;
+    border-radius: 1.625rem;
+   
+   }
+   
+   button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+ 
+   }
+   
+   button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+   }
+   
+   button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.3rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+   }
+
+   .button-text {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.learn-more:hover .button-text {
+    opacity: 1;
+}
+   
+   button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+   }
+
+
+   
+   button:hover .circle {
+    width: 100%;
+   }
+   
+   button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+   }
+   
+   button:hover .button-text {
+    color: #fff;
+   }

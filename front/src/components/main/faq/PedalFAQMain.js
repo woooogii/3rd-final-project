@@ -33,6 +33,11 @@ function formatText(text) {
                     style={{ cursor: 'pointer', width: '150px', height: 'auto', border:'none' }}
                 />
             ))}
+            <img 
+            src='/image/MUNEI.png'
+            alt='문의읨'
+            className='category-item' 
+            style={{ cursor: 'pointer', width: '150px', height: 'auto', border:'none' }}/>
         </div>
         <div className="question-list-container">
           <div className="question-list">

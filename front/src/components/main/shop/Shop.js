@@ -47,15 +47,16 @@ const Shop = () => {
             console.error('error_fetch', error);   
         }
     };
-
     
+
+
     return (
         <>
             <div ref={startHereRef}>
             <ShopHead id="head"/>
             </div>
 
-            <div className='main'>
+            <div className="main" >
                 <div className='main-banner'>
                     <Carousel animationDuration={2000} easing="linear" animation="slide"
                     >

@@ -29,7 +29,7 @@ p {
 ul, li, ol {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+
 }
 
 li {
@@ -38,7 +38,7 @@ li {
 .custom_Zone ul {
     width: 1260px;
     display: block;
-    margin: 0 auto;
+    margin: 0 ;
     text-align: center;
 }
 
@@ -60,7 +60,7 @@ ul {
     box-sizing: border-box;
     text-decoration: none;
     width: 45%;
-    
+    padding: 0 20;
 }
 .bbb{
     display: flex;
@@ -80,7 +80,8 @@ ul {
 
 .information {
     clear: both; 
-    margin-top: 20px;
+    margin:0;
+    padding: 0;
     background-color: #dddddd;
     color:#4f4f4f;
 }
@@ -98,6 +99,16 @@ ul {
      flex-grow: 0;
 }
 
+.aaa > li {
+    padding: 0 20;
+}
+
 .aaa >li >a{
     text-decoration: none;
+}
+
+body, html {
+    height: 100%; /* 브라우저의 전체 높이 사용 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
 }

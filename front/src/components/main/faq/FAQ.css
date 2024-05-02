@@ -1,8 +1,9 @@
 .faq-container {
     width: 100%;
     max-width: 1000px;
+    min-height: 900px;
     margin: auto;
-    padding-top: 20px; /* 상단 여백을 추가하여 카테고리 리스트와 분리 */
+    padding-top: 80px; /* 상단 여백을 추가하여 카테고리 리스트와 분리 */
   }
   
   .category-list {
@@ -10,8 +11,8 @@
     width: 1000px;
     display: flex;
     justify-content: space-around;
-    position: absolute;
-    top: 190px;
+    /* position: sticky; */
+    top: 160px;
     background-color: #fff;
     z-index: 10; /* 다른 콘텐츠보다 높은 레이어로 설정 */
     padding: 10px 0;
@@ -45,13 +46,13 @@
   
   
   .question-list {
-    padding-top: 240px; 
+    padding-top: 300px; 
     padding: 0 20px; /* 양쪽 패딩 */
   }
   .question-list-container {
     overflow-y: auto; /* 스크롤 가능하게 */
-    margin-top: 60px;
-    max-height: 55vh; /* 뷰포트 높이의 75%를 넘지 않도록 설정 */
+    margin-top: 40px;
+    max-height: 2000px; /* 뷰포트 높이의 75%를 넘지 않도록 설정 */
   }
   
   .question-answer-container {

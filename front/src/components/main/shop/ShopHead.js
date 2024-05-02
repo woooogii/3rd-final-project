@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef,useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
@@ -57,6 +57,7 @@ const ShopHead = () => {
   }
 
   const setGoogleUser = () => {
+
     let decodedToken;
     try {
       const token = cookies.googleJwtToken; // 쿠키에서 토큰 빼오기
@@ -96,12 +97,36 @@ useEffect(()=>{
 },[]);
 
 
-  return (
-      <div>
-          {/* <div style={{ backgroundColor:'#1675F2', height:'20px', marginTop:'20px'}}> */}
-          <br />
-          <nav class="navbar navbar-expand-lg bg-body-tertiary">
-              <div class="container-fluid" style={{ backgroundColor: '#1675F2', height: '90px', marginTop: '-15px' }}>
+//후석추가 
+
+const navRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+
+  const handleScroll = () => {
+    const headerTop = navRef.current.offsetTop;  // 헤더의 최상단 위치
+    const scrolled = window.scrollY;  // 현재 스크롤된 양
+
+    if (scrolled > headerTop) {
+      setIsSticky(true);  // 스크롤 위치가 헤더 위치보다 아래일 때
+    } else {
+      setIsSticky(false);  // 그 외의 경우
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+return (
+  <div ref={navRef} className={`sticky-container ${isSticky ? 'sticky' : ''}`}>
+    {/* Navigation bar setup */}
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+              <div class="container-fluid" style={{ backgroundColor: '#1675F2', height: '90px', marginTop: '12px' }}>
                   {/* 로고 */}
                   <a class="navbar-brand" href="/pedal/home" style={{ marginLeft: '50px' }}>
                       <PiList style={{ marginRight: '90px', fontSize:'40px' }} />

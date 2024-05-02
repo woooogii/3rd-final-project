@@ -70,8 +70,7 @@ const MyPage = () => {
         return <MyPageUpdatePW setActiveComponent={setActiveComponent} />;
       case 'googleInfo':
         return <MpSnsInfo setActiveComponent={setActiveComponent} />;
-      case 'faq':
-        return <PedalFAQMain setActiveComponent={setActiveComponent}/>
+      
         default:
         return <MainPageDefault setActiveComponent={setActiveComponent} tokenType={tokenType}/>;
     }
