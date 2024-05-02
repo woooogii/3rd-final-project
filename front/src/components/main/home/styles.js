@@ -33,6 +33,7 @@ export const Container = styled.div`
         padding-top: 70px;
         align-items: center;
         border-radius: 30px;
+        caret-color: transparent;
 
         .card-body {
             margin-top: 40px;
@@ -69,24 +70,26 @@ export const Container = styled.div`
         display: flex;
         flex-direction: column;
         position: relative;
-        margin-left: 870px;
+        margin-left: 850px;
 
 
         
         div {
             font-size: 90px;
             color: #ffda5e;
-            margin-bottom: -50px;
-            margin-top: -20px;
-            margin-left: 30px;
+            margin-bottom: -40px;
+            margin-top: -30px;
+            margin-left: 50px;
         }
 
         span {
             position: absolute;
-            font-size: 50px;
-            font-weight: bold;
             padding-top: 70px;
             color: #1675f2;
+
+            img{
+                width: 200px;
+            }
         }
     }
 
@@ -276,13 +279,11 @@ export const Container = styled.div`
 
 
     .four {
-        width: 100vw;
-        height: 500px; /* 높이 고정 */
+        height: 550px; /* 높이 고정 */
         overflow: hidden; /* 넘어가는 부분 숨기기 */
-        margin-bottom: 160px;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 250px;
+        position: relative;
+        top:150px; 
+        /* 노트북상황에 맞춰 조절하기 */
     }
         .four img {
         width: 100vw; /* 가로 너비를 화면 전체 너비로 설정 */
@@ -308,6 +309,7 @@ export const Container = styled.div`
             bottom: 330px;
             right: 150px;
             justify-content: flex-end;
+            
 
             hr {
                 position: absolute;
@@ -324,23 +326,10 @@ export const Container = styled.div`
             right: 150px;
         }
 
-
-        /* 이용권 메인버튼 */
-        .mainButton {
-        width: 250px;
-        height: 300px;
-        border: 1px solid #1675f2;
-        position: absolute; /* 절대 위치 지정 */
-        top: 5%; /* 부모 요소의 상단에서 절반 위치 */
-        left: 4%; /* 부모 요소의 왼쪽에서 절반 위치 */
-        z-index: 1; /* 다른 요소들 위에 표시되도록 설정 */
-    }
-
-
 `;
 
 export const InfoBox = styled.div`
-    height: 110px;
+    height: 100px;
     background-color: #1675F2;
     display: flex;
     justify-content: center; 
@@ -352,12 +341,14 @@ export const InfoBox = styled.div`
         justify-content: space-between;
         width: 800px;
         font-size: 20px;
+        margin-top: 15px;
+
     }
 
     li {
         flex: 1; //자식 요소 간의 공간을 동일하게 배분
         text-align: center;
-        /* font-weight: bold; */
+        font-weight: bold;
 
         a{
             text-decoration: none;

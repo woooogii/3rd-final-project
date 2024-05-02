@@ -9,7 +9,6 @@ import { UserOutlined } from '@ant-design/icons';
 import { VscClose } from 'react-icons/vsc';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import '../shop/Huigidongdong.css'
 
 
 const Review = ({ product, reviewCount, setReviewCount}) => {
@@ -179,26 +178,42 @@ const Review = ({ product, reviewCount, setReviewCount}) => {
                 <hr className="line_review" />
                 <br />
                 
-                    <div className="review_box_center" style={{paddingtop:'60px'}}>
-                        <div className="review_box" >
+                    <div className="review_box_center">
+                        <div className="review_box">
                             <span className="review_text">
                                 후기를 올려주세요.
                                 <br />내 후기가 다른 사람에게 도움이 됩니다.
                             </span>
 
-                            <div className="button-container">
-                                <button className="expand-button">
-                                    →<span className="button-text"> 희기 동동하기</span>
-                                </button>
-                            </div>
                             <button className="learn-more" onClick={loginUser && loginUser.uid ? handleShow : redirectLogin}>
                             <span className="circle" aria-hidden="true">
-                                <span className="icon arrow"  />
+                                <span className="icon arrow" />
                             </span>
                             <span className="button-text"> 후기 등록하기 </span>
                             </button>
+
+                                {/*                             
+                            <Button
+                                className="btn-review"
+                                style={{
+                                    width: '170px',
+                                    marginLeft: '20px',
+                                    marginBottom: '5px',
+                                    borderRadius: '35px',
+                                    borderTopRightRadius: '20px',
+                                    borderBottomRightRadius: '20px',
+                                    borderBottomLeftRadius: '20px',
+                                    borderTopLeftRadius: '0px',
+                                    backgroundColor: '#1675F2',
+                                    caretColor: 'transparent',
+                                }}
+                               onClick={loginUser && loginUser.uid ? handleShow : redirectLogin}
+                            >
+                                + 후기 등록하기
+                            </Button> */}
                         </div>
                     </div>
+      
             </div>
 
             <div>

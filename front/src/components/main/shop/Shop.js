@@ -58,8 +58,7 @@ const Shop = () => {
 
             <div className="main" >
                 <div className='main-banner'>
-                    <Carousel animationDuration={2000} easing="linear" animation="slide"
-                    >
+                    <Carousel animationDuration={2000} easing="linear" animation="slide">
                         <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/bc7fedade3152601bdef9dde13ba0bef.jpg' alt=''/></Paper>
                         <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/a2b9341e656104080ff9dc1fa52be6c2.jpg' alt=''/></Paper>
                         <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/356b10ce637b174d04609f1781d0f8be.jpg' alt=''/></Paper>
@@ -71,7 +70,7 @@ const Shop = () => {
                         <h3>product</h3>
                             <ul className='lst_bicycle'>
                                 <li className='lst_category'>
-                                    <img src='http://localhost:4000/images/productImg/bikes_subcategory_61714373049170.jpg' alt='product'/>
+                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/28ba4178b6271a138f8dc853f2a64a01.jpg' alt='product'/>
                                     <div className='lst_category_title'>
                                         <span className='lst_icon_hovr'><PiBicycle/></span>
                                         <strong>자전거</strong>
@@ -83,7 +82,7 @@ const Shop = () => {
                                     </div>
                                 </li>
                                 <li className='lst_category'>
-                                    <img src='http://localhost:4000/images/productImg/21714376006675.jpg' alt='product'/>
+                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/c7785a4e83533250420965c9e38064e2.jpg'/>
                                     <div className='lst_category_title'>
                                         <span className='lst_icon_hovr'><FaHelmetSafety/></span>
                                         <strong>안전 용품</strong>
