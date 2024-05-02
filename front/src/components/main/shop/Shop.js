@@ -47,15 +47,16 @@ const Shop = () => {
             console.error('error_fetch', error);   
         }
     };
-
     
+
+
     return (
         <>
             <div ref={startHereRef}>
             <ShopHead id="head"/>
             </div>
 
-            <div className='main'>
+            <div className="main" >
                 <div className='main-banner'>
                     <Carousel animationDuration={2000} easing="linear" animation="slide">
                         <Paper><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/bc7fedade3152601bdef9dde13ba0bef.jpg' alt=''/></Paper>

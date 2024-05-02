@@ -42,10 +42,9 @@ b {
 
 
 
-.defualtContainer {
-  width: 60%;
-  margin-top: 15vh;
-  margin-left: 15vh;
+.defaultContainer {
+  background-color: #ffffff;
+  margin-top: 150px; /* 상단 여백 추가 */
 }
 
 .postmodal{

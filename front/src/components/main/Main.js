@@ -49,6 +49,7 @@ const Main = () => {
                         <Route path="/pedal/myTicketList" Component={MyPageTicketList}/>
                         <Route path="/pedal/shop/created" Component={AddProduct}/>
                         <Route path="/insertData" Component={InsertData}/>
+                        <Route path="/pedal/FAQ" Component={PedalFAQMain}/>
                         <Route path="/pedal/shop/search" element={<SearchList />} />
                         <Route path="/pedal/shop/list/:category" element={<CategoryList />}/>
                         <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>

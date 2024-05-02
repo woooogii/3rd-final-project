@@ -57,6 +57,7 @@ const ShopHead = () => {
   }
 
   const setGoogleUser = () => {
+
     let decodedToken;
     try {
       const token = cookies.googleJwtToken; // 쿠키에서 토큰 빼오기
