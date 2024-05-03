@@ -36,7 +36,7 @@
     margin-top: 15px !important;
     width: 100%;
     padding-bottom: 10px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #b6b4b4;
     list-style-type: none;
 }
 .cost_order > li {
@@ -166,9 +166,10 @@ ul.prodt_lst > li:hover .prodt_Img img {
 
 .prodt_Info strong {
     display: block;
-    font-size: 34px;
+    font-size: 28px;
     font-weight: 500;
-    margin: 0 300px 5px 0;
+    margin-bottom: 15px;
+    /* border-top: 1px solid #b6b6b6; */
 }
 
 .prodt_Info em {

@@ -3,8 +3,11 @@ package com.project.back.service;
 import java.io.File;
 import java.util.*;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +19,9 @@ public class ProductService {
     @Autowired
     @Qualifier("ProductRepository")
     private ProductRepository productRepository;
+
+    @Resource
+    private Environment environment;
     
 
     //상품 저장
@@ -45,21 +51,21 @@ public class ProductService {
         return null;
     }
 
-
     public List<String> saveProductsWithImages(ProductEntity productEntity, List<MultipartFile> files) {
         List<String> imageUrls = new ArrayList<>();
         String url = "http://localhost:4000";
         try {
-            String absolutePath = new File("").getAbsolutePath() + File.separator;
-            // 실제 파일 저장 위치
-            String PATH =  "back"+File.separator+"src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
-                    + File.separator + "images" + File.separator + "productImg"; // 절대 경로 사용
-
-            File productImg = new File(absolutePath + PATH);
+            // 파일 업로드 경로 설정
+            String PATH = environment.getProperty("file.upload.path");
+            // 상대 경로를 절대 경로로 변경
+            String absolutePath = new File(PATH).getAbsolutePath();
+            // 파일이 실제로 저장될 디렉토리 생성
+            File productImg = new File(absolutePath);
             if (!productImg.exists()) {
                 productImg.mkdirs(); // 폴더가 없을 경우 폴더 만들기
+                System.out.println("디렉토리 생성 성공: " + productImg.getAbsolutePath());
             }
-    
+
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
                     String contentType = file.getContentType();
@@ -78,14 +84,14 @@ public class ProductService {
                     String originalFileName = file.getOriginalFilename();
                     int lastIndex = originalFileName.lastIndexOf('.');
                     String fileName = originalFileName.substring(0, lastIndex);
-    
+
                     String userImgName = fileName + new Date().getTime() + originalFileExtension;
-    
-                    productImg = new File(absolutePath + PATH + File.separator + userImgName);
-                    System.out.println("파일 저장 경로: " + absolutePath + PATH + File.separator + userImgName);
+
+                    productImg = new File(absolutePath + File.separator + userImgName);
+                    System.out.println("파일 저장 경로: " + absolutePath + File.separator + userImgName);
                     file.transferTo(productImg);
-    
-                    String imageUrl = url + "/images/productImg/" + userImgName;
+
+                    String imageUrl = url + "/images/" + userImgName;
                     imageUrls.add(imageUrl);
                 }
             }
@@ -93,11 +99,64 @@ public class ProductService {
             System.out.print(e.toString());
             return null;
         }
-        //productEntity.setPImageUrls(imageUrls);
         productEntity.setProductImages(imageUrls);
         productRepository.save(productEntity);
         return imageUrls;
     }
+    
+
+
+    // public List<String> saveProductsWithImages(ProductEntity productEntity, List<MultipartFile> files) {
+    //     List<String> imageUrls = new ArrayList<>();
+    //     String url = "http://localhost:4000";
+    //     try {
+    //         String absolutePath = new File("").getAbsolutePath() + File.separator;
+    //         // 실제 파일 저장 위치
+    //         String PATH =  "back"+File.separator+"src" + File.separator + "main" + File.separator + "resources" + File.separator + "static"
+    //                 + File.separator + "images" + File.separator + "productImg"; // 절대 경로 사용
+
+    //         File productImg = new File(absolutePath + PATH);
+    //         if (!productImg.exists()) {
+    //             productImg.mkdirs(); // 폴더가 없을 경우 폴더 만들기
+    //         }
+    
+    //         for (MultipartFile file : files) {
+    //             if (!file.isEmpty()) {
+    //                 String contentType = file.getContentType();
+    //                 String originalFileExtension;
+    //                 if (contentType == null) {
+    //                     return null;
+    //                 } else {//확장자
+    //                     if (contentType.contains("image/jpeg")) {
+    //                         originalFileExtension = ".jpg";
+    //                     } else if (contentType.contains("image/png")) {
+    //                         originalFileExtension = ".png";
+    //                     } else {
+    //                         return null;
+    //                     }
+    //                 }
+    //                 String originalFileName = file.getOriginalFilename();
+    //                 int lastIndex = originalFileName.lastIndexOf('.');
+    //                 String fileName = originalFileName.substring(0, lastIndex);
+    
+    //                 String userImgName = fileName + new Date().getTime() + originalFileExtension;
+    
+    //                 productImg = new File(absolutePath + PATH + File.separator + userImgName);
+    //                 System.out.println("파일 저장 경로: " + absolutePath + PATH + File.separator + userImgName);
+    //                 file.transferTo(productImg);
+    
+    //                 String imageUrl = url + "/images/productImg/" + userImgName;
+    //                 imageUrls.add(imageUrl);
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         System.out.print(e.toString());
+    //         return null;
+    //     }
+    //     productEntity.setProductImages(imageUrls);
+    //     productRepository.save(productEntity);
+    //     return imageUrls;
+    // }
 
     public ProductEntity getProductById(Long id) {
         return productRepository.findById(id)

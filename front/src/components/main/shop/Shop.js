@@ -12,7 +12,6 @@ import { PiBicycle } from "react-icons/pi";
 import { FaHelmetSafety } from "react-icons/fa6";
 import { IoShirtOutline } from "react-icons/io5";
 import Carousel from 'react-material-ui-carousel';
-import { Paper,Button } from '@mui/material';
 
 
 const Shop = () => {
