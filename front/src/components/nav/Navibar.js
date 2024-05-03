@@ -123,7 +123,7 @@ const Navibar = () => {
 
         {/* 로고 */}
         {/* <a class="navbar-brand" href="/pedal/home">PEDAL</a> */}
-        <a class="logo" href="/pedal/home"><img src='/image/logo03.png' alt='' style={{width:'190px', height:'57px'}}/></a>
+        <a class="logo" href="/pedal/home"><img src='/image/logo04.png' alt='' style={{width:'190px', height:'57px'}}/></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,7 @@ const Navibar = () => {
               <a class="nav-link active" aria-current="page" href="/pedal/shop">쇼핑몰</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/pedal/shop">F A Q</a>
+              <a class="nav-link active" aria-current="page" href="/pedal/FAQ">F A Q</a>
             </li>
           </ul>
           <span class="navbar-text">

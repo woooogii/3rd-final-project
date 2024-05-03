@@ -21,6 +21,8 @@ import AddProduct from './shop/AddProduct.js';
 import SearchList from './shop/SearchList.js';
 import InsertData from './InsertComponent/InsertData.js';
 import BicycleData from './map/BicycleData.js';
+import Ffooter from './footer/Ffooter.js';
+import PedalFAQMain from './faq/PedalFAQMain';
 
 
 const Main = () => {
@@ -47,10 +49,13 @@ const Main = () => {
                         <Route path="/pedal/myTicketList" Component={MyPageTicketList}/>
                         <Route path="/pedal/shop/created" Component={AddProduct}/>
                         <Route path="/insertData" Component={InsertData}/>
+                        <Route path="/pedal/FAQ" Component={PedalFAQMain}/>
                         <Route path="/pedal/shop/search" element={<SearchList />} />
                         <Route path="/pedal/shop/list/:category" element={<CategoryList />}/>
                         <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
+                        <Route path="/pedal/FAQ" Component={PedalFAQMain}/>
                     </Routes>
+                    <Ffooter/>
             </Router>
         </Provider>
         </div>

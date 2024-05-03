@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Numeral from 'numeral';
-import Slider from "react-slick";
 
 import ShopHead from './ShopHead';
 
@@ -49,22 +48,6 @@ const Shop = () => {
         }
     };
 
-    var settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-      };
-      const setting = {
-        arrows: false,
-        dots: true,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        variableWidth: true,
-      }
-
     
     return (
         <>
@@ -72,7 +55,7 @@ const Shop = () => {
             <ShopHead id="head"/>
             </div>
 
-            <div className='main'>
+            <div className="main" >
                 <div className='main-banner'>
                     <Carousel animationDuration={2000} easing="linear" animation="slide">
                         <div><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/bc7fedade3152601bdef9dde13ba0bef.jpg' alt=''/></div>
@@ -80,18 +63,6 @@ const Shop = () => {
                         <div><img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/356b10ce637b174d04609f1781d0f8be.jpg' alt=''/></div>
                     </Carousel>
                 </div>
-
-                {/* <Slider {...settings}>
-                    <div>
-                        <h3>1</h3>
-                    </div>
-                    <div>
-                        <h3>2</h3>
-                    </div>
-                    <div>
-                        <h3>3</h3>
-                    </div>
-                </Slider> */}
 
                 <div className='container_wrap'>
                     <div className='inner'>

@@ -28,10 +28,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
     
     private final UserService userService;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    public UserController(UserService userService){
+    public UserController(UserService userService, UserRepository userRepository){
         this.userService = userService;
+        this.userRepository=userRepository;
     }
 
 
@@ -104,16 +105,24 @@ public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
 public ResponseEntity<?> updatePassword(@RequestBody UserPasswordDTO userPasswordDTO) {
     try {
         UserEntity user = userService.callUserInfo(userPasswordDTO.getUid());
+        if (userPasswordDTO.getUid() == null || userPasswordDTO.getUid().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("User ID is missing or invalid");
+        }
+        if (userPasswordDTO.getUpwd() == null || userPasswordDTO.getUpwd().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Password is missing or invalid");
+        }
         if (user != null) {
             System.out.println(user);
             user.setUPwd(userService.getPasswordEncoder().encode(userPasswordDTO.getUpwd()));
+            System.out.println(user);
             userRepository.save(user);
             return ResponseEntity.ok("Password updated successfully");
         } else {
             return ResponseEntity.notFound().build();
         }
     } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        e.printStackTrace();  // 서버 로그에 예외 스택 트레이스를 출력
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 }
 

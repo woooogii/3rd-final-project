@@ -107,13 +107,10 @@
 }
 
 
-.btn{
-      margin-left: 20px;
-      margin-top: 10px;
-}
 
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-collapse {
     margin-left: 50px;
   }
 }
+

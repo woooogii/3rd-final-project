@@ -10,6 +10,7 @@ import MyPageUpdatePW from './MyPageUpdatePW';
 import MpSnsInfo from './MpSnsInfo';
 import styled from 'styled-components';
 import MyPageOrders from './MyPageOrders';
+import PedalFAQMain from '../faq/PedalFAQMain';
 
 const MyPageMainHead = styled.div`
 
@@ -69,7 +70,8 @@ const MyPage = () => {
         return <MyPageUpdatePW setActiveComponent={setActiveComponent} />;
       case 'googleInfo':
         return <MpSnsInfo setActiveComponent={setActiveComponent} />;
-      default:
+      
+        default:
         return <MainPageDefault setActiveComponent={setActiveComponent} tokenType={tokenType}/>;
     }
   };

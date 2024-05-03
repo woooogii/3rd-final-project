@@ -80,7 +80,7 @@ public class MyTicketController {
             
           String mtMerchantUid = (String) requestBody.get("mtMerchantUid");
           boolean newStatus = (boolean) requestBody.get("newStatus");
-          String startTime = (String) requestBody.get("startTime");
+          String startTime = (String) requestBody.get("mtStartTime");
 
           System.out.println("티켓이용여부------:"+ mtMerchantUid );
           System.out.println("상태업데이트------:"+ newStatus );

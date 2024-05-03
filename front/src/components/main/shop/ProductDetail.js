@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IoIosAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
@@ -9,164 +8,8 @@ import { useSelector } from 'react-redux';
 import Review from './Review';
 import Numeral from 'numeral';
 import { Avatar, Badge, Space } from 'antd';
-
-const StyledContent = styled.div`
-    width: 100%;
-    margin-top: 100px;
-
-    h1 {
-    font-size: 25px;
-    font-weight: bold;
-    }
-
-    .image_container {
-        display: flex;
-        margin-left: 300px;
-        overflow: hidden;
-    }
-
-    .image_sub,
-    .image_main {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .image_sub img {
-        max-width: 160px;
-        max-height: 140px;
-        margin-bottom: 20px;
-        margin-right: 20px;
-        object-fit: cover;
-    }
-
-    .image_main img {
-        width: 600px;
-        height: 400px;
-        object-fit: cover; /* 부모에게 맞추거나, 비율유지하면서 잘라내기도 함 */
-    }
-
-    .product_info {
-        padding-left: 180px;
-        width: 800px;
-    }
-
-    .btns {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 460px;
-    margin-bottom: 20px;
-    position: relative;
-    top: -70px;
-    left: 140px;
-}
-
-    .btn_cart {
-    width: 260px;
-    height: 50px;
-    background-color: #fff;
-    border: 1px solid #343a40;
-    font-size: 17px;
-    border-radius: 10px;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    }
-
-    .btn_cart:hover {
-    background-color: #1675F2;
-    color: #fff;
-    border: none;
-}
-
-    //상품설명,리뷰,교환반품 밑줄 - 파란색 하이라이트
-    .clickElement {
-        -webkit-user-select: none;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    .policy {
-        margin: 80px;
-        border: 1px solid #343a40;
-        white-space: pre-line;
-        text-align: center;
-        padding:100px; 
-    }
-
-    .centerLineGroup_1 {
-        display: flex;
-        margin: auto;
-        justify-content:center;
-        margin-top: 90px;
-        margin-bottom: 50px;
-        padding-top: 23px;
-        height: 80px;
-        background-color: #f4f4f4;
-        color: #3a3a3a;
-
-        ul {
-            display: flex;
-            gap: 40px;
-            font-size: 20px;
-            list-style: none;
-        }
-
-        li::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 4px;
-            margin-top: 10px;
-            background: #1675F2;
-            transition: all 0.5s;
-        }
-
-        .center::after {
-            transform: scaleX(0);
-        }
-
-        .center:hover::after {
-            transform: scaleX(1);
-        }
-
-        .centerLine::after {
-            transform: scaleX(0);
-        }
-
-        .centerLine:hover::after {
-            transform: scaleX(1.5);
-        }
-    }
-
-    .centerLineGroup_2 {
-        display: flex;
-        justify-content:center;
-    }
-
-
-    .tot{
-        display: flex;
-        justify-content: flex-end;
-        padding-top: 30px;
-        padding-right: 300px;
-        font-size: 13px;
-    }
-    
-    .tot_amount{
-        font-size: 35px;
-        font-weight: bold;
-        margin-bottom: -200px;
-        margin-top: -25px;
-        color: #1675F2;
-    }
-
-    .line_productDetail{
-        width: 55%;
-        margin-bottom: 20px;
-        margin-left: -10px; 
-    }
-`;
+import ShopHead from './ShopHead';
+import {StyledContent} from '././style/ProductDetailCss'
 
 const ProductDetail = () => {
 
@@ -185,6 +28,15 @@ const ProductDetail = () => {
         pImage4: '',
         pDescription: '',
     });
+
+       //ShopHead - 상태기억
+   const startHereRef = useRef(null);
+   useEffect(() => {
+       // 렌더링 후 startHere 요소로 스크롤 이동
+       if (startHereRef.current) {
+           startHereRef.current.scrollIntoView({ behavior: 'smooth' });
+       }
+   },[]);
 
 
     //pId가 변경될 때마다 실행되어야함 -> 의존성배열 [pId] 필요
@@ -311,8 +163,14 @@ const ProductDetail = () => {
     const removeImage = () => {
         setShowImage(product.pimage1);
     }
+    
 
     return (
+        <>
+        <div ref={startHereRef}>
+            <ShopHead id="head"/>
+        </div>
+        
         <StyledContent>
             <div className="image_container">
                 <div className="sub_images">
@@ -396,13 +254,25 @@ const ProductDetail = () => {
             <div className="btns">
                 <div className="btns_group">
                     <div>
-                        <button type="button" className="btn_cart" onClick={clickPick} style={{ width: '60px', backgroundColor: '#ffd131' }}>
+                        <button type="button" className="btn_pick" onClick={clickPick} style={{ width: '60px', backgroundColor: '#ffd131' }}>
                             {/* selectPick 상태에 따라 아이콘을 변경 */}
                             {selectPick ? <PiHeartFill value={selectPick} style={{ fontSize: '23px' }} /> : <PiHeart style={{ fontSize: '23px' }} />}
                         </button>
-                        <button type="button" className="btn_cart" onClick={onCart}>
+
+                        <div data-tooltip="담겼습니다" className="button" onClick={onCart} >
+                            <div className="button-wrapper">
+                                <div className="text">장바구니</div>
+                                <span className="icon">
+                                <svg viewBox="0 0 16 16" className="bi bi-cart2" fill="currentColor" height={16} width={16} xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                                </svg>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        {/* <button type="button" className="btn_cart" onClick={onCart}>
                             &nbsp;장바구니&nbsp;
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
@@ -410,32 +280,33 @@ const ProductDetail = () => {
             {/* 
             <div className="image_container"> </div> */}
 
-            <div className="centerLineGroup_1">
-                <ul>
-                    <li className="centerLine" onClick={showProductInfo}>
-                        상품 설명
-                    </li>
-                    <p style={{marginTop:'-2px', marginRight:'5px'}}>ㅣ</p>
-                    {/* 리뷰숫자 */}
-                    <li className="centerLine" onClick={showReview}>
-                        <Space size="large">
+
+            {/* 메뉴바 */}
+            <div className="body">
+            <div className="tabs">
+                <input defaultChecked defaultValue="HTML" name="fav_language" id="html" type="radio" className="input" />
+                <label htmlFor="html" className="label" onClick={showProductInfo}><b>상품 설명</b></label>
+                <input defaultValue="CSS" name="fav_language" id="css" type="radio" className="input"  onClick={showReview} />
+                <label htmlFor="css" className="label">
+                    <Space size="large">
                         <Badge count={reviewCount} showZero={true} overflowCount={10} style={{ backgroundColor:'#1675F2' }}>
-                <span style={{ fontSize: '20px', marginRight: '20px' }}>리뷰</span>
-            </Badge>
-                        </Space>
-                    </li>
-                    <p style={{marginTop:'-2px'}}>ㅣ</p>
-                    <li className="centerLine" onClick={showPolicy}>
-                        교환/반품
-                    </li>
-                </ul>
+                            <span style={{ fontSize: '17px', marginRight: '5px' }}><b>리뷰</b></span>
+                        </Badge>
+                    </Space>
+                </label>
+                <input defaultValue="JavaScript" name="fav_language" id="javascript" type="radio" className="input"  onClick={showPolicy} />
+                <label htmlFor="javascript" className="label"><b>교환/반품</b></label>
+            </div>
             </div>
 
-            <div className="centerLineGroup_2">
+
+            <div className="centerLineGroup">
                 {selectMenu === 'productInfo' && (
                     <>
-                        {/* <p>설명: {product.pdescription}</p> */}
-                        <p>
+                            {/* <p>
+                        <img src={product.pimage5} alt="" />
+                        </p> */}
+                        <p className='centerLineGroup_img'>
                             <img src="/image/20240419_180244.png" alt="[ 상세설명 ]" />
                         </p>
                     </>
@@ -456,6 +327,7 @@ const ProductDetail = () => {
                 )}
             </div>
         </StyledContent>
+        </>
     );
 };
 
