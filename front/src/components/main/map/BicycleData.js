@@ -55,7 +55,7 @@ const BicycleData = () => {
         if (cycleData.length > 0 && (!entities || entities.length === 0)) {
             sendData();
         }
-    }, [cycleData, entities]);
+    }, [cycleData]);
 
     return (
         <div>

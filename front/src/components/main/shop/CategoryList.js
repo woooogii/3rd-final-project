@@ -59,16 +59,12 @@ const CategoryList = () => {
      };
  
      useEffect(() => {
-         const sortedData = sortData(cateData, "noFilter");
-         setCurrentPost(sortedData.slice(indexOfFirstPost, indexOfLastPost));
+        handleSort();
      }, [cateData, page, indexOfFirstPost, indexOfLastPost]);
  
      const handlePageChange = (page) => {
          setPage(page);
      };
-
-
-    
     return (
         <>
                 <div ref={startHereRef} >

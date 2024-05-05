@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import { Modal, Button } from 'react-bootstrap';
-import '../shop/Review.css';
+import './style/Review.css';
 import { Avatar, Flex, Rate, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { VscClose } from 'react-icons/vsc';

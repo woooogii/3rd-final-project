@@ -37,7 +37,7 @@ const SearchModal = ({onCloseModal, handleClick}) => {
             <div className='search-warp'>
                 <div className='search-close' onClick={onCloseModal}><IoCloseSharp/></div>
                     <div className='search-box'>
-                        <form onSubmit={(evt) => { evt.preventDefault()}}>
+                        <form onSubmit={(evt) => { evt.preventDefault(); searchData(keyword);}}>
                             <div className='box-search'>
                                 <div>
                                     <input type='text' value={keyword} onChange={(evt)=>setKeyword(evt.target.value)} placeholder='대여소 명 또는 번호를 입력하세요.'/> 

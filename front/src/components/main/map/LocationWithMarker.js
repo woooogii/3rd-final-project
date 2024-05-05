@@ -15,6 +15,8 @@ import Likesdata from './Likesdata';
 const LocationWithMarker = ({ entities}) => {
   const [content, setContent] = useState({sid:'',rent_id_nm:'',sta_add1:'',hold_num:''});
   const [isOpen,setIsOpen] = useState(false);//마커 클릭
+  const [isShow,setIsShow] = useState(false);//검색 모달
+  const [isLike,setIsLike] = useState(false);//즐겨찾기 모달
 
   const loginUser = useSelector((state) => state.loginUser);
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ const LocationWithMarker = ({ entities}) => {
       window.kakao.maps.event.addListener(marker, 'click', function () {
         mapRef.current.panTo(marker.getPosition());
         setContent({
-          sid: item.sid,
+          sid: item.rent_id,
           rent_id_nm: item.rent_id_nm,
           sta_add1: item.sta_add1,
           hold_num: item.hold_num,
@@ -82,13 +84,13 @@ const LocationWithMarker = ({ entities}) => {
     setIsOpen(true);
   };
   
-  //검색 이벤트
-  const [isShow,setIsShow] = useState(false);//검색 모달
+  //검색
   const onOpenModal=()=>{
-    setIsShow(true)
+    setIsShow(true);
+    setIsOpen(false);
   }
   const onCloseModal=()=>{
-      setIsShow(false)
+      setIsShow(false);
   }
   //넘어온 값으로 지도 위치 재설정
   const handleClick=(data)=>{
@@ -98,17 +100,26 @@ const LocationWithMarker = ({ entities}) => {
       mapRef.current.setBounds(bounds);
       onCloseModal();
   }
-
-  const [isLike,setIsLike] = useState(false);//즐겨찾기 모달
   
-  const searchLikes=()=>{//즐겨찾기 목록
+  //즐겨찾기
+  const searchLikes=()=>{
     if (!loginUser.uid) {
       alert('로그인 후 사용 가능합니다.');
       navigate('/pedal/login');
       return;
     }else{
       setIsLike(true);
+      setIsOpen(false);
     }
+  }
+  const handleLikeClick=(data)=>{
+    console.log('즐겨찾기 데이터',data);
+    const bounds = new window.kakao.maps.LatLngBounds();
+    console.log('즐겨찾기 데이터',data.staLat,data.staLong);
+    const placePosition = new window.kakao.maps.LatLng(data.staLat, data.staLong);
+    bounds.extend(placePosition);
+    mapRef.current.setBounds(bounds);
+    onCloseLike();
   }
 
   const onCloseLike=()=>{
@@ -134,7 +145,7 @@ const LocationWithMarker = ({ entities}) => {
         <FaRegStar className="bi-like-icon" />
       </div>
       {isShow && <SearchModal onCloseModal={onCloseModal} handleClick={handleClick}/> }
-      {isLike && <Likesdata onCloseLike={onCloseLike} uid = {loginUser.uid}/>}
+      {isLike && <Likesdata onCloseLike={onCloseLike} uid = {loginUser.uid} handleClick={handleLikeClick}/>}
     </div>
   );
 };

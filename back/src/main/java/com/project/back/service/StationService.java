@@ -4,6 +4,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.back.entity.ProductEntity;
 import com.project.back.entity.StationEntity;
 import com.project.back.repository.StationRepository;
 
@@ -42,6 +43,19 @@ public class StationService {
                 return Collections.emptyList(); // 빈 리스트 반환
             }
             return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("데이터 불러오기 오류: " + e.getMessage());
+        }
+    }
+
+    public List<StationEntity> findByStationId(String stationId){
+        try {
+            List<StationEntity> stations = stationRepository.findByRentId(stationId);
+            if(stations.isEmpty()) {
+                throw new RuntimeException("데이터 불러오기 오류: 해당하는 엔티티가 없습니다.");
+            }
+            return stations;
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("데이터 불러오기 오류: " + e.getMessage());

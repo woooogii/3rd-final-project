@@ -13,49 +13,131 @@
 }
 
 .likes-warp{
-    width: 40%;
+    position:relative;
+    width: 500px;
     height: 600px;
     border-radius: 40px;
     padding: 15px;
     background: rgba(255, 255, 255, 0.8);
 }
 
-.likes-close{
-    position: absolute;
-    margin-top: 24%;
-    right: 65%; /* 조절할 값 */
-    transform: translateY(-50%);
-    font-size: 20px;
-    cursor: pointer;
+.likes-list-title{
+    margin: 10px auto 25px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #007BFF;
+    border-bottom: 2px solid #d3d2d2;
+    width: 400px;
+    padding-bottom: 5px;
 }
 
-.likes-modal{
-    position:absolute;
-    display:none;
-    justify-content: center;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-color: rgba(0,0,0,0.4);
-}
-
+/* 
 .likes-value {
-    position: absolute;
-    width: calc(100% - 200px); /* 입력 상자와 같은 너비 */
-    top: 30%; /* 입력 상자 아래에 위치 */
-    left: 65%; /* 가운데 정렬을 위한 왼쪽 위치 조정 */
-    transform: translateX(-50%); /* 가운데 정렬 */
-    font-size: 21px;
-    font-weight: 500;
+    position: relative;
+    flex-direction: column;
+    width: 350px;
+    height: 100px;
+    margin: 0 auto;
     cursor: pointer;
+    background-color: rgba(57, 136, 255, 0.8);
+    box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 17px;
     z-index: 10;
 }
 
-.likes-item {
-    width: 50%;
+.likes-item-title {
     display: flex;
+    width: 80%;
     align-items: center;
-    margin-top: 16px;
+    margin: 13px auto 9px;
+    border-bottom: 2px solid #fff;
+    padding-top: 10px;
 }
+.likes-item-title .circle {
+    margin: 0 8px 3px 7px;
+    width: 1px;
+    height: 1px;
+    border: 4px solid  #fff;
+    border-radius: 50%;
+}
+.likes-item-title .item-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.item-value{
+    margin: 1px 0 15px 43px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+} */
+
+.likes-value {
+    position: relative;
+    flex-direction: column;
+    width: 350px;
+    height: 100px;
+    margin: 0 auto;
+    cursor: pointer;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 17px;
+    z-index: 10;
+}
+
+.likes-item-title {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    margin: 13px auto 9px;
+    border-bottom: 2px solid #0c508d;
+    padding-top: 10px;
+}
+.likes-item-title .circle {
+    margin: 0 8px 3px 7px;
+    width: 1px;
+    height: 1px;
+    border: 4px solid  #0c508d;
+    border-radius: 50%;
+}
+.likes-item-title .item-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: #0c508d;
+}
+
+.item-value{
+    margin: 1px 0 15px 43px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #2f3030;
+}
+
+.likes-close{
+    position: absolute; /* 절대적인 위치 설정 */
+    bottom: 30px; /* 맨 하단으로부터의 거리 */
+    left: 50%; /* 좌우 가운데 정렬을 위한 left 속성 */
+    transform: translateX(-50%); /* 가운데 정렬 */
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    background-color: #007BFF;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    padding-top: 4px;
+}
+/* .likes-close{
+    position: absolute;
+    margin-top: 24%;
+    right: 65%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+} */
+
 

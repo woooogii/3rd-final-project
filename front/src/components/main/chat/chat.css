@@ -1,22 +1,62 @@
   
-  input {
-    padding: 10px;
-    font-size: 1.2em;
-  }
-  button{
-    border: none;
-    padding: 10px;
-    background: green;
-    color:#fff;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  
-  
-  .container{
-    position: relative;
-  }
-  
+.chat-container{
+  position: relative;
+  margin: 0 auto;
+  margin-top: 40px;
+  border-top: 1px solid #b9b9b9;
+}
+.chat-container .chat-box{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #c8c8c8;
+  background-color: #f7f5f5;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  width: 800px;
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 70px;
+}
+
+.member-list{
+  width: 28%;
+  background-color: #ffffff;
+  border-right: 1px solid #000;
+}
+.member-list .new-chat-title{
+  height: 50px;
+  border-bottom: 1px solid #000;
+  background-color: #e5e1e1;
+  text-align: center;
+}
+.member-list .before-chat-title{
+  height: 40px;
+  margin-top: 30px;
+  padding-top: 9px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  vertical-align: middle;
+}
+.member{
+  padding: 10px;
+  background: #eee;
+  border-radius: 16px;
+  cursor: pointer;
+  margin: 5px 2px 7px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+.member.active{
+  background: #97b3ff;
+  color:#fff;
+}
+.member:hover{
+  background: rgb(230, 230, 230);
+  color:#fff;
+}
+
   .register{
     position: relative;
     width: 600px;
@@ -31,19 +71,7 @@
     width: 300px;
     margin-left: 90px;
   }
-  .chat-box{
-    box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.034),0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072),0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12);
-    margin:40px 50px;
-    height: 600px;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .member-list{
-    width: 20%;
-  }
-  
+
   .chat-content{
     width:80%;
     margin-left: 10px;
@@ -75,22 +103,6 @@
     margin-left: 5px;
     cursor: pointer;
   }
-  .member{
-    padding: 10px;
-    background: #eee;
-    border:#000;
-    cursor: pointer;
-    margin: 5px 2px;
-    box-shadow: 0 8px 8px -4px lightblue;
-  }
-  .member.active{
-    background: blueviolet;
-    color:#fff;
-  }
-  .member:hover{
-    background: grey;
-    color:#fff;
-  }
   
   .avatar{
     background-color: cornflowerblue;
@@ -116,3 +128,5 @@
   .message.self{
     justify-content: end;
   }
+
+

@@ -59,6 +59,7 @@ public class ProductService {
             String PATH = environment.getProperty("file.upload.path");
             // 상대 경로를 절대 경로로 변경
             String absolutePath = new File(PATH).getAbsolutePath();
+            System.out.println("절대 경로"+absolutePath);
             // 파일이 실제로 저장될 디렉토리 생성
             File productImg = new File(absolutePath);
             if (!productImg.exists()) {

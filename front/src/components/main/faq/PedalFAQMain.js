@@ -4,7 +4,6 @@ import CategoryList from './PedalFAQCategory';
 import QuestionList from './PedalFAQ';
 import './FAQ.css'; // CSS 스타일 시트 임포트
 
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,6 +23,17 @@ function formatText(text) {
 
     const loginUser = useSelector((state) => state.loginUser);
     const navigate = useNavigate();
+
+    const chatClick = () => {
+      if (!loginUser.uid) {
+        alert('로그인 후 사용 가능합니다.');
+        navigate('/pedal/login');
+        return;
+      }else{
+      const url = `/pedal/chatroom`;
+      navigate(url);
+      }
+  }
   
     // 선택된 카테고리의 FAQ 데이터를 찾음
     const selectedCategory = faq.find(cat => cat.category === activeCategory);
@@ -41,12 +51,15 @@ function formatText(text) {
                     style={{ cursor: 'pointer', width: '150px', height: 'auto', border:'none' }}
                 />
             ))}
-            <Link to={`/chat/${loginUser.uid}`}>
+            <div onClick={chatClick}>
             <img 
             src='/image/MUNEI.png'
             alt='문의읨'
             className='category-item' 
-            style={{ cursor: 'pointer', width: '150px', height: 'auto', border:'none' }}/></Link>
+            style={{ cursor: 'pointer', width: '150px', height: 'auto', border:'none' }}
+            />
+            </div>
+            x
         </div>
         <div className="question-list-container">
           <div className="question-list">

@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import { loginToken } from '../../nav/store';
 import { useDispatch } from 'react-redux';
-import '../shop/ShopHead.css'
+import './style/ShopHead.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsCart2 } from "react-icons/bs";

@@ -32,17 +32,10 @@ const ChatRoom = () => {
     }
 
     const onConnected = () => {//연결되면 실행
-        if(loginUser.uid){
-            setUserData({...userData,"username":loginUser.uid,"connected": true});
-            stompClient.subscribe('/chatroom/public', onMessageReceived);
-            stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
-            userJoin();
-        }else{
-            setUserData({...userData,"connected": true});
-            stompClient.subscribe('/chatroom/public', onMessageReceived);
-            stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
-            userJoin();
-        }
+        setUserData({...userData,"username":loginUser.uid,"connected": true});
+        stompClient.subscribe('/chatroom/public', onMessageReceived);
+        stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
+        userJoin();
     }
     const onError = (err) => {
         console.log(err);
@@ -124,13 +117,10 @@ const ChatRoom = () => {
           setUserData({...userData,"message": ""});
         }
     }
-    const registerUser=()=>{
-        connect();
-    }
 
     return (
     <div className="chat-container">
-        {userData.connected ?
+        {userData.connected &&
             <div className="chat-box">
                 <div className="member-list">
                     <ul>
@@ -178,23 +168,10 @@ const ChatRoom = () => {
                         <input type="text" className="input-message" placeholder="enter the message" value={userData.message} name='message' onChange={handleValue} /> 
                         <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
                     </div>
-                    </div>}
-                </div>
-                :
-            <div className="register">
-                <input
-                    id="user-name"
-                    placeholder="Enter your name"
-                    name="userName"
-                    value={userData.username}
-                    onChange={handleValue}
-                    margin="normal"
-                    />
-                <button type="button" onClick={registerUser}>
-                    connect
-                </button> 
-            </div>}
-        </div>
+                </div>}
+            </div>
+        }
+    </div>
     )
 }
 

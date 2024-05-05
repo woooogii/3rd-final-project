@@ -10,8 +10,7 @@ import com.project.back.entity.StationLikeEntity;
 
 @Repository("StationLikeRepository")
 public interface StationLikeRepository extends JpaRepository<StationLikeEntity,Long>{
-    StationLikeEntity findByUserAndStationId(String user, Long stationId);
+    StationLikeEntity findByUserAndStationId(String user, String stationId);
     List<StationLikeEntity> findByUser(String user);
-
-    void deleteByUserAndStationId(String user,Long stationId);
+    void deleteByUserAndStationId(String user,String stationId);
 }

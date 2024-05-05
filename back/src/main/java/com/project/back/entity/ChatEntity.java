@@ -1,5 +1,7 @@
 package com.project.back.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,22 +11,20 @@ import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity(name = "station_like")
+@Entity(name = "chat")
 @Getter
 @Setter
-public class StationLikeEntity {
+public class ChatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "slike_id")
-    private Long likeId;
+    private Long chatId;
 
-    @Column(name = "u_id")
-    private String user;
+    @Column(name = "uid")
+    private String senderName;
 
-    @Column(name = "s_id")
-    private String stationId;
+    @Column(name = "message")
+    private String message;
 
-    @Column(name = "done")
-    private boolean status = false;
-
+    @Column(name = "message_date")
+    private LocalDate date;
 }

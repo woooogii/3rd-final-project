@@ -52,7 +52,8 @@ const Main = () => {
                         <Route path="/pedal/shop/search" element={<SearchList />} />
                         <Route path="/pedal/shop/list/:category" element={<CategoryList />}/>
                         <Route path="/pedal/productDetail/:pId" element={<ProductDetail/>}/>
-                        <Route path="/pedal/chat/:loginUser.uid" element={<ChatRoom/>}/>
+                        <Route path="/pedal/chatroom/:uid" element={<ChatRoom/>}/>
+                        <Route path="/pedal/chatroom" Component={ChatRoom}/>
                         <Route path="/pedal/FAQ" Component={PedalFAQMain}/>
                     </Routes>
                     <Ffooter/>

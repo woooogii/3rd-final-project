@@ -33,7 +33,7 @@ public class StationEntity {
     private String rent_nm;
 
     @Column(name = "HOLD_NUM")
-    private String hold_num;//경도
+    private String hold_num;
 
     @Column(name = "STA_ADD1")
     private String sta_add1;
