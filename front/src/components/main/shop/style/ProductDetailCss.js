@@ -95,8 +95,8 @@ export const StyledContent = styled.div`
         display: flex;
         justify-content:center;
 
-        .centerLineGroup_img{
-          margin-top: 120px;
+        p{
+          margin-top: 150px;
 
         }
     }
