@@ -17,14 +17,27 @@ public class WebMvcConfig implements WebMvcConfigurer {
         this.environment = environment;
     }
 
-    @Override  
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {  
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String PATH = environment.getProperty("file.upload.path");
         String absolutePath = new File(PATH).getAbsolutePath();
-        
-        registry.addResourceHandler("/images/**") 
-                .addResourceLocations("file://" + absolutePath + "/"); // 절대 경로로 변경
+
+        // 파일 경로 구분자를 운영 체제에 맞게 사용
+        String fileSeparator = File.separator;
+
+        // 파일 경로를 URL로 변환
+        absolutePath = absolutePath.replace(fileSeparator, "/");
+
+        // 파일 프로토콜을 추가하여 절대 경로로 변환
+        String fileProtocol = "file:///";
+        if (!absolutePath.endsWith("/")) {
+            absolutePath += "/";
+        }
+
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations(fileProtocol + absolutePath);
     }
+}
 
 
     // @Override  
@@ -32,4 +45,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
     //     registry.addResourceHandler("/images/**") 
     //     .addResourceLocations("file:///Users/gimjieun/Desktop/final-project-pedal/back/src/main/resources/static/images/"); // 정적 리소스가 위치한 디렉토리 경로
     // }
-}
+
