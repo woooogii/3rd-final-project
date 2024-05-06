@@ -1,6 +1,7 @@
 package com.project.back.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +23,12 @@ public class ChatEntity {
     @Column(name = "uid")
     private String senderName;
 
+    @Column(name = "receiver_name")
+    private String receiverName;
+
     @Column(name = "message")
     private String message;
 
     @Column(name = "message_date")
-    private LocalDate date;
+    private LocalDateTime date = LocalDateTime.now();
 }

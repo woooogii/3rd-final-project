@@ -18,12 +18,11 @@ const ChatRoom = () => {
         message: ''
     });
 
-    useEffect(()=>{
-        console.log(loginUser.uid);
-        console.log('userData 있음',userData);
-
-        connect();
-    },[loginUser.uid]);
+    useEffect(() => {
+        if (loginUser.uid && !userData.connected) {
+            connect();
+        }
+    }, [loginUser.uid]);
 
     const connect =()=>{//대화 유저 연결
         let Sock = new SockJS('http://localhost:4000/pedal');
@@ -32,10 +31,17 @@ const ChatRoom = () => {
     }
 
     const onConnected = () => {//연결되면 실행
-        setUserData({...userData,"username":loginUser.uid,"connected": true});
-        stompClient.subscribe('/chatroom/public', onMessageReceived);
-        stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
-        userJoin();
+        if(loginUser.uid){
+            setUserData({...userData,"username":loginUser.uid,"connected": true});
+            stompClient.subscribe('/chatroom/public', onMessageReceived);
+            //stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
+            userJoin();
+        }else{
+            setUserData({...userData,"connected": true});
+            stompClient.subscribe('/chatroom/public', onMessageReceived);
+            //stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
+            userJoin();
+        }
     }
     const onError = (err) => {
         console.log(err);
@@ -69,13 +75,13 @@ const ChatRoom = () => {
     const onPrivateMessage = (payload) => {
         var payloadData = JSON.parse(payload.body);
         if (privateChats.get(payloadData.senderName)) {
-            setPrivateChats(prevPrivateChats => { // 수정된 부분
+            setPrivateChats(prevPrivateChats => {
                 const updatedPrivateChats = new Map(prevPrivateChats);
                 updatedPrivateChats.get(payloadData.senderName).push(payloadData);
                 return updatedPrivateChats;
             });
         } else {
-            setPrivateChats(prevPrivateChats => { // 수정된 부분
+            setPrivateChats(prevPrivateChats => {
                 const updatedPrivateChats = new Map(prevPrivateChats);
                 updatedPrivateChats.set(payloadData.senderName, [payloadData]);
                 return updatedPrivateChats;
@@ -117,10 +123,13 @@ const ChatRoom = () => {
           setUserData({...userData,"message": ""});
         }
     }
+    const registerUser=()=>{
+        connect();
+    }
 
     return (
     <div className="chat-container">
-        {userData.connected &&
+        {userData.connected ?
             <div className="chat-box">
                 <div className="member-list">
                     <ul>
@@ -152,7 +161,7 @@ const ChatRoom = () => {
                         <button type="button" className="send-button" onClick={sendValue}>send</button>
                     </div>
                 </div>}
-                {tab!=="newChat" && 
+                {tab!=="newChat" &&
                 <div className="chat-content">
                     <ul className="chat-messages">
                         {[...privateChats.get(tab)].map((chat,index)=>(
@@ -168,10 +177,23 @@ const ChatRoom = () => {
                         <input type="text" className="input-message" placeholder="enter the message" value={userData.message} name='message' onChange={handleValue} /> 
                         <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
                     </div>
-                </div>}
-            </div>
-        }
-    </div>
+                    </div>}
+                </div>
+                :
+            <div className="register">
+                <input
+                    id="user-name"
+                    placeholder="Enter your name"
+                    name="username"
+                    value={userData.username}
+                    onChange={handleValue}
+                    margin="normal"
+                    />
+                <button type="button" onClick={registerUser}>
+                    connect
+                </button> 
+            </div>}
+        </div>
     )
 }
 

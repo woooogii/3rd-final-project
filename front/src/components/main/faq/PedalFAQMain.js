@@ -21,18 +21,12 @@ function formatText(text) {
     const [activeCategory, setActiveCategory] = useState(faq[0].category);
     const [activeQuestion, setActiveQuestion] = useState(null);
 
-    const loginUser = useSelector((state) => state.loginUser);
     const navigate = useNavigate();
 
     const chatClick = () => {
-      if (!loginUser.uid) {
-        alert('로그인 후 사용 가능합니다.');
-        navigate('/pedal/login');
-        return;
-      }else{
       const url = `/pedal/chatroom`;
       navigate(url);
-      }
+
   }
   
     // 선택된 카테고리의 FAQ 데이터를 찾음
@@ -59,7 +53,6 @@ function formatText(text) {
             style={{ cursor: 'pointer', width: '150px', height: 'auto', border:'none' }}
             />
             </div>
-            x
         </div>
         <div className="question-list-container">
           <div className="question-list">

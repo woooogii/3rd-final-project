@@ -73,6 +73,7 @@
 .lst_bicycle {
     width: 100%;
     min-width: 1280px;
+    height: 650px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -183,7 +184,7 @@
     width: 115px;
     height: 40px;
     position: absolute;
-    top: 330px;
+    top: 360px;
     left: 30px;
     display: block;
     z-index: 5;

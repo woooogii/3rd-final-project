@@ -4,12 +4,15 @@ import SockJS from 'sockjs-client';
 
 import './chat.css';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import ChatList from './ChatList';
 
 var stompClient =null;
 const ChatRoom = () => {
-    const [privateChats, setPrivateChats] = useState(new Map());     
-    const [publicChats, setPublicChats] = useState([]); 
-    const loginUser = useSelector((state) => state.loginUser);
+    const loginUser = useSelector((state) => state.loginUser);//로그인 아이디로 채팅 들어가기
+    const [entities,setEntities] = useState([]);//이전 문의내역 db꺼내기
+
+    const [newChats, setNewChats] = useState([]);//새로운 문의내역
     const [tab,setTab] =useState("newChat");//클릭 시 새로운 채팅창 or 이전 문의내역
     const [userData, setUserData] = useState({
         username: '',
@@ -18,75 +21,120 @@ const ChatRoom = () => {
         message: ''
     });
 
-    useEffect(()=>{
-        console.log(loginUser.uid);
-        console.log('userData 있음',userData);
 
-        connect();
-    },[loginUser.uid]);
+    useEffect(() => {
+        if (loginUser.uid && !userData.connected) {
+            connect();
+        }
+    }, [loginUser.uid]);
 
-    const connect =()=>{//대화 유저 연결
+    const connect =()=>{
         let Sock = new SockJS('http://localhost:4000/pedal');
         stompClient = over(Sock);
         stompClient.connect({},onConnected, onError);
     }
 
-    const onConnected = () => {//연결되면 실행
+    const onConnected = () => {
         if(loginUser.uid){
             setUserData({...userData,"username":loginUser.uid,"connected": true});
             stompClient.subscribe('/chatroom/public', onMessageReceived);
-            stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
             userJoin();
+            getChats(loginUser.uid);
         }else{
             setUserData({...userData,"connected": true});
             stompClient.subscribe('/chatroom/public', onMessageReceived);
-            stompClient.subscribe('/user'+userData.username+'/private', onPrivateMessage);
             userJoin();
         }
     }
     const onError = (err) => {
         console.log(err);
     }
+    const getChats =async(uid)=>{
+        try {
+            console.log('getChats 시작',loginUser.uid)
+            const response = await axios.get(`http://localhost:4000/pedal/getChats/${uid}`);
+            console.log(response.data);
+            setEntities(response.data);
+            console.log('가져옴',entities);
+        } catch (error) {
+            console.log('error_getChats',error);
+        }
+    }
+    const groupChatDate = (entities)=>{
+        const groupedDate = {};
+        entities.forEach(item => {
+            const date = new Date(item.date).toDateString();//날짜만 읽음(시,분,초 무시)
+            if(!groupedDate[date]){
+                groupedDate[date] = [];
+            }
+            groupedDate[date].push(item);
+        });
+        return groupedDate;
+    }
+    const groupedEntities = groupChatDate(entities);
+
+    const renderGroupedMessages = () => {
+        return Object.entries(groupedEntities).map(([date, items]) => {
+            const latestMessage = items[items.length - 1]; // 각 날짜별로 가장 최근 메시지
+            return (
+                <div key={date}>
+                    <p  onClick={()=>{setTab(date)}}
+                    className={`member ${tab===date && "active"}`}>
+                        {latestMessage.message}
+                    </p>
+                </div>
+            );
+        });
+    };
+    const renderMessages = () => {
+        const messages = groupedEntities[tab]; // 클릭한 날짜에 해당하는 메시지만 가져옴
+        return (
+            <ul className="chat-messages">
+                {messages.map((message, index) => (
+                    <li className={`message ${message.senderName === userData.username && "self"}`}
+                    key={index}>
+                        {message.senderName !== userData.username && 
+                            <div className="avatar">
+                                {message.senderName}
+                            </div>
+                        }
+                        <div className="message-data">{message.message}</div>
+                        {message.senderName === userData.username && 
+                            <div className="avatar self">
+                                {message.senderName}
+                            </div>
+                        }
+                    </li>
+                ))}
+                <li className={'message'}>
+                    <div className="message-data">
+                    상담이 종료되었습니다. 새로운 문의사항이 있으시면 [새로운 채팅 &gt; 1:1 채팅상담]을 이용해 주시기 바랍니다.
+                    </div>
+                </li>
+            </ul>
+        );
+    };
 
     const userJoin=()=>{
         console.log('userJoin');
-          let chatMessage = {
+        let chatMessage = {
             senderName: userData.username,
             status:"JOIN"
-          };
-          stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+        };
+        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
     }
 
     const onMessageReceived = (payload) => {
-        var payloadData = JSON.parse(payload.body);
+        const payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "JOIN":
-                setPrivateChats(prevPrivateChats => {
-                    const updatedPrivateChats = new Map(prevPrivateChats);
-                    updatedPrivateChats.set(payloadData.senderName, []);
-                    return updatedPrivateChats;
-                });
                 break;
             case "MESSAGE":
-                setPublicChats(prevPublicChats => [...prevPublicChats, payloadData]);
+                setNewChats(prevChats => [...prevChats, payloadData]);
                 break;
-        }
-    }
-    
-    const onPrivateMessage = (payload) => {
-        var payloadData = JSON.parse(payload.body);
-        if (privateChats.get(payloadData.senderName)) {
-            setPrivateChats(prevPrivateChats => { // 수정된 부분
-                const updatedPrivateChats = new Map(prevPrivateChats);
-                updatedPrivateChats.get(payloadData.senderName).push(payloadData);
-                return updatedPrivateChats;
-            });
-        } else {
-            setPrivateChats(prevPrivateChats => { // 수정된 부분
-                const updatedPrivateChats = new Map(prevPrivateChats);
-                updatedPrivateChats.set(payloadData.senderName, [payloadData]);
-                return updatedPrivateChats;
-            });
+            case "LEAVE":
+                setNewChats(prevChats => [...prevChats, payloadData]);
+                break;
         }
     }
 
@@ -95,64 +143,74 @@ const ChatRoom = () => {
         setUserData({...userData,[name]: value});
     }
     const sendValue=()=>{
-            if (stompClient) {
-              var chatMessage = {
-                senderName: userData.username,
-                message: userData.message,
-                status:"MESSAGE"
-              };
-              console.log(chatMessage);
-              stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-              setUserData({...userData,"message": ""});
-            }
-    }
-
-    const sendPrivateValue=()=>{
         if (stompClient) {
-          var chatMessage = {
+            var chatMessage = {
             senderName: userData.username,
-            receiverName:tab,
             message: userData.message,
             status:"MESSAGE"
-          };
-          
-          if(userData.username !== tab){
-            privateChats.get(tab).push(chatMessage);
-            setPrivateChats(new Map(privateChats));
-          }
-          stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-          setUserData({...userData,"message": ""});
+            };
+            console.log(chatMessage);
+            stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+            setUserData({...userData,"message": ""});
         }
     }
+
     const registerUser=()=>{
         connect();
+    }
+
+    const endChat = () => {
+        if(stompClient){
+            const chatMessage={
+                senderName:userData.username,
+                status:"LEAVE"
+            };
+            stompClient.send("/app/message",{},JSON.stringify(chatMessage));
+            alert("채팅이 종료되었습니다.");
+        }
     }
 
     return (
     <div className="chat-container">
         {userData.connected ?
             <div className="chat-box">
+                {/* 채팅목록 */}
                 <div className="member-list">
-                    <ul>
-                        <li className='new-chat-title'>새로운 채팅</li>
-                        <li onClick={()=>{setTab("newChat")}} className={`member ${tab==="newChat" && "active"}`}>1:1채팅상담</li>
-                        <li className='before-chat-title'>이전 문의내역</li>
-                        {[...privateChats.keys()].map((name,index)=>(
-                            <li onClick={()=>{setTab(name)}} className={`member ${tab===name && "active"}`} key={index}>{name}</li>
-                        ))}
-                    </ul>
+                    <div className='new-chat'>
+                        <div>새로운 채팅</div>
+                        <div>
+                            <p onClick={()=>{setTab("newChat")}}
+                            className={`member ${tab==="newChat" && "active"}`}>1:1채팅상담</p>
+                        </div>
+                    </div>
+                    <div className='chat-list'>
+                        <div>이전 문의내역</div>
+                        <div>
+                            {renderGroupedMessages()}
+                        </div>
+                    </div>
                 </div>
-
+                <div>
+                    <button onClick={endChat}>채팅종료</button>
+                </div>
+                {/* 대화창 */}
                 {tab==="newChat" &&
                 <div className="chat-content">
                     <ul className="chat-messages">
-                        {publicChats.map((chat,index)=>(
-                            <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                {chat.senderName !== userData.username && <div className="avatar">
-                                    {chat.senderName}</div>}
+                        {newChats.map((chat,index)=>(
+                            <li className={`message ${chat.senderName === userData.username && "self"}`} 
+                            key={index}>
+                                {chat.senderName !== userData.username && 
+                                    <div className="avatar">
+                                        {chat.senderName}
+                                    </div>
+                                }
                                 <div className="message-data">{chat.message}</div>
-                                {chat.senderName === userData.username && <div className="avatar self">
-                                    {chat.senderName}</div>}
+                                {chat.senderName === userData.username && 
+                                    <div className="avatar self">
+                                        {chat.senderName}
+                                    </div>
+                                }
                             </li>
                         ))}
                     </ul>
@@ -162,21 +220,13 @@ const ChatRoom = () => {
                         <button type="button" className="send-button" onClick={sendValue}>send</button>
                     </div>
                 </div>}
-                {tab!=="newChat" && 
+                {/* 이전 문의내역 */}
+                {tab!=="newChat" &&
                 <div className="chat-content">
-                    <ul className="chat-messages">
-                        {[...privateChats.get(tab)].map((chat,index)=>(
-                            <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                                <div className="message-data">{chat.message}</div>
-                                {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                            </li>
-                        ))}
-                    </ul>
+                    {renderMessages()}
 
                     <div className="send-message">
-                        <input type="text" className="input-message" placeholder="enter the message" value={userData.message} name='message' onChange={handleValue} /> 
-                        <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
+                        <input type="text" className="input-message" placeholder="대화가 종료된 채팅입니다."/> 
                     </div>
                     </div>}
                 </div>
@@ -185,7 +235,7 @@ const ChatRoom = () => {
                 <input
                     id="user-name"
                     placeholder="Enter your name"
-                    name="userName"
+                    name="username"
                     value={userData.username}
                     onChange={handleValue}
                     margin="normal"

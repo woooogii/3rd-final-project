@@ -2,15 +2,14 @@ import React, { useEffect, useRef, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Numeral from 'numeral';
 
 import ShopHead from './ShopHead';
 
 import '../../../styles/nav/nav.css'
 import './style/mainList.css';
 import { PiBicycle } from "react-icons/pi";
-import { FaHelmetSafety } from "react-icons/fa6";
-import { IoShirtOutline } from "react-icons/io5";
+import { FaHelmetSafety,FaTreeCity } from "react-icons/fa6";
+import { FaRoad } from "react-icons/fa";
 import Carousel from 'react-material-ui-carousel';
 
 
@@ -65,39 +64,42 @@ const Shop = () => {
 
                 <div className='container_wrap'>
                     <div className='inner'>
-                        <h3>product</h3>
+                        <h3>Find Your Style</h3>
                             <ul className='lst_bicycle'>
                                 <li className='lst_category'>
-                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/28ba4178b6271a138f8dc853f2a64a01.jpg' alt='product'/>
+                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/e7863614aa9dc7decc60ea3f6430d354.jpg' alt='product'/>
                                     <div className='lst_category_title'>
                                         <span className='lst_icon_hovr'><PiBicycle/></span>
-                                        <strong>자전거</strong>
+                                        <strong>시티</strong>
                                         <p>
-                                            "설명"
+                                            일상의 이동에서 주말의 레저 활동까지,<br/>
+                                            폭넓게 즐길 수 있는 라이프스타일 자전거
                                         </p>
                                         <a href='/pedal/shop/list/bicycle'>VIEW MORE</a>
                                         <div className='bg_box'></div>
                                     </div>
                                 </li>
                                 <li className='lst_category'>
-                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/c7785a4e83533250420965c9e38064e2.jpg'/>
+                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/534ff4bde7b9f10dd52f2b06a3cd919d.jpg' alt='product'/>
                                     <div className='lst_category_title'>
-                                        <span className='lst_icon_hovr'><FaHelmetSafety/></span>
-                                        <strong>안전 용품</strong>
+                                        <span className='lst_icon_hovr'><FaTreeCity/></span>
+                                        <strong>컴포트</strong>
                                         <p>
-                                            안전 용품
+                                            도심의 불규칙한 노면도 편안하게<br/>
+                                            주행할 수 있는 MTB 스타일의 자전거
                                         </p>
                                         <a href='/pedal/shop/list/equipments' target='_self'>VIEW MORE</a>
                                         <div className='bg_box'></div>
                                     </div>
                                 </li>
                                 <li className='lst_category'>
-                                    <img src='https://www.samchuly.co.kr/file_zone/banner_files/pc/1cedada68c4046266f2264af77410dee.jpg' alt='product'/>
+                                    <img src='	https://www.samchuly.co.kr/file_zone/banner_files/pc/c7785a4e83533250420965c9e38064e2.jpg' alt='product'/>
                                     <div className='lst_category_title'>
-                                        <span className='lst_icon_hovr'><IoShirtOutline/></span>
-                                        <strong>상의</strong>
+                                        <span className='lst_icon_hovr'><FaRoad/></span>
+                                        <strong>로드</strong>
                                         <p>
-                                            "설명"
+                                            포장 도로에서 더 빠른 속도로,<br/>
+                                            더 멀리 달리기 위한 스포츠 자전거
                                         </p>
                                         <a href='/pedal/shop/list/equipments'>VIEW MORE</a>
                                         <div className='bg_box'></div>

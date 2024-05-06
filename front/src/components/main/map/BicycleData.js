@@ -55,11 +55,10 @@ const BicycleData = () => {
         if (cycleData.length > 0 && (!entities || entities.length === 0)) {
             sendData();
         }
-    }, [cycleData]);
+    }, [cycleData,entities]);
 
     return (
         <div>
-            {/* <InsertData/> */}
             {entities && <LocationWithMarker entities={entities} />}
         </div>
     );

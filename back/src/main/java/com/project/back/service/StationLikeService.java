@@ -1,19 +1,13 @@
 package com.project.back.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.project.back.dto.LikesDTO;
-import com.project.back.entity.CartEntity;
-import com.project.back.entity.StationEntity;
 import com.project.back.entity.StationLikeEntity;
 import com.project.back.repository.StationLikeRepository;
-import com.project.back.repository.StationRepository;
 
 @Service("StationLikeService")
 public class StationLikeService {
@@ -21,9 +15,6 @@ public class StationLikeService {
     @Autowired
     @Qualifier("StationLikeRepository")
     private StationLikeRepository stationLikeRepository;
-
-    @Autowired
-    private StationRepository stationRepository;
 
 
     //즐겨찾기 추가

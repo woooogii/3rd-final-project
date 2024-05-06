@@ -1,5 +1,7 @@
 package com.project.back.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ public class ChatService {
         chatEntity.setDate(chatDTO.getDate());
 
         chatRepository.save(chatEntity);
+    }
+
+    public List<ChatEntity> getChatsData(String uid){
+        return chatRepository.findBySenderName(uid);
+
     }
     
 }

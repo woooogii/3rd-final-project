@@ -1,6 +1,6 @@
 package com.project.back.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class ChatDTO {
     private String senderName;
     private String receiverName;
     private String message;
-    private LocalDate date = LocalDate.now();
+    private LocalDateTime date = LocalDateTime.now();
     private Status status;
 
     public enum Status {

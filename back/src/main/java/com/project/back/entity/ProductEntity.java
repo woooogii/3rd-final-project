@@ -35,7 +35,7 @@ public class ProductEntity {
     private String pDescription;
 
     @Column(name = "p_regdate")
-    private LocalDateTime pRegDate = LocalDateTime.now();;
+    private LocalDateTime pRegDate = LocalDateTime.now();
 
     @Column(name = "p_image1")
     private String pImage1;

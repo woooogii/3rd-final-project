@@ -28,14 +28,13 @@ const LocationWithMarker = ({ entities}) => {
     const mapContainer = document.getElementById('map');
     const options = {
       center: new window.kakao.maps.LatLng(37.4989896, 127.0317389),
-      level: 4,
+      level: 2,
     };
     mapRef.current = new window.kakao.maps.Map(mapContainer, options);
 
     // 마커 생성
-    const imageSrc =
-      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
-     imageSize = new window.kakao.maps.Size(24, 35);
+    const imageSrc = '/main-banner-image/free-icon-cycle-lane-5695618.png';
+    const imageSize = new window.kakao.maps.Size(46, 46);
 
      entities.forEach((item) => {
       const position = new window.kakao.maps.LatLng(item.sta_lat, item.sta_long),
@@ -55,6 +54,7 @@ const LocationWithMarker = ({ entities}) => {
           sta_add1: item.sta_add1,
           hold_num: item.hold_num,
         });
+        marker.setImage(new window.kakao.maps.MarkerImage(imageSrc, imageSize));
         openResult();
       });
     });
@@ -113,13 +113,18 @@ const LocationWithMarker = ({ entities}) => {
     }
   }
   const handleLikeClick=(data)=>{
-    console.log('즐겨찾기 데이터',data);
     const bounds = new window.kakao.maps.LatLngBounds();
-    console.log('즐겨찾기 데이터',data.staLat,data.staLong);
     const placePosition = new window.kakao.maps.LatLng(data.staLat, data.staLong);
     bounds.extend(placePosition);
     mapRef.current.setBounds(bounds);
+    setContent({
+      sid: data.rentId,
+      rent_id_nm: data.rentIdNm,
+      sta_add1: data.staAddr,
+      hold_num: data.holdNum,
+    });
     onCloseLike();
+    setIsOpen(true);
   }
 
   const onCloseLike=()=>{

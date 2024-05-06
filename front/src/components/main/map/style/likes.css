@@ -95,12 +95,10 @@
     border-bottom: 2px solid #0c508d;
     padding-top: 10px;
 }
-.likes-item-title .circle {
-    margin: 0 8px 3px 7px;
-    width: 1px;
-    height: 1px;
-    border: 4px solid  #0c508d;
-    border-radius: 50%;
+.likes-item-title .star {
+    margin: 0 4px 4px 5px;
+    font-size: 15px;
+    color: #0c508d;
 }
 .likes-item-title .item-title{
     font-size: 20px;

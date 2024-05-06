@@ -146,7 +146,8 @@ const ChatRoom = () => {
                     <button type="button" className="send-button" onClick={sendValue}>send</button>
                 </div>
             </div>}
-            {tab!=="CHATROOM" && <div className="chat-content">
+            {tab!=="CHATROOM" && 
+            <div className="chat-content">
                 <ul className="chat-messages">
                     {[...privateChats.get(tab)].map((chat,index)=>(
                         <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>

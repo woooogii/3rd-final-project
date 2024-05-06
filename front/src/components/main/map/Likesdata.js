@@ -3,7 +3,7 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination';
 
 import './style/likes.css';
-import { IoCloseSharp } from "react-icons/io5";
+import { FaStar } from "react-icons/fa";
 
 const Likesdata = ({onCloseLike,uid,handleClick}) => {
     const [likes,setLikes] = useState([]);
@@ -42,12 +42,11 @@ const Likesdata = ({onCloseLike,uid,handleClick}) => {
     return (
         <div className='likes-container'>
             <div className='likes-warp'>
-                {/* <div className='likes-close' onClick={onCloseLike}><IoCloseSharp/></div> */}
                 <div className='likes-list-title'>즐겨찾는 대여소</div>
                 {currentPost && currentPost.map(item=>
                     <div className='likes-value' onClick={()=>{handleClick(item)}}>
                         <div className='likes-item-title' key={item.slike_id}>
-                            <div className='circle'></div>
+                            <div className='star'><FaStar/></div>
                             <div className='item-title'>{item.rentIdNm}</div>
                         </div>
                         <div className='item-value'>
