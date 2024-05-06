@@ -303,12 +303,10 @@ const ProductDetail = () => {
             <div className="centerLineGroup">
                 {selectMenu === 'productInfo' && (
                     <>
-                            {/* <p>
-                        <img src={product.pimage5} alt="" />
-                        </p> */}
-                        <p className='centerLineGroup_img'>
-                            <img src="/image/20240419_180244.png" alt="[ 상세설명 ]" />
+                        <p>
+                            <img src={product.pimage5} alt="" />
                         </p>
+                        
                     </>
                 )}
 

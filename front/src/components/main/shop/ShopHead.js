@@ -125,35 +125,39 @@ return (
   <div ref={navRef} className={`sticky-container ${isSticky ? 'sticky' : ''}`}>
           {/* <div style={{ backgroundColor:'#1675F2', height:'20px', marginTop:'20px'}}> */}
           <br />
-          <nav class="navbar navbar-expand-lg bg-body-tertiary">
-              <div class="container-fluid" style={{ backgroundColor: '#1675F2', height: '90px', marginTop: '-15px' }}>
+          <nav className="navbar navbar-expand-lg bg-body-tertiary">
+              <div className="container-fluid" style={{ backgroundColor: '#1675F2', height: '90px', marginTop: '-15px' }}>
+                  {/* 아이콘 */}
+                      <div className='container-fluid-icon' >
+                        <PiList/>
+                      </div>
+                  
                   {/* 로고 */}
-                  <a class="navbar-brand" href="/pedal/home" style={{ marginLeft: '50px' }}>
-                      <PiList style={{ marginRight: '90px', fontSize:'40px' }} />
-                      PEDAL +
+                  <a class="navbar-brand" href="/pedal/home">
+                      {/* PEDAL + */}
+                      <img src='/image/pedal.png' alt=''/>
                   </a>
                   <br/>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
+                  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                      <span className="navbar-toggler-icon"></span>
                   </button>
 
-                  <div class="collapse navbar-collapse" id="navbarText">
-                      <ul className='shop_navbar' class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '240px', display: 'flex', justifyContent: 'space-between', marginLeft: '-15px' }}>
-                          <li className='shop_item'  class="nav-item">
+                  <div className="collapse navbar-collapse" id="navbarText">
+                      <ul className='shop_navbar' class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '185px', display: 'flex', justifyContent: 'space-between' , marginLeft:'-23px'}}>
+                          <li className="nav-item">
                               <a class="nav-link active" aria-current="page" href="/pedal/shop/list/bicycle" style={{ color: '#fff', marginBottom: '15px' }}>
                                   자전거
                               </a>
                           </li>
-                          <span style={{ marginTop: '8px', fontSize: '20px', color: '#fff' }}>ㅣ</span>
-                          <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="/pedal/shop/list/equipments" style={{ color: '#fff' }}>
+                          <li className="nav-item">
+                              <a className="nav-link active" aria-current="page" href="/pedal/shop/list/equipments" style={{ color: '#fff' }}>
                                   안전용품
                               </a>
                           </li>
                       </ul>
-                      <span class="navbar-text">
+                      <span className="navbar-text">
                           
-                              <div class="header_right2">
+                              <div className="header_right2">
                                   <div style={{ display: 'flex' }}>
                                       <form onSubmit={(evt) => { evt.preventDefault()}}
                                       className="d-flex" role="search" style={{ marginRight: '50px', position: 'relative' }}>
@@ -164,7 +168,7 @@ return (
                                               className="btn btn-outline-primary"
                                               style={{
                                                   position: 'absolute',
-                                                  right: '20px',
+                                                  right: '27px',
                                                   top: '0',
                                                   bottom: '0',
                                                   margin: 'auto',
