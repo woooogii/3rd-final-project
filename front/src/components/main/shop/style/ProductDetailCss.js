@@ -47,7 +47,7 @@ export const StyledContent = styled.div`
     display: flex;
     justify-content: flex-end;
     padding-right: 460px;
-    margin-bottom: 110px;
+    margin-bottom: 50px;
     position: relative;
     top: -120px;
     left: 140px;
@@ -96,8 +96,7 @@ export const StyledContent = styled.div`
         justify-content:center;
 
         p{
-          margin-top: 150px;
-
+          margin-top: 100px;
         }
     }
 

@@ -277,9 +277,6 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            {/* 
-            <div className="image_container"> </div> */}
-
 
             {/* 메뉴바 */}
             <div className="body">

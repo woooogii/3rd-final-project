@@ -70,10 +70,8 @@ export const Container = styled.div`
         display: flex;
         flex-direction: column;
         position: relative;
-        margin-left: 850px;
+        margin-left: 860px;
 
-
-        
         div {
             font-size: 90px;
             color: #ffda5e;

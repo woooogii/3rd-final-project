@@ -14,7 +14,7 @@ const Footer = () => {
 
                     <li>
                         <a href='' style={{marginRight: '10px'}}><img src='/image/github.png' className={styles.icon} /></a>
-                        <a href=''><img src='/image/instargram.png' className={styles.icon} /></a>
+                        <a href='http://localhost:8000'><img src='/image/instargram.png' className={styles.icon} /></a>
                     </li>
                 </ul>
                 <div className={styles.addressInfo}>

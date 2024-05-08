@@ -83,20 +83,51 @@ const MainButton = () => {
             return ticketStatus.map((ticket) => (
                 <div key={ticket.mtMerchantUid}>
                     <div>
+
+
+
+
+
+
+
+                        <div className="main">
+                            <div className="card">
+                                <div className="heading">UltraFlex</div>
+                                <div className="details">
+                                    Beste Design till date.
+                                    <br />
+                                    Flex it up as you wish,
+                                    <br /> but you can't break it.
+                                </div>
+                                <div className="price">$299</div>
+                                <button className="btn1">Buy</button>
+                                <button className="btn2">Add to Cart</button>
+                            </div>
+                            {/* <FontAwesomeIcon icon="fa-solid fa-ticket" rotation={-45} style={{color: "#207bf2",}} /> */}
+                        </div>
+
+
+
+
+
+
+
+
+
                         <div className="myTicket_box">
                             <div className="myTicket_box_sub">
                                 <div className="myTicket_title">내 티켓 구매내역</div>
                                 <span>사용하실 이용권을 클릭해주세요.</span>
-                                <a href='/pedal/myTicketList'>마이페이지 확인</a>
-                                
+                                <a href="/pedal/myTicketList">마이페이지 확인</a>
+
                                 <label className="toggle-switch">
                                     <input type="checkbox" defaultChecked={ticket.myStatus} onChange={() => toggleTicketSwitch(ticket.mtMerchantUid)} />
                                     <span className="toggle-switch__slider" />
                                 </label>
-                    
                             </div>
                         </div>
-                        {/* <Switch defaultChecked={ticket.myStatus} onChange={() => toggleTicketStatus(ticket.mtMerchantUid)} /> */}
+
+
                     </div>
                 </div>
             ));
