@@ -39,19 +39,19 @@ const CategoryList = () => {
      const indexOfFirstPost = indexOfLastPost - postPerPage;
      const [currentPost, setCurrentPost] = useState([]);
  
-     const sortData = (data, order) => {
-         if (!data) return [];
-         const selectData = [...data];
-         if (order === "newProduct") {
-             return selectData.sort((a, b) => new Date(b.pregdate) - new Date(a.pregdate));
-         } else if (order === "highPrice") {
-             return selectData.sort((a, b) => b.pprice - a.pprice);
-         } else if (order === "lowPrice") {
-             return selectData.sort((a, b) => a.pprice - b.pprice);
-         } else {
-             return selectData;
-         }
-     };
+    const sortData = (data, order) => {
+        if (!data) return [];
+        const selectData = [...data];
+        if (order === "newProduct") {
+            return selectData.sort((a, b) => {return new Date(b.pregdate) - new Date(a.pregdate)});
+        } else if (order === "highPrice") {
+            return selectData.sort((a, b) => b.pprice - a.pprice);
+        } else if (order === "lowPrice") {
+            return selectData.sort((a, b) => a.pprice - b.pprice);
+        } else {
+            return selectData;
+        }
+    };
  
      const handleSort = (sortOption) => {
          const sortedData = sortData(cateData, sortOption);
@@ -67,9 +67,9 @@ const CategoryList = () => {
      };
     return (
         <>
-                <div ref={startHereRef} >
-                    <ShopHead id="head"/>
-                </div>
+            <div ref={startHereRef} >
+                <ShopHead id="head"/>
+            </div>
                 
             <div className='prodt_container'>
                 <div className='sub_conts'>

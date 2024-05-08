@@ -3,8 +3,7 @@ package com.project.back.dto;
 import lombok.Data;
 
 @Data
-public class LikesDTO {
-
+public class StationLikesDTO {
     private String user;
     //대여소 정보
     private String staLoc;
@@ -17,3 +16,4 @@ public class LikesDTO {
     private String staLat;
     private String staLong;
 }
+

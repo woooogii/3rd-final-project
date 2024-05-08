@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.dto.LikesDTO;
+import com.project.back.dto.StationLikesDTO;
 import com.project.back.entity.StationEntity;
 import com.project.back.entity.StationLikeEntity;
 import com.project.back.service.StationLikeService;
@@ -74,8 +74,8 @@ public class StationLikeController {
     }
     //즐겨찾기 목록
     @GetMapping("/station/getLikesData/{uid}")    
-    public ResponseEntity<List<LikesDTO>> getLikesLists(@PathVariable("uid") String user){
-    List<LikesDTO> stationData = new ArrayList<>();
+    public ResponseEntity<List<StationLikesDTO>> getLikesLists(@PathVariable("uid") String user){
+    List<StationLikesDTO> stationData = new ArrayList<>();
     try {
         List<StationLikeEntity> likesData = stationLikeService.findByuId(user);
         for(StationLikeEntity data : likesData){
@@ -83,7 +83,7 @@ public class StationLikeController {
             System.out.println("컨트롤러"+rentId);
             List<StationEntity> stations = stationService.findByStationId(rentId);
             for (StationEntity station : stations) {
-                LikesDTO likesDTO = new LikesDTO();
+                StationLikesDTO likesDTO = new StationLikesDTO();
                 likesDTO.setUser(user);
                 likesDTO.setHoldNum(station.getHold_num());
                 likesDTO.setRentId(station.getRent_id());

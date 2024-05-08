@@ -2,6 +2,8 @@ package com.project.back.dto;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +16,11 @@ import lombok.ToString;
 public class ChatDTO {
     private String senderName;
     private String receiverName;
-    private String message;
+    private String sendMessage;
+    private String receiveMessage;
     private LocalDateTime date = LocalDateTime.now();
     private Status status;
+
 
     public enum Status {
         JOIN,

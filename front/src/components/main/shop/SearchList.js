@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import ProductItem from './ProductItem';
-import './style/productList.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+
+import ProductItem from './ProductItem';
 import ShopHead from './ShopHead';
+
+import './style/productList.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Pagination from 'react-js-pagination';
+
+
+
 
 const SearchList = () => {
     const [getData,setGetData]= useState([]);//db데이터
@@ -15,6 +21,12 @@ const SearchList = () => {
     const searchValue = searchParams.get('searchValue');//검색어
 
     const startHereRef = useRef(null);
+
+    const [page, setPage] = useState(1);
+     const postPerPage = 6; // 페이지당 상품 갯수
+     const indexOfLastPost = page * postPerPage;
+     const indexOfFirstPost = indexOfLastPost - postPerPage;
+     const [currentPost, setCurrentPost] = useState([]);
 
     useEffect(() => {
         // 렌더링 후 startHere 요소로 스크롤 이동
@@ -62,36 +74,59 @@ const SearchList = () => {
             return selectData;
         }
     };
-    const handleChangeSelect=(e)=>{
-        const selectedValue = e.target.value;
-        setSortOrder(selectedValue);
-    }
 
-    const sortedData = sortData(filteredResults, sortOrder);
+    const handleSort = (sortOption) => {
+        const sortedData = sortData(filteredResults, sortOrder);
+        setCurrentPost(sortedData.slice(indexOfFirstPost, indexOfLastPost));
+    };
+
+    useEffect(() => {
+       handleSort();
+    }, [filteredResults, page, indexOfFirstPost, indexOfLastPost]);
+
+    const handlePageChange = (page) => {
+        setPage(page);
+    };
 
     return (
         <>
-        <div ref={startHereRef}>
-            {/* <ShopHeader id="#custom-shopHead"/> */}
-            <ShopHead id="head"/>
-            </div>
-        <div className='main'>
-            <div className='product'>
-                {filteredResults.length>0 && 
-                <h2>'{searchValue}'에 대한 검색 결과</h2>}
-                <select onChange={handleChangeSelect}>
-                            <option value={'noFilter'}>정렬방법</option>
-                            <option value={"newProduct"}>신상품순</option>
-                            <option value={"highPrice"}>높은가격순</option>
-                            <option value={"lowPrice"}>낮은가격순</option>
-                    </select>
-                    <ul>
-                        {sortedData && sortedData.map(item =>
-                            <ProductItem key={item.pid} item={item}/>
-                        )}
-                    </ul>
-            </div>
-        </div>
+            <div ref={startHereRef} >
+                    <ShopHead id="head"/>
+                </div>
+                    
+                <div className='prodt_container'>
+                    <div className='sub_conts'>
+                        {filteredResults.length>0 && 
+                        <h3>'{searchValue}'에 대한 검색 결과</h3>}
+                        <div className='prodt_area'>
+                            <ul className='cost_order'>
+                            <li>
+                                <a href="#" onClick={(e) => { e.preventDefault(); handleSort('newProduct'); }}>신상품순</a>
+                            </li>
+                            <li>
+                                <a href="#" onClick={(e) => { e.preventDefault(); handleSort('highPrice'); }}>높은가격순</a>
+                            </li>
+                            <li>
+                                <a href="#" onClick={(e) => { e.preventDefault(); handleSort('lowPrice'); }}>낮은가격순</a>
+                            </li>
+                            </ul>
+                            <ul className='prodt_lst'>
+                                {currentPost && currentPost.map(item =>
+                                    <ProductItem key={item.pid} item={item}/>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        <Pagination
+            activePage={page}
+            itemsCountPerPage={postPerPage}
+            totalItemsCount={filteredResults.length}
+            pageRangeDisplayed={5}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+            />
         </>
     );
 };

@@ -9,7 +9,7 @@ import Review from './Review';
 import Numeral from 'numeral';
 import { Avatar, Badge, Space } from 'antd';
 import ShopHead from './ShopHead';
-import {StyledContent} from '././style/ProductDetailCss'
+import {StyledContent} from './style/ProductDetailCss'
 
 const ProductDetail = () => {
 

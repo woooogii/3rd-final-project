@@ -1,4 +1,3 @@
-  
 .chat-container{
   position: relative;
   margin: 0 auto;
@@ -11,52 +10,328 @@
   border: 1px solid #c8c8c8;
   background-color: #f7f5f5;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  width: 800px;
-  height: 400px;
-  margin: 0 auto;
-  margin-top: 50px;
-  margin-bottom: 70px;
+  width: 950px;
+  height: 550px;
+  margin: 40px auto;
+  border-radius: 7px;
 }
 
 .member-list{
-  width: 28%;
-  background-color: #ffffff;
-  border-right: 1px solid #000;
+  width: 30%;
+  height: 100%;
+  background-color: #fff;
+  border-right: 1px solid #cccccc;
+  border-radius: 7px 0 0 0;
 }
-.member-list .new-chat-title{
-  height: 50px;
-  border-bottom: 1px solid #000;
-  background-color: #e5e1e1;
-  text-align: center;
+.member-list .new-chat{
+  position: relative;
+  width: 100%;
+  height: 12%;
+  background-color: #fff;
 }
-.member-list .before-chat-title{
-  height: 40px;
-  margin-top: 30px;
-  padding-top: 9px;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-  text-align: center;
-  vertical-align: middle;
-}
-.member{
-  padding: 10px;
-  background: #eee;
+.member-list .new-chat p{
+  position: relative;
+  margin: 22px 25px;
+  padding: 9px;
+  width: 80%;
+  background: #4371f0;
   border-radius: 16px;
   cursor: pointer;
-  margin: 5px 2px 7px;
   font-size: 18px;
   font-weight: 600;
+  color: #fff;
   text-align: center;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.2);
 }
-.member.active{
-  background: #97b3ff;
+
+.member-list .chat-list{
+  position: relative;
+  width: 100%;
+  height: 83%;
+  margin-top: 5px;
+  background-color: #f0f0f0;
+}
+.chat-list .list-title{
+  width: 100%;
+  height: 40px;
+  padding-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #dddddd;
+}
+.chat-list .text-item{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #dddddd;
+}
+.text-item.active{
+  background: #a6b9ed;
   color:#fff;
 }
-.member:hover{
+.text-item:hover{
   background: rgb(230, 230, 230);
   color:#fff;
 }
 
+.text-item .chat-circle{
+  margin: 12px 0 0 10px;
+  background-color: #909090;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  font-size: 17px;
+  color: #e7e7e7;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 38px;
+}
+
+.text-item .item-message{
+  height: 100%;
+  width:160px;
+}
+.item-message .message-date{
+  padding-top: 12px;
+  padding-left: 10px;
+  font-size: 13px;
+}
+.item-message .message-text{/*위에 데이터랑 분리하고싶음..*/
+  padding-left: 10px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.chat-list .chat-messages{
+  width: 100%;
+  height: auto;
+  text-align: left;
+}
+
+.chat-content{
+  width:80%;
+  margin-left: 10px;
+}
+
+.chat-close{
+  width: 100%;
+  height: 40px;
+  text-align: right;
+}
+.chat-close .close-button{
+  margin: 10px 11px 0 0;
+  width: 80px;
+  height: 25px;
+  background-color: #8e8e8e;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 500;
+}
+.close-button:hover{
+  background-color: #4371f0;
+}
+
+/* 1:1채팅 */
+.new-chat-messages{
+  height: 81%;
+  margin: 3px 10px 15px 0;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+}
+.new-chat-messages .new-message{/*메세지 1개*/
+  position: relative;
+  padding:5px;
+  width: 50%;
+  height: auto;
+  max-height: 200px;
+  max-width: 300px;
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 10px 40px 0;
+}
+.new-message .new-self {
+  position: absolute; /* 상대적인 위치 대신 절대적인 위치로 변경 */
+  top: 0; /* 부모 요소인 .before-message에 상대적으로 위치 */
+  right: -350px;
+  width: 30px;
+  height: 30px;
+  color: #000;
+  background-color: #2f89ff;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-left: 8px;
+  color: #fff;
+  font-weight: 600;
+}
+.new-message .new-message-self-data{
+  position: absolute;
+  right: -300px;
+  width: auto;
+  height: auto;
+  min-height:30px;
+  border-radius: 12px 0px 12px 12px;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.2);
+  padding: 5px 15px 5px 15px;
+}
+
+.new-message .new-receiver {
+  position: absolute; /* 상대적인 위치 대신 절대적인 위치로 변경 */
+  top: 0; /* 부모 요소인 .before-message에 상대적으로 위치 */
+  left: 0;
+  margin-left: 15px;
+  width: 30px;
+  height: 30px;
+  color: #ffffff;
+  background-color: #2f89ff;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-left: 8px;
+  font-weight: 600;
+}
+.new-message .new-message-receiver-data{
+  position: absolute;
+  left: 0;
+  margin-left: 60px;
+  width: auto;
+  height: auto;
+  min-height:30px;
+  border-radius: 0px 12px 12px 12px;
+  background-color: #dadada;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.2);
+  padding: 5px 15px 5px 15px;
+}
+
+.new-send-message{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.new-send-message .input-new-message{
+  width:90%;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #c5c5c5;
+  padding-left: 15px;
+}
+.new-send-message .new-send-button{
+  width:9%;
+  border-radius: 10px;
+  margin-left: 3px;
+  background-color: #4371f0;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* 이전 채팅 */
+ .before-chat-messages{/*전체창*/
+  position: relative;
+  height: 89%;
+  margin: 10px 10px 10px 0;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  overflow: auto;
+}
+.before-chat-messages .before-message{/*메세지 1개*/
+  position: relative;
+  padding:5px;
+  width: 50%;
+  height: auto;
+  max-height: 200px;
+  max-width: 300px;
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 10px 40px 0;
+}
+
+.before-message .before-self {
+  position: absolute; /* 상대적인 위치 대신 절대적인 위치로 변경 */
+  top: 0; /* 부모 요소인 .before-message에 상대적으로 위치 */
+  right: -350px;
+  width: 30px;
+  height: 30px;
+  color: #000;
+  background-color: #2f89ff;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-left: 8px;
+  color: #fff;
+  font-weight: 600;
+}
+.before-message .before-message-self-data{
+  position: absolute;
+  right: -300px;
+  width: auto;
+  height: auto;
+  min-height:30px;
+  border-radius: 12px 0px 12px 12px;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.2);
+  padding: 5px 15px 5px 15px;
+}
+
+.before-message .before-receiver {
+  position: absolute; /* 상대적인 위치 대신 절대적인 위치로 변경 */
+  top: 0; /* 부모 요소인 .before-message에 상대적으로 위치 */
+  left: 0;
+  margin-left: 15px;
+  width: 30px;
+  height: 30px;
+  color: #ffffff;
+  background-color: #2f89ff;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-left: 8px;
+  font-weight: 600;
+}
+.before-message .before-message-receiver-data{
+  position: absolute;
+  left: 0;
+  margin-left: 60px;
+  width: auto;
+  height: auto;
+  min-height:30px;
+  border-radius: 0px 12px 12px 12px;
+  background-color: #dadada;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.2);
+  padding: 5px 15px 5px 15px;
+}
+
+.before-chat-messages .end-text{
+  position: absolute;
+  width: 400px;
+  bottom: 0;
+  height: auto;
+  padding: 5px 5px 5px 10px;
+  margin: 0 0 10px 140px;
+  border-radius: 10px;
+  background-color: #bfbfbf;
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.end-send-message{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.end-send-message .input-end-message{
+  width:93%;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #c5c5c5;
+  padding-left: 15px;
+}
   .register{
     position: relative;
     width: 600px;
@@ -71,38 +346,11 @@
     width: 300px;
     margin-left: 90px;
   }
-
-  .chat-content{
-    width:80%;
-    margin-left: 10px;
-  }
   
-  .chat-messages{
-    height: 80%;
-    border: 1px solid #000;
-  }
-  
-  .send-message{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .input-message{
-    width:90%;
-    border-radius: 50px;
-  }
-  
-  ul {
+  /* ul {
     padding: 0;
     list-style-type: none;
-  }
-  .send-button{
-    width:10%;
-    border-radius: 50px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
+  } */
   
   .avatar{
     background-color: cornflowerblue;

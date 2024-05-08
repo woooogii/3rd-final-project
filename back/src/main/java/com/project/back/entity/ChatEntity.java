@@ -1,6 +1,5 @@
 package com.project.back.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -20,14 +19,20 @@ public class ChatEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatId;
 
-    @Column(name = "uid")
+    @Column(name = "user")
+    private String user;
+
+    @Column(name = "sender_name")
     private String senderName;
 
     @Column(name = "receiver_name")
     private String receiverName;
 
-    @Column(name = "message")
-    private String message;
+    @Column(name = "send_message")
+    private String sendMessage;
+
+    @Column(name = "receive_message")
+    private String receiveMessage;
 
     @Column(name = "message_date")
     private LocalDateTime date = LocalDateTime.now();

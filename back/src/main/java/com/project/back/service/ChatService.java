@@ -16,15 +16,16 @@ public class ChatService {
     public void saveMessage(ChatDTO chatDTO){
         ChatEntity chatEntity = new ChatEntity();
         chatEntity.setSenderName(chatDTO.getSenderName());
-        chatEntity.setMessage(chatDTO.getMessage());
+        chatEntity.setReceiverName(chatDTO.getReceiverName());
+        chatEntity.setSendMessage(chatDTO.getSendMessage());
+        chatEntity.setReceiveMessage(chatDTO.getReceiveMessage());
         chatEntity.setDate(chatDTO.getDate());
 
         chatRepository.save(chatEntity);
     }
 
-    public List<ChatEntity> getChatsData(String uid){
-        return chatRepository.findBySenderName(uid);
-
+    public List<ChatEntity> getChatsData(){
+        return chatRepository.findAll();
     }
     
 }

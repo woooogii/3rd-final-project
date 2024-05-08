@@ -4,8 +4,6 @@ import SearchList from './SearchList';
 import Shop from './Shop';
 
 const Search = () => {
-
-    //테스트
     const [getData,setGetData]= useState([]);
     const [searchValue,setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);

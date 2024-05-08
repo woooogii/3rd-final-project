@@ -15,7 +15,6 @@ import com.project.back.dto.ChatDTO;
 import com.project.back.entity.ChatEntity;
 import com.project.back.service.ChatService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -46,14 +45,16 @@ public class ChatController {
         return chatDTO;
     }
 
-    @GetMapping("/pedal/getChats/{uid}")
-    public ResponseEntity<List<ChatEntity>>getChatsData(@PathVariable String uid) {
+    @GetMapping("/pedal/getChats")
+    public ResponseEntity<List<ChatEntity>>getChatsData() {
         try {
-            List<ChatEntity> chatsData = chatService.getChatsData(uid);
+            List<ChatEntity> chatsData = chatService.getChatsData();
             return ResponseEntity.ok(chatsData);
         } catch (Exception e) {
             System.out.println(e.toString());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    
 }

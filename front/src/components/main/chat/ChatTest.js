@@ -100,7 +100,6 @@ const ChatRoom = () => {
             message: userData.message,
             status:"MESSAGE"
           };
-          
           if(userData.username !== tab){
             privateChats.get(tab).push(chatMessage);
             setPrivateChats(new Map(privateChats));
@@ -134,9 +133,15 @@ const ChatRoom = () => {
                 <ul className="chat-messages">
                     {publicChats.map((chat,index)=>(
                         <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                            {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                            {chat.senderName !== userData.username && 
+                            <div className="avatar">
+                                {chat.senderName}
+                            </div>}
                             <div className="message-data">{chat.message}</div>
-                            {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                            {chat.senderName === userData.username && 
+                            <div className="avatar self">
+                                {chat.senderName}
+                            </div>}
                         </li>
                     ))}
                 </ul>
@@ -151,8 +156,11 @@ const ChatRoom = () => {
                 <ul className="chat-messages">
                     {[...privateChats.get(tab)].map((chat,index)=>(
                         <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                            {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                            {chat.senderName !== userData.username && 
+                            <div className="avatar">{chat.senderName}</div>}
+
                             <div className="message-data">{chat.message}</div>
+                            
                             {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
                         </li>
                     ))}
