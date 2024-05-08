@@ -10,8 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from 'react-js-pagination';
 
 
-
-
 const SearchList = () => {
     const [getData,setGetData]= useState([]);//db데이터
     const [filteredResults, setFilteredResults] = useState([]);//검색결과
@@ -23,10 +21,10 @@ const SearchList = () => {
     const startHereRef = useRef(null);
 
     const [page, setPage] = useState(1);
-     const postPerPage = 6; // 페이지당 상품 갯수
-     const indexOfLastPost = page * postPerPage;
-     const indexOfFirstPost = indexOfLastPost - postPerPage;
-     const [currentPost, setCurrentPost] = useState([]);
+    const postPerPage = 6; // 페이지당 상품 갯수
+    const indexOfLastPost = page * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const [currentPost, setCurrentPost] = useState([]);
 
     useEffect(() => {
         // 렌더링 후 startHere 요소로 스크롤 이동
@@ -36,30 +34,27 @@ const SearchList = () => {
     },[]);
 
     useEffect(() => {
-    const fetchData = async () => {//전체 데이터 가져오기
+    const fetchData = async (data) => {//전체 데이터 가져오기
         try {
             const response = await axios.get('http://localhost:4000/pedal/shop/search');
             setGetData(response.data);
         } catch (error) {
-            console.error('error_fetch', error);
+            console.error('search_error', error.response.status, error.response.data);
         }
     };
-    fetchData();
+    fetchData(searchValue);
     }, []);
 
     useEffect(() => {
         if (searchValue) { // 검색어가 있는 경우에만 필터링 수행
             const filteredData = getData.filter((item) => {
-                return Object.values(item).join('').toLowerCase().includes(searchValue.toLowerCase());
+                return Object.values(item.pname).join('').toLowerCase().includes(searchValue.toLowerCase());
             });
             setFilteredResults(filteredData);
         } else {
             setFilteredResults([]); // 검색어가 없는 경우 필터링된 결과 초기화
         }
     }, [searchValue, getData]);
-
-    //select 순서 정렬
-    const [sortOrder, setSortOrder] = useState("noFilter");
     
     const sortData = (data, order) => {
         if (!data) return [];
@@ -76,7 +71,8 @@ const SearchList = () => {
     };
 
     const handleSort = (sortOption) => {
-        const sortedData = sortData(filteredResults, sortOrder);
+        console.log('검색결과',filteredResults)
+        const sortedData = sortData(filteredResults, sortOption);
         setCurrentPost(sortedData.slice(indexOfFirstPost, indexOfLastPost));
     };
 
@@ -96,8 +92,7 @@ const SearchList = () => {
                     
                 <div className='prodt_container'>
                     <div className='sub_conts'>
-                        {filteredResults.length>0 && 
-                        <h3>'{searchValue}'에 대한 검색 결과</h3>}
+                        <h3>'{searchValue}'에 대한 검색 결과</h3>
                         <div className='prodt_area'>
                             <ul className='cost_order'>
                             <li>

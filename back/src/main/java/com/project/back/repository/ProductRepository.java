@@ -17,6 +17,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long>{
     @Query("SELECT p FROM product p WHERE p.pCategory = ?1")
     List<ProductEntity> findBypCategory(String category);
 
-    // @Query("SELECT p FROM product p WHERE p.pName LIKE CONCAT(:searchValue, '%')")
-    // List<ProductEntity> findProductByPnameContaining(String searchValue);
+
+    @Query("SELECT p FROM product p WHERE p.pName LIKE %:keyword%")
+    List<ProductEntity> findProductBypNameContaining(String keyword);
 }

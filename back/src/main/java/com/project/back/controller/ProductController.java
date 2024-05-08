@@ -15,6 +15,7 @@ import com.project.back.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,14 +27,6 @@ public class ProductController {
     @Autowired
     @Qualifier("ProductService")
     private ProductService productService;
-
-    /*  수인 아이템 인풋 테스트
-    @PostMapping("/products")
-    public void saveProductEntity(@RequestBody ProductEntity productEntity) {
-        System.out.println(productEntity);
-        productService.saveProductEntity(productEntity);
-    }
-    */
 
     //지은 상품 등록
     @PostMapping("/shop/created")
@@ -75,6 +68,26 @@ public class ProductController {
         }
     }
     
+
+    @PostMapping("/shop/search")
+    public ResponseEntity<List<ProductEntity>> searchData(@RequestBody Map<String, String> requestData) {
+        String keyword = requestData.get("keyword");
+        System.out.println("컨트롤러"+keyword);
+        if(keyword == null || keyword.isEmpty()) {
+            // 클라이언트가 keyword 파라미터를 제대로 전달하지 않은 경우
+            return ResponseEntity.badRequest().body(null);
+        }
+        try {
+            List<ProductEntity> result = productService.searchData(keyword);
+            // ObjectMapper objectMapper = new ObjectMapper();
+            // String jsonString = objectMapper.writeValueAsString(result);
+            // System.out.println("요청된 result 데이터: " + jsonString);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     //수인 상세페이지 
     @GetMapping("/productDetail/{pId}")
