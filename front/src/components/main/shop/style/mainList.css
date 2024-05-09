@@ -251,7 +251,7 @@
     text-indent: -10000px;
 }
 
-/*
+
 @media all and (max-width: 1633px) {
     .lst_bicycle {
         width: 1110px;
@@ -269,8 +269,8 @@
         font-size: 34px;
         color: #898989;
     }
-}*/
-/*
+}
+
 @media all and (max-width: 1330px) {
     .lst_bicycle {
         width: 1110px;
@@ -288,4 +288,4 @@
         font-size: 34px;
         color: #898989;
     }
-}*/
+}

@@ -196,3 +196,30 @@ ul.prodt_lst > li:hover .prodt_Img img {
     font-size: 17px;
     font-style: normal;
 }
+/* 
+@media all and (max-width: 1633px) {
+    .sub_conts {
+        width: 95%;
+        min-width: auto;
+    }
+    .sub_conts h3 {
+        width: 95%;
+    }
+    .prodt_area {
+        width: 95%;
+    }
+    ul.prodt_lst {
+        width: 95%;
+    }
+    ul.prodt_lst > li {
+        width: calc(33.33% - 20px);
+        margin-right: 20px;
+        margin-bottom: 40px;
+    }
+}
+
+@media all and (max-width: 1330px) {
+    ul.prodt_lst > li {
+        width: calc(50% - 15px);
+    }
+} */

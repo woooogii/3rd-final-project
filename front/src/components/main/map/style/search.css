@@ -48,14 +48,14 @@
     border: none;
     font-size: 25px;
     font-weight: 500;
-    margin: 4px 0 0 50px;
+    margin: 13px 0 0 50px;
     outline: none;
 }
 .box-search .search-icon{
     position: absolute;
     right: 0; /* 오른쪽에 위치 */
     margin-right:3%;
-    bottom: 6px;
+    bottom: 0px;
     font-size: 40px;
     color: #1e96fc;
     cursor: pointer;
