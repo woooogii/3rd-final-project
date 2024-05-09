@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Post from './post';
-import './MyPageCss.css'; 
+import './style/MyPageCss.css';
 
 const MpSnsInfo = ({setActiveComponent}) => {
   

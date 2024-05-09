@@ -2,8 +2,6 @@ package com.project.back.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

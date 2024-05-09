@@ -1,5 +1,5 @@
 import React from 'react';
-import './MyPageCss.css';
+import './style/MyPageCss.css';
 
 const MainPageDefault = ({ setActiveComponent, tokenType }) => {
     // 구글 로그인 사용자와 일반 JWT 사용자에게 다른 내용 표시

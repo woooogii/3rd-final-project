@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/nav/nav.css'
-import { PiUserCirclePlusThin,PiUserListThin  } from "react-icons/pi";
+import './nav.css'
+import { PiUserCirclePlusThin  } from "react-icons/pi";
 
 
 const Navibar = () => {

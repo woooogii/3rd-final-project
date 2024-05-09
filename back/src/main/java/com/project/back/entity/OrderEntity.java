@@ -1,19 +1,11 @@
 package com.project.back.entity;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapKeyColumn;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,13 +15,9 @@ import lombok.Setter;
 @Setter
 public class OrderEntity {
 
-     
-
-    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long oNum;
-
 
     @Column(name = "o_id")
     private String oId;

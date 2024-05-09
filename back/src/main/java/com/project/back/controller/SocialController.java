@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.back.config.oauth.SocialEntity;
-import com.project.back.config.oauth.SocialRepository;
 import com.project.back.dto.SocialDTO;
 import com.project.back.service.SocialService;
 
 @RestController
 public class SocialController {
     
-    private SocialRepository socialRepository;
     private final SocialService socialService;
 
     public SocialController(SocialService socialService){

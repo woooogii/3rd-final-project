@@ -3,10 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import "../myPage/MainButton.css"
-import { Switch } from 'antd';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTicket } from "@fortawesome/free-solid-svg-icons";
+import "./style/MainButton.css";
 
 const MainButton = () => {
 
@@ -16,7 +13,6 @@ const MainButton = () => {
 
     // 티켓 상태 관리
     const [ticketStatus, setTicketStatus] = useState([]);
-    const [lightOn, setLightOn] = useState(false); // 불빛 상태 관리
 
     // 티켓 정보를 불러오는 함수
     useEffect(() => {

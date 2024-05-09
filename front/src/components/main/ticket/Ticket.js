@@ -14,22 +14,6 @@ const StyledTickets = styled.div`
         padding-left: 30px;
     }
 
-    /* .card.text-end {
-        width: 500px;
-        margin: 0 auto;
-        border-radius: 10px;
-        }
-
-    .card-title {
-        text-align: left;
-        padding-left: 20px;
-    }
-
-    
-    b {
-        margin-right: 10px;
-    } */
-
   .redirectLogin {
         display: flex;
         flex-direction: column;

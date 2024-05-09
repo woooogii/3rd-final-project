@@ -4,7 +4,7 @@ import { Tabs, Switch } from 'antd';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { MyTicketList } from './MyPageTicketListCss';
+import { MyTicketList } from './style/MyPageTicketListCss';
 import Numeral from 'numeral';
 import Pagination from "react-js-pagination";
 

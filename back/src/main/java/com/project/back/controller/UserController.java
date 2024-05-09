@@ -4,8 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.project.back.config.oauth.SocialEntity;
-import com.project.back.dto.SocialDTO;
 import com.project.back.dto.UserDTO;
 import com.project.back.dto.UserPasswordDTO;
 import com.project.back.entity.UserEntity;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import faq from './faq'; // FAQ 데이터 파일 임포트
-import CategoryList from './PedalFAQCategory';
-import QuestionList from './PedalFAQ';
 import './FAQ.css'; // CSS 스타일 시트 임포트
 
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function formatText(text) {

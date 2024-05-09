@@ -1,24 +1,19 @@
 import axios from 'axios';
 import React, { useState, useEffect} from 'react';
-import { Tabs, Switch } from 'antd';
+import { Tabs } from 'antd';
 import styled from 'styled-components';
 import { Image } from '../cart/CartStyle';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Numeral from 'numeral';
 import Pagination from "react-js-pagination";
-import './myOrder.css'
+import './style/myOrder.css';
 
 const MyTicketList = styled.div`
   margin: 50px;
   font-family: 'noto-sans';
     width: 75vw;
     margin: auto;
-/* 
-  hr{
-    width: 75vw;
-    margin: auto;
-  } */
 
   .myTicket_title{
     margin-top: 60px;

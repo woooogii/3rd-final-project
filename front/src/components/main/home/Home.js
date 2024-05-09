@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal } from 'react-bootstrap';
 import MainButton from '../myPage/MainButton';
 import { InfoBox, Container } from './styles';
 import { FaLocationDot } from 'react-icons/fa6';
@@ -32,13 +31,6 @@ const Home = () => {
         <Container>
             <main className="scroll-container">
                 <section className={currentSection === 0 ? 'is-visible' : ''}>
-                    {/* <Modal show={modalIsOpen} onHide={closeModal}  style={{ width: '100%', height:'100%', maxWidth: '1000px' }} >
-                <Modal.Header closeButton>
-                </Modal.Header>
-                <Modal.Body>
-                <img src='/image/popup.png' alt='' style={{ maxWidth: '100%', height: 'auto' }}/>
-                </Modal.Body>
-            </Modal> */}
                     <hr className="line1" />
                     <br />
                     <br />
@@ -183,7 +175,7 @@ const Home = () => {
                 <section className={currentSection === 3 ? 'is-visible' : ''}>
                     <div className="three">
                         <div className="three_class">
-                            <img src="/image2/main7.jpg" alt="" />
+                            <img src="/image/main7.jpg" alt="" />
                             <div className="three_text">
                                 <h1>
                                     <RiSingleQuotesL style={{ marginBottom: '40px' }} />
