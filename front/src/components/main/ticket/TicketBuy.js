@@ -9,7 +9,7 @@ import { GrMapLocation } from "react-icons/gr";
 import { MdOutlinePlaylistAddCheck } from "react-icons/md";
 
     const StyledTickets = styled.div`
-        margin-top: 130px;
+        margin-top: 140px;
         display: flex;
         justify-content: center;
         margin-right: 300px;
@@ -95,7 +95,7 @@ import { MdOutlinePlaylistAddCheck } from "react-icons/md";
 
         .pay {
             position: absolute;
-            margin-top: 45px;
+            margin-top: 30px;
         }
 
         .cards-ticket-credit,
@@ -242,7 +242,7 @@ const TicketBuy = () => {
                                     </select>
 
                                     <div className="price">
-                                        <span style={{ marginLeft: '30px' }}>
+                                        <span style={{ marginLeft: '10px' }}>
                                             총 금액 ㅣ &nbsp;&nbsp;&nbsp;
                                             <span className="price_amount">{tPrice && <span>{tPrice}</span>}</span>
                                             &nbsp;<span style={{ fontWeight: 'bold' }}>원</span>
@@ -268,7 +268,7 @@ const TicketBuy = () => {
                                     <div className="price">
                                         <span style={{ marginLeft: '30px' }}>
                                             총 금액 ㅣ &nbsp;&nbsp;&nbsp;
-                                            <span className="price_amount">{tPrice && <span>{tPrice}</span>}</span>
+                                            <span className="price_amount" >{tPrice && <span>{tPrice}</span>}</span>
                                             &nbsp;<span style={{ fontWeight: 'bold' }}>원</span>
                                         </span>
                                     </div>

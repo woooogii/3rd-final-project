@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap';
 const Credit = styled.div`
 
     position: absolute;
-    margin-top: -385px;
+    margin-top: -375px;
     margin-left: 240px;
 
     .box_credit {

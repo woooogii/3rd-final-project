@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap';
 const Kakao = styled.div`
 
     position: absolute;
-    margin-top: -490px;
+    margin-top: -480px;
     margin-left: 240px;
 
     .box_kakao {
