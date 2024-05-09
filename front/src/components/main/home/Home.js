@@ -39,16 +39,18 @@ const Home = () => {
                 <img src='/image/popup.png' alt='' style={{ maxWidth: '100%', height: 'auto' }}/>
                 </Modal.Body>
             </Modal> */}
-                    <hr className="line1"/>
+                    <hr className="line1" />
                     <br />
                     <br />
-                        <div>
-                            <MainButton/>
+                    <div style={{ position: 'relative' }}>
+                        <div className="main1" style={{ position: 'relative', zIndex: 1 }}>
+                            <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
                         </div>
-                    <div className="main1">
-                        <img src="/image/main022.png" alt="" style={{ width: '100vw' }} />
+                        <div style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }}>
+                            <MainButton />
+                        </div>
                     </div>
-
+                    
                     <InfoBox>
                         <div>
                             <ul>
@@ -56,7 +58,7 @@ const Home = () => {
                                     <a href="http://localhost:3000/pedal/station">
                                         <FaLocationDot style={{ fontSize: '23px', marginBottom: '5px' }} />
                                         &nbsp; 대 여 방 법
-                                      </a>
+                                    </a>
                                 </li>
                                 <span style={{ color: '#fff' }}>ㅣ</span>
                                 <li>
@@ -81,7 +83,9 @@ const Home = () => {
                         <div>
                             <BsDashLg />
                         </div>
-                        <span><img src='/image/logo03.png' alt='PEDAL'/></span>
+                        <span>
+                            <img src="/image/logo03.png" alt="PEDAL" />
+                        </span>
                     </div>
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <div class="col">
@@ -250,7 +254,6 @@ const Home = () => {
                     </div>
                 </section>
             </main>
-
         </Container>
     );
 };

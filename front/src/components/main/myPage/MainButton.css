@@ -83,13 +83,19 @@
         text-decoration: none;
       }
 
+      
 
   /* Toggle switch styles */
+
+
 .toggle-switch {
   display: inline-block;
   position: relative;
   width: 60px;
   height: 34px;
+  top: 150px;
+  left: 70px;
+
 }
 
 .toggle-switch input {
@@ -172,3 +178,121 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+/* 메인버튼 */
+.card-main {
+  position: relative;
+  top: 2em;
+  width: 15em;
+  height: 7.5em;
+  background: white;
+  transition: .4s ease-in-out;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  overflow: hidden;
+  caret-color: transparent;
+}
+
+.heading {
+  position: relative;
+  color: black;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-top: 1em;
+  padding-left: 1em;
+  transition: .4s ease-in-out;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.details {
+  position: relative;
+  color: black;
+  font-size: 0.6em;
+  padding-top: 1.5em;
+  padding-left: 2em;
+  transition: .4s ease-in-out;
+  margin-left: 10px;
+}
+
+
+.btn1 {
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  font-size: 0.6em;
+  padding-left: 6.9em;
+  padding-right: 6.9em;
+  padding-top: 0.8em;
+  padding-bottom: 0.85em;
+  border-radius: 10px;
+  left: 2.6em;
+  top: 14.8em;
+  transition: .4s ease-in-out;
+  font-weight: bold;
+}
+
+.btn1:hover {
+  background-color: limegreen;
+  cursor: pointer;
+}
+
+.btn2 a{
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: #1675f2;
+  color: white;
+  font-size: 0.6em;
+  padding-left: 4em;
+  padding-right: 4em;
+  padding-top: 0.8em;
+  padding-bottom: 0.85em;
+  border-radius: 10px;
+  left: 2.6em;
+  top: 15.5em;
+  transition: .4s ease-in-out;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn2 a:hover {
+  background-color: #ffda5e;
+  color: #000;
+  cursor: pointer;
+}
+
+.glasses {
+  position: relative;
+  top: -4em;
+  left: 12em;
+  width: 70px;
+  height: 70px;
+  transition: .4s ease-in-out;
+}
+
+.card-main:hover {
+  width: 12.5em;
+  height: 23em;
+  transform: translateY(1.25em);
+}
+
+.card-main:hover + .glasses {
+  transform: rotateX(360deg);
+  height: 100px;
+  width: 100px;
+  left: 3em;
+  top: -18em;
+}
+
+.card-main:hover .heading {
+  transform: translateY(7em) translateX(0.2em);
+}
+
+.card-main:hover .details {
+  transform: translateY(13em) translateX(0em);
+}
+

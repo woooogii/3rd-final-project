@@ -73,7 +73,7 @@ const Shop = () => {
                                         <strong>시티</strong>
                                         <p>
                                             일상의 이동에서 주말의 레저 활동까지,<br/>
-                                            폭넓게 즐길 수 있는 라이프스타일 자전거
+                                            즐길 수 있는 라이프스타일 자전거
                                         </p>
                                         <a href='/pedal/shop/list/bicycle'>VIEW MORE</a>
                                         <div className='bg_box'></div>

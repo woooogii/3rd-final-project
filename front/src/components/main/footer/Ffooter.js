@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './footer.module.css';
+import { IoChatbubbleOutline } from "react-icons/io5";
 
 const Footer = () => {
     return (
@@ -13,8 +14,13 @@ const Footer = () => {
                 <li style={{marginRight: '80px'}}><a href='' style={{textDecoration: 'none', color: '#898989', fontWeight: 'bold'}}>개인정보처리방침</a></li>
 
                     <li>
-                        <a href='' style={{marginRight: '10px'}}><img src='/image/github.png' className={styles.icon} /></a>
-                        <a href=''><img src='/image/instargram.png' className={styles.icon} /></a>
+                        <a href='' style={{marginRight: '10px'}}>
+                            <img src='/image/github.png' className={styles.icon} />
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href='http://localhost:8000'>
+                            <IoChatbubbleOutline style={{color:'#000', fontSize:'35px'}} />
+                        </a>
                     </li>
                 </ul>
                 <div className={styles.addressInfo}>

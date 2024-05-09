@@ -143,13 +143,13 @@ return (
                   </button>
 
                   <div className="collapse navbar-collapse" id="navbarText">
-                      <ul className='shop_navbar' class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '185px', display: 'flex', justifyContent: 'space-between' , marginLeft:'-23px'}}>
-                          <li className="nav-item">
-                              <a class="nav-link active" aria-current="page" href="/pedal/shop/list/bicycle" style={{ color: '#fff', marginBottom: '15px' }}>
+                      <ul className='shop_navbar' class="navbar-nav me-auto mb-2 mb-lg-0" style={{ width: '185px', display: 'flex', justifyContent: 'space-between' , marginLeft:'-28px'}}>
+                          <li className="nav-item-shop">
+                              <a class="nav-link active" aria-current="page" href="/pedal/shop/list/bicycle" style={{ color: '#fff' }}>
                                   자전거
                               </a>
                           </li>
-                          <li className="nav-item">
+                          <li className="nav-item-shop">
                               <a className="nav-link active" aria-current="page" href="/pedal/shop/list/equipments" style={{ color: '#fff' }}>
                                   안전용품
                               </a>

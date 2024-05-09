@@ -47,13 +47,13 @@
   font-size: 25px;
   color: #fff;
   cursor: pointer;
-  margin-left: 240px;
+  margin-left: 232px;
   margin-bottom: 12px;
 }
 
 
 .container-fluid img {
-  width: 153px;
+  width: 150px;
   height: 40px;
 }
 
@@ -131,3 +131,15 @@
 .navbar {
   padding: 0;
 }
+
+.nav-item-shop {
+  font-size: 18px;
+  margin-bottom: 17px;
+  border-bottom: 3px solid transparent; /* 초기에는 투명한 선으로 설정 */
+  transition: border-bottom 0.3s ease; /* 변화에 대한 애니메이션 효과 추가 */
+}
+
+.nav-item-shop:hover  {
+  border-bottom: 3px solid #fff;
+}
+
